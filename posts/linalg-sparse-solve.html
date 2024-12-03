@@ -1,0 +1,757 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Speeding up pvfactors &#8212; the kevbase</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.min.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+     
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  href="../blog/atom.xml"
+  title="kevbase"
+/>
+ 
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/favicon.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../publications.html">
+  Publications
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../blog.html">
+  Blog
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../report.html">
+  Climate Report
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" >
+</form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items">  
+<h2>
+   <i class="fa fa-calendar"></i>
+  2022-04-09 
+</h2>
+
+<ul>
+       
+<li id="tags">
+  <span
+    ><i class="fa-fw fa fa-tags"></i> </span
+  >
+   
+  <a href="../blog/tag/photovoltaics.html">photovoltaics</a>   
+  <a href="../blog/tag/python.html">python</a>  
+</li>
+ 
+</ul>
+
+<h3>
+  <a href="../blog.html">Recent Posts</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="psm3-pixels-boundaries.html"
+      >04 September - PSM3 Pixel Boundaries</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-spa-benchmarks.html"
+      >21 August - OpenGL Compute Shaders: SPA</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-builtin-accuracy.html"
+      >13 August - OpenGL Compute Shaders: Accuracy of Math Functions</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-first-steps.html"
+      >30 July - OpenGL Compute Shaders: First Steps</a
+    >
+  </li>
+  
+  <li>
+    <a href="ground-sky-vf.html"
+      >29 December - Ground-to-sky viewfactor</a
+    >
+  </li>
+  
+</ul>
+
+<h3>
+  <a href="../blog/archive.html">Archives</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="../blog/2022.html">2022 (5)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2021.html">2021 (10)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2020.html">2020 (3)</a>
+  </li>
+   
+</ul>
+
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#identifying-the-bottlenecks">
+   Identifying the bottlenecks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#benchmarking-alternatives">
+   Benchmarking Alternatives
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                 <section class="tex2jax_ignore mathjax_ignore" id="speeding-up-pvfactors">
+<h1>Speeding up pvfactors<a class="headerlink" href="#speeding-up-pvfactors" title="Permalink to this heading">¶</a></h1>
+<p>This post is an example of identifying bottlenecks in numerical python code and benchmarking possible alternatives.  Specifically, it shows some of the timings I did for the <a class="reference external" href="https://github.com/SunPower/pvfactors/pull/140">SunPower/pvfactors#140</a> pull request to the pvfactors bifacial PV simulation package.</p>
+<p>The function of interest is <code class="docutils literal notranslate"><span class="pre">pvfactors.engine.PVEngine.run_full_mode</span></code>, which (as of pvfactors version 1.5.2) doesn’t run as fast as I’d like it to run, especially for large simulations (many PV rows and many timestamps).</p>
+<section id="identifying-the-bottlenecks">
+<h2>Identifying the bottlenecks<a class="headerlink" href="#identifying-the-bottlenecks" title="Permalink to this heading">¶</a></h2>
+<p>There’s a lot going on under the hood in <code class="docutils literal notranslate"><span class="pre">run_full_mode</span></code>, so let’s start by using <code class="docutils literal notranslate"><span class="pre">pyinstrument</span></code> to figure out what parts of the code are taking up the most time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Setting custom attributes&#39;</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;invalid value&#39;</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;divide by zero&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">csc_matrix</span><span class="p">,</span> <span class="n">csr_matrix</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">import</span> <span class="nn">pvlib</span>
+<span class="kn">from</span> <span class="nn">pvfactors.engine</span> <span class="kn">import</span> <span class="n">PVEngine</span>
+<span class="kn">from</span> <span class="nn">pvfactors.geometry</span> <span class="kn">import</span> <span class="n">OrderedPVArray</span>
+
+<span class="kn">from</span> <span class="nn">pyinstrument</span> <span class="kn">import</span> <span class="n">Profiler</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_engine</span><span class="p">():</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2019-06-01 08:00&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;1min&#39;</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s1">&#39;Etc/GMT+5&#39;</span><span class="p">)</span>
+    <span class="n">location</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">)</span>
+    <span class="n">solpos</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">get_solarposition</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+    <span class="n">irrad</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">get_clearsky</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+    <span class="n">dniet</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">irradiance</span><span class="o">.</span><span class="n">get_extra_radiation</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+    <span class="n">sat</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">tracking</span><span class="o">.</span><span class="n">singleaxis</span><span class="p">(</span><span class="n">solpos</span><span class="o">.</span><span class="n">zenith</span><span class="p">,</span> <span class="n">solpos</span><span class="o">.</span><span class="n">azimuth</span><span class="p">,</span> <span class="n">gcr</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">backtrack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">axis_azimuth</span> <span class="o">=</span> <span class="mi">180</span>
+    <span class="n">n_pvrows</span> <span class="o">=</span> <span class="mi">11</span>
+
+    <span class="n">index_observed_pvrow</span> <span class="o">=</span> <span class="n">n_pvrows</span><span class="o">//</span><span class="mi">2</span>
+
+    <span class="n">fit_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">solar_zenith</span><span class="o">=</span><span class="n">solpos</span><span class="o">.</span><span class="n">zenith</span><span class="p">,</span> <span class="n">solar_azimuth</span><span class="o">=</span><span class="n">solpos</span><span class="o">.</span><span class="n">azimuth</span><span class="p">,</span>
+                      <span class="n">surface_tilt</span><span class="o">=</span><span class="n">sat</span><span class="o">.</span><span class="n">surface_tilt</span><span class="p">,</span> <span class="n">surface_azimuth</span><span class="o">=</span><span class="n">sat</span><span class="o">.</span><span class="n">surface_azimuth</span><span class="p">,</span>
+                      <span class="n">timestamps</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">DNI</span><span class="o">=</span><span class="n">irrad</span><span class="o">.</span><span class="n">dni</span><span class="p">,</span> <span class="n">DHI</span><span class="o">=</span><span class="n">irrad</span><span class="o">.</span><span class="n">dhi</span><span class="p">,</span> <span class="n">albedo</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+    <span class="n">pvarray_parameters</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;n_pvrows&#39;</span><span class="p">:</span> <span class="n">n_pvrows</span><span class="p">,</span>
+        <span class="s1">&#39;axis_azimuth&#39;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span>
+        <span class="s1">&#39;pvrow_height&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s1">&#39;pvrow_width&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s1">&#39;gcr&#39;</span><span class="p">:</span> <span class="mf">0.5</span>
+    <span class="p">}</span>
+
+    <span class="n">pvarray</span> <span class="o">=</span> <span class="n">OrderedPVArray</span><span class="o">.</span><span class="n">init_from_dict</span><span class="p">(</span><span class="n">pvarray_parameters</span><span class="p">)</span>
+    <span class="n">eng</span> <span class="o">=</span> <span class="n">PVEngine</span><span class="p">(</span><span class="n">pvarray</span><span class="p">)</span>
+    <span class="n">eng</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="o">**</span><span class="n">fit_kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">eng</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">engine</span> <span class="o">=</span> <span class="n">make_engine</span><span class="p">()</span>
+
+<span class="n">profiler</span> <span class="o">=</span> <span class="n">Profiler</span><span class="p">()</span>
+<span class="n">profiler</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">engine</span><span class="o">.</span><span class="n">run_full_mode</span><span class="p">()</span>
+<span class="n">profiler</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+<span class="n">profiler</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">show_all</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  _     ._   __/__   _ _  _  _ _/_   Recorded: 11:36:25  Samples:  3674
+ /_//_/// /_\ / //_// / //_&#39;/ //     Duration: 7.835     CPU time: 16.020
+/   _/                      v4.1.1
+
+Program: /home/kevin/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py -f /home/kevin/.local/share/jupyter/runtime/kernel-2a6aef99-d520-43ed-8223-742e139e8e85.json
+
+7.835 run_code  IPython/core/interactiveshell.py:3288
+└─ 7.835 &lt;module&gt;  &lt;ipython-input-4-07b716f7020c&gt;:5
+   └─ 7.830 run_full_mode  pvfactors/engine.py:177
+      ├─ 3.330 build_ts_vf_matrix  pvfactors/viewfactors/calculator.py:69
+      │  └─ 3.281 vf_pvrow_gnd_surf  pvfactors/viewfactors/vfmethods.py:14
+      │     ├─ 2.939 vf_pvrow_surf_to_gnd_surf_obstruction_hottel  pvfactors/viewfactors/vfmethods.py:105
+      │     │  ├─ 2.400 _vf_hottel_gnd_surf  pvfactors/viewfactors/vfmethods.py:473
+      │     │  │  ├─ 2.286 _hottel_string_length  pvfactors/viewfactors/vfmethods.py:537
+      │     │  │  │  ├─ 1.242 _angle_with_x_axis  pvfactors/viewfactors/vfmethods.py:631
+      │     │  │  │  ├─ 0.792 _distance  pvfactors/viewfactors/vfmethods.py:613
+      │     │  │  │  ├─ 0.136 [self]  
+      │     │  │  │  └─ 0.116 where  &lt;__array_function__ internals&gt;:2
+      │     │  │  │     └─ 0.089 implement_array_function  &lt;built-in&gt;:0
+      │     │  │  └─ 0.081 [self]  
+      │     │  ├─ 0.170 [self]  
+      │     │  ├─ 0.080 lowest_point  pvfactors/geometry/timeseries.py:240
+      │     │  └─ 0.079 lowest_point  pvfactors/geometry/timeseries.py:329
+      │     └─ 0.284 is_empty  pvfactors/geometry/timeseries.py:252
+      │        ├─ 0.179 nansum  &lt;__array_function__ internals&gt;:2
+      │        │  └─ 0.164 nansum  numpy/lib/nanfunctions.py:557
+      │        │     └─ 0.091 _replace_nan  numpy/lib/nanfunctions.py:68
+      │        └─ 0.085 length  pvfactors/geometry/timeseries.py:230
+      │           └─ 0.082 length  pvfactors/geometry/timeseries.py:302
+      ├─ 2.717 inv  &lt;__array_function__ internals&gt;:2
+      │  └─ 2.717 inv  numpy/linalg/linalg.py:476
+      ├─ 0.568 build_ts_vf_aoi_matrix  pvfactors/viewfactors/calculator.py:116
+      ├─ 0.508 [self]  
+      ├─ 0.234 einsum  &lt;__array_function__ internals&gt;:2
+      │  └─ 0.234 einsum  numpy/core/einsumfunc.py:997
+      │     └─ 0.234 c_einsum  &lt;built-in&gt;:0
+      ├─ 0.198 get_full_ts_modeling_vectors  pvfactors/irradiance/models.py:785
+      │  └─ 0.185 get_ts_modeling_vectors  pvfactors/irradiance/base.py:49
+      │     └─ 0.129 __iadd__  pandas/core/generic.py:11330
+      │        └─ 0.128 _inplace_method  pandas/core/generic.py:11304
+      │           └─ 0.121 new_method  pandas/core/ops/common.py:50
+      │              └─ 0.114 __add__  pandas/core/arraylike.py:87
+      │                 └─ 0.114 _arith_method  pandas/core/series.py:4992
+      ├─ 0.191 get_summed_components  pvfactors/irradiance/base.py:94
+      │  └─ 0.131 __iadd__  pandas/core/generic.py:11330
+      │     └─ 0.129 _inplace_method  pandas/core/generic.py:11304
+      │        └─ 0.120 new_method  pandas/core/ops/common.py:50
+      │           └─ 0.115 __add__  pandas/core/arraylike.py:87
+      │              └─ 0.115 _arith_method  pandas/core/series.py:4992
+      └─ 0.084 tile  &lt;__array_function__ internals&gt;:2
+         └─ 0.084 tile  numpy/lib/shape_base.py:1171
+            └─ 0.084 ndarray.repeat  &lt;built-in&gt;:0
+</pre></div>
+</div>
+</div>
+</div>
+<p>So right off the bat, we know that the <code class="docutils literal notranslate"><span class="pre">vf_pvrow_gnd_surf</span></code>, <code class="docutils literal notranslate"><span class="pre">inv</span></code>, and <code class="docutils literal notranslate"><span class="pre">build_ts_vf_aoi_matrix</span></code> steps are the main culprits.  I plan to look at speeding up the two viewfactor calculations as well, but for today we’ll just focus on <code class="docutils literal notranslate"><span class="pre">inv</span></code>.</p>
+</section>
+<section id="benchmarking-alternatives">
+<h2>Benchmarking Alternatives<a class="headerlink" href="#benchmarking-alternatives" title="Permalink to this heading">¶</a></h2>
+<p>Despite being mathematically convenient, using explicit matrix inversion to solve a linear system is notoriously inefficient.  If you were to solve a linear system by hand, you wouldn’t invert the matrix, you’d probably do something like <a class="reference external" href="https://en.wikipedia.org/wiki/Gaussian_elimination">Gaussian elimination</a>.  Humans and computers are obviously apples and oranges, but in this case it turns out to not be a bad analogy: <a class="reference external" href="https://en.wikipedia.org/wiki/LU_decomposition">LU decomposition</a> with substitution is not so different from Gaussian elimination and is a common numerical approach to solving linear systems.  Indeed <a class="reference external" href="http://www.netlib.org/lapack/explore-html/d7/d3b/group__double_g_esolve_ga5ee879032a8365897c3ba91e3dc8d512.html">DGESV</a> (<strong>D</strong>ouble-precision <strong>Ge</strong>neral matrix <strong>S</strong>ol<strong>V</strong>e, the LAPACK routine <code class="docutils literal notranslate"><span class="pre">np.linalg.solve</span></code> calls under the hood, for double-precision floats anyway) uses LU decomposition.  So switching from explicit inversion to a decomposition-based solver may be a tasty low-hanging fruit.</p>
+<p>Another thing I noticed is that, especially for large simulations, the system being solved tends to be quite <a class="reference external" href="https://en.wikipedia.org/wiki/Sparse_matrix">sparse</a> (often &gt;90% zeros).  In that case using a dense solver like <code class="docutils literal notranslate"><span class="pre">DGESV</span></code> is silly and a sparse solver may be an improvement.  Scipy has some sparse solvers, but as of this writing they are 2-D only, so an irksome in-python iteration over the third dimension is necessary here.  In the future hopefully they will be made N-D (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/sparse.html#module-scipy.sparse">ref</a>).  A complication is that scipy provides several sparse matrix formats; it’s not obvious to me which one will perform best here, so we’ll try a couple.  It’s also worth pointing out that non-scipy sparse solvers exist, e.g. <a class="reference external" href="https://sparse.pydata.org/en/stable/">sparse</a>, but I’ve not investigated them here.</p>
+<p>For fun, the below code also tries out a sparse explicit inversion.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">inv_einsum</span><span class="p">(</span><span class="n">a_mat</span><span class="p">,</span> <span class="n">irradiance_mat</span><span class="p">):</span>
+    <span class="c1"># the approach used in pvfactors 1.5.2</span>
+    <span class="n">inv_a_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">a_mat</span><span class="p">)</span>
+    <span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ijk,ki-&gt;ji&#39;</span><span class="p">,</span> <span class="n">inv_a_mat</span><span class="p">,</span> <span class="n">irradiance_mat</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">q0</span>
+
+<span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">a_mat</span><span class="p">,</span> <span class="n">irradiance_mat</span><span class="p">):</span>
+    <span class="c1"># using LAPACK&#39;s (actually, OpenBLAS in this case) DGESV routine</span>
+    <span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">a_mat</span><span class="p">,</span> <span class="n">irradiance_mat</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">return</span> <span class="n">q0</span>
+
+<span class="c1"># helper functions to make it easy to try the same approach w/ different sparse matrix classes</span>
+
+<span class="k">def</span> <span class="nf">make_scipy_sparse_inv</span><span class="p">(</span><span class="n">sparse_matrix_class</span><span class="p">):</span>
+    <span class="c1"># sparse inv + einsum</span>
+    <span class="k">def</span> <span class="nf">inv_einsum</span><span class="p">(</span><span class="n">a_mat</span><span class="p">,</span> <span class="n">irradiance_mat</span><span class="p">):</span>
+        <span class="n">inv_as</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">a_mat_2d</span> <span class="ow">in</span> <span class="n">a_mat</span><span class="p">:</span>
+            <span class="n">a_sparse</span> <span class="o">=</span> <span class="n">sparse_matrix_class</span><span class="p">(</span><span class="n">a_mat_2d</span><span class="p">)</span>
+            <span class="n">inv_a</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">a_sparse</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+            <span class="n">inv_as</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inv_a</span><span class="p">)</span>
+        <span class="n">inv_a_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">inv_as</span><span class="p">)</span>
+        <span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ijk,ki-&gt;ji&#39;</span><span class="p">,</span> <span class="n">inv_a_mat</span><span class="p">,</span> <span class="n">irradiance_mat</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">q0</span>
+    
+    <span class="n">inv_einsum</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s2">&quot;sparse_inv_einsum_&quot;</span> <span class="o">+</span> <span class="n">sparse_matrix_class</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="k">return</span> <span class="n">inv_einsum</span>
+
+<span class="k">def</span> <span class="nf">make_sparse_solver</span><span class="p">(</span><span class="n">sparse_matrix_class</span><span class="p">):</span>
+    <span class="c1"># sparse linear solve</span>
+    <span class="k">def</span> <span class="nf">spsolve</span><span class="p">(</span><span class="n">a_mat</span><span class="p">,</span> <span class="n">irradiance_mat</span><span class="p">):</span>
+        <span class="n">q0s</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">a_mat_2d</span><span class="p">,</span> <span class="n">irradiance_1d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a_mat</span><span class="p">,</span> <span class="n">irradiance_mat</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+            <span class="n">a_sparse</span> <span class="o">=</span> <span class="n">sparse_matrix_class</span><span class="p">(</span><span class="n">a_mat_2d</span><span class="p">)</span>
+            <span class="n">irradiance_sparse</span> <span class="o">=</span> <span class="n">sparse_matrix_class</span><span class="p">(</span><span class="n">irradiance_1d</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">q0</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">spsolve</span><span class="p">(</span><span class="n">a_sparse</span><span class="p">,</span> <span class="n">irradiance_sparse</span><span class="p">)</span>
+            <span class="n">q0s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
+        <span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">q0s</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">return</span> <span class="n">q0</span>
+
+    <span class="n">spsolve</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s2">&quot;spsolve_&quot;</span> <span class="o">+</span> <span class="n">sparse_matrix_class</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="k">return</span> <span class="n">spsolve</span>
+
+<span class="n">scipy_csc_matrix_inv</span> <span class="o">=</span> <span class="n">make_scipy_sparse_inv</span><span class="p">(</span><span class="n">csc_matrix</span><span class="p">)</span>
+<span class="n">scipy_csr_matrix_inv</span> <span class="o">=</span> <span class="n">make_scipy_sparse_inv</span><span class="p">(</span><span class="n">csr_matrix</span><span class="p">)</span>
+<span class="n">scipy_csc_matrix_spsolve</span> <span class="o">=</span> <span class="n">make_sparse_solver</span><span class="p">(</span><span class="n">csc_matrix</span><span class="p">)</span>
+<span class="n">scipy_csr_matrix_spsolve</span> <span class="o">=</span> <span class="n">make_sparse_solver</span><span class="p">(</span><span class="n">csr_matrix</span><span class="p">)</span>
+
+<span class="n">functions</span> <span class="o">=</span> <span class="p">[</span><span class="n">inv_einsum</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span>
+             <span class="n">scipy_csc_matrix_inv</span><span class="p">,</span> <span class="n">scipy_csr_matrix_inv</span><span class="p">,</span>
+             <span class="n">scipy_csc_matrix_spsolve</span><span class="p">,</span> <span class="n">scipy_csr_matrix_spsolve</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Normally I’d just make up some dummy data for testing purposes, but since in this case we’re trying to tailor the code to match the specific sparseness characteristics of real pvfactors simulations, I’ve dumped a system from a real simulation to disk to use here.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
+
+<span class="c1"># matrices extracted from a simulation with n_pvrows=11 and 500 timestamps</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;a_mat&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">a_mat</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;irradiance_mat&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">irradiance_mat</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">irradiance_mat</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">irradiance_mat</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">irradiance_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c1"># show sparseness:</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">a_mat</span><span class="o">==</span><span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">irradiance_mat</span><span class="o">==</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(500, 321, 321) (321, 500)
+0.9773401073359148 0.44277258566978195
+</pre></div>
+</div>
+</div>
+</div>
+<p>First things first, let’s make sure the alternatives give the right answer:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q0</span> <span class="o">=</span> <span class="n">inv_einsum</span><span class="p">(</span><span class="n">a_mat</span><span class="p">,</span> <span class="n">irradiance_mat</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">function</span> <span class="ow">in</span> <span class="n">functions</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="o">%</span><span class="k">time</span> q0_test = function(a_mat, irradiance_mat)
+    <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;function&#39;</span><span class="p">:</span> <span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+        <span class="s1">&#39;max abs error&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">q0_test</span> <span class="o">-</span> <span class="n">q0</span><span class="p">)),</span>
+        <span class="s1">&#39;nan equal&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">q0_test</span><span class="p">))</span>
+    <span class="p">})</span>
+    <span class="nb">print</span><span class="p">()</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>inv_einsum
+CPU times: user 8.57 s, sys: 2.26 s, total: 10.8 s
+Wall time: 2.75 s
+
+solve
+CPU times: user 2.5 s, sys: 1.67 s, total: 4.17 s
+Wall time: 1.07 s
+
+sparse_inv_einsum_csc_matrix
+CPU times: user 47.7 s, sys: 331 ms, total: 48.1 s
+Wall time: 47.8 s
+
+sparse_inv_einsum_csr_matrix
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/kevin/anaconda3/lib/python3.7/site-packages/scipy/sparse/linalg/dsolve/linsolve.py:318: SparseEfficiencyWarning: splu requires CSC matrix format
+  warn(&#39;splu requires CSC matrix format&#39;, SparseEfficiencyWarning)
+/home/kevin/anaconda3/lib/python3.7/site-packages/scipy/sparse/linalg/dsolve/linsolve.py:216: SparseEfficiencyWarning: spsolve is more efficient when sparse b is in the CSC matrix format
+  &#39;is in the CSC matrix format&#39;, SparseEfficiencyWarning)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 47.8 s, sys: 20.9 ms, total: 47.8 s
+Wall time: 47.8 s
+
+spsolve_csc_matrix
+CPU times: user 1.02 s, sys: 11.8 ms, total: 1.03 s
+Wall time: 1.03 s
+
+spsolve_csr_matrix
+CPU times: user 1.17 s, sys: 143 µs, total: 1.17 s
+Wall time: 1.17 s
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>function</th>
+      <th>max abs error</th>
+      <th>nan equal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>inv_einsum</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>solve</td>
+      <td>8.526513e-14</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>sparse_inv_einsum_csc_matrix</td>
+      <td>1.136868e-13</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>sparse_inv_einsum_csr_matrix</td>
+      <td>1.136868e-13</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>spsolve_csc_matrix</td>
+      <td>1.136868e-13</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>spsolve_csr_matrix</td>
+      <td>1.278977e-13</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>So they all give the right answer.  But looking at the basic <code class="docutils literal notranslate"><span class="pre">%time</span></code> outputs above, the two sparse inversion functions are very slow, so there’s no point in including them in the more rigorous timing comparison below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">timings</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1"># don&#39;t include the slow-as-molasses sparse inversion functions</span>
+<span class="k">for</span> <span class="n">function</span> <span class="ow">in</span> <span class="p">[</span><span class="n">inv_einsum</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">scipy_csc_matrix_spsolve</span><span class="p">,</span> <span class="n">scipy_csr_matrix_spsolve</span><span class="p">]:</span>
+    <span class="n">funcname</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="n">timings</span><span class="p">[</span><span class="n">funcname</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">a_mat</span><span class="p">,</span> <span class="n">irradiance_mat</span><span class="p">)</span>
+        <span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+        <span class="n">timings</span><span class="p">[</span><span class="n">funcname</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ed</span> <span class="o">-</span> <span class="n">st</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">timings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">timings</span><span class="p">)</span>
+<span class="n">timings</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">showfliers</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Elapsed time [s]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Elapsed time [s]&#39;)
+</pre></div>
+</div>
+<img alt="../_images/df6a5387853de6988fa551975a2edd2a6ccedc74afa7566dfc398611c4fcd1be.png" src="../_images/df6a5387853de6988fa551975a2edd2a6ccedc74afa7566dfc398611c4fcd1be.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">timings</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>inv_einsum            2.714173
+solve                 1.020124
+spsolve_csc_matrix    1.027375
+spsolve_csr_matrix    1.157869
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">timings</span><span class="o">.</span><span class="n">median</span><span class="p">()</span> <span class="o">/</span> <span class="n">timings</span><span class="p">[</span><span class="s1">&#39;inv_einsum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>inv_einsum            1.000000
+solve                 0.375851
+spsolve_csc_matrix    0.378522
+spsolve_csr_matrix    0.426601
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>So dense and sparse solvers are indeed significantly faster than explicit inversion (for this problem, on this machine, with these package versions, etc etc).  An interesting note is that dense and sparse solvers perform more or less equally here; on another machine with a newer CPU (and newer scipy version) the sparse solver outperformed the dense solver.</p>
+</section>
+</section>
+
+<div class="section">
+    
+
+<div class="section">
+  <span style="float: left">
+     
+    <a href="ground-sky-vf.html">
+      <i class="fa fa-arrow-circle-left"></i> Ground-to-sky viewfactor
+    </a>
+    
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right">
+     
+    <a href="opengl-compute-shaders-first-steps.html">
+      OpenGL Compute Shaders: First Steps <i
+        class="fa fa-arrow-circle-right"
+      ></i
+      >
+    </a>
+    
+  </span>
+</div>
+  
+</div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2015-2024, Kevin Anderson.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

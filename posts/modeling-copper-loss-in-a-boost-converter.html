@@ -1,0 +1,735 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Modeling copper losses in a boost converter &#8212; the kevbase</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.min.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+     
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  href="../blog/atom.xml"
+  title="kevbase"
+/>
+ 
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/favicon.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../publications.html">
+  Publications
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../blog.html">
+  Blog
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../report.html">
+  Climate Report
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" >
+</form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items">  
+<h2>
+   <i class="fa fa-calendar"></i>
+  2020-06-14 
+</h2>
+
+<ul>
+       
+<li id="tags">
+  <span
+    ><i class="fa-fw fa fa-tags"></i> </span
+  >
+   
+  <a href="../blog/tag/electrical-engineering.html">electrical-engineering</a>   
+  <a href="../blog/tag/erickson-maksimovic.html">erickson-maksimovic</a>   
+  <a href="../blog/tag/python.html">python</a>  
+</li>
+ 
+</ul>
+
+<h3>
+  <a href="../blog.html">Recent Posts</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="psm3-pixels-boundaries.html"
+      >04 September - PSM3 Pixel Boundaries</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-spa-benchmarks.html"
+      >21 August - OpenGL Compute Shaders: SPA</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-builtin-accuracy.html"
+      >13 August - OpenGL Compute Shaders: Accuracy of Math Functions</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-first-steps.html"
+      >30 July - OpenGL Compute Shaders: First Steps</a
+    >
+  </li>
+  
+  <li>
+    <a href="linalg-sparse-solve.html"
+      >09 April - Speeding up pvfactors</a
+    >
+  </li>
+  
+</ul>
+
+<h3>
+  <a href="../blog/archive.html">Archives</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="../blog/2022.html">2022 (5)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2021.html">2021 (10)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2020.html">2020 (3)</a>
+  </li>
+   
+</ul>
+
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#switch-in-position-1">
+   Switch in Position 1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#switch-in-position-2">
+   Switch in Position 2
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applying-volt-second-and-charge-balance">
+   Applying volt-second and charge balance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#constructing-an-equivalent-circuit-model">
+   Constructing an equivalent circuit model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                 <section class="tex2jax_ignore mathjax_ignore" id="modeling-copper-losses-in-a-boost-converter">
+<h1>Modeling copper losses in a boost converter<a class="headerlink" href="#modeling-copper-losses-in-a-boost-converter" title="Permalink to this heading">¶</a></h1>
+<p>This post will work through a simple power electronics problem.  An ideal boost converter uses only lossless components (L, C) and no lossy components (R).  However, real inductors will have nonzero resistance in its wiring.  This copper loss has a strong effect on the converter’s ability to boost voltage.  This follows the approach of Chapter 3 of Fundamentals of Power Electronics, 2e by Erickson and Maksimović.</p>
+<p>First let’s draw the boost converter we’ll be modeling.  Note that in this context, the precise switching circuit (PWM driver, MOSFET, etc) is irrelevant and represented by an ideal switch.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">SchemDraw</span> <span class="k">as</span> <span class="nn">sd</span>
+<span class="kn">import</span> <span class="nn">SchemDraw.elements</span> <span class="k">as</span> <span class="nn">elm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">Drawing</span><span class="p">()</span>
+<span class="n">V1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">SOURCE_V</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$V_g$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mf">0.1</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+<span class="n">L1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">INDUCTOR2</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">labelI_inline</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span> <span class="s1">&#39;$i_L$&#39;</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$R_L$&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">S1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">SWITCH_SPDT2</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">toplabel</span><span class="o">=</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">botlabel</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+
+<span class="n">J1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">S1</span><span class="o">.</span><span class="n">b</span><span class="p">,</span>  <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">.5</span><span class="p">)</span>
+<span class="n">J2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">.5</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mf">0.5</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">DOT_OPEN</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">GAP</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;$v$&#39;</span><span class="p">,</span> <span class="s1">&#39;$-$&#39;</span><span class="p">])</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">DOT_OPEN</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span><span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">S1</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+<span class="n">C1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">CAP</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">J1</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">J2</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">labelI_inline</span><span class="p">(</span><span class="n">C1</span><span class="p">,</span> <span class="s1">&#39;$i_C$&#39;</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/8885e4db5ddc7b123dd6d72128b31a1ff44c064e4c238554329d4b13552f8bb8.png" src="../_images/8885e4db5ddc7b123dd6d72128b31a1ff44c064e4c238554329d4b13552f8bb8.png" />
+</div>
+</div>
+<p>The physical inductor is represented here by a lumped element model consisting of an ideal inductor <span class="math notranslate nohighlight">\(L\)</span> in series with a resistance <span class="math notranslate nohighlight">\(R_L\)</span>.  To analyze this circuit’s behavior, we’ll consider the circuit in each of the two switch positions (1 and 2) using three concepts:</p>
+<ul class="simple">
+<li><p>Inductor volt-second balance (applied to <span class="math notranslate nohighlight">\(v_L(t)\)</span>)</p></li>
+<li><p>Capacitor charge (amp-second) balance (applied to <span class="math notranslate nohighlight">\(i_C(t)\)</span>)</p></li>
+<li><p>Small ripple approximation</p></li>
+</ul>
+<section id="switch-in-position-1">
+<h2>Switch in Position 1<a class="headerlink" href="#switch-in-position-1" title="Permalink to this heading">¶</a></h2>
+<p>Here is the equivalent circuit when the switch is in position 1:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">Drawing</span><span class="p">()</span>
+<span class="n">V1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">SOURCE_V</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$V_g$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mf">0.1</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+<span class="n">L1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">INDUCTOR2</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">labelI_inline</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span> <span class="s1">&#39;$i$&#39;</span><span class="p">)</span>
+
+<span class="n">RL</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$R_L$&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">GAP</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+
+<span class="n">J1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">.5</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mf">0.5</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">DOT_OPEN</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">GAP</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;$v$&#39;</span><span class="p">,</span> <span class="s1">&#39;$-$&#39;</span><span class="p">])</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">DOT_OPEN</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span><span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">RL</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+<span class="n">C1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">CAP</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">J1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">J1</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">labelI_inline</span><span class="p">(</span><span class="n">C1</span><span class="p">,</span> <span class="s1">&#39;$i_C$&#39;</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6e06fcd4b749bdfbb9c10708aa0d83837e160345e6e3957b7142f1a85105b8f3.png" src="../_images/6e06fcd4b749bdfbb9c10708aa0d83837e160345e6e3957b7142f1a85105b8f3.png" />
+</div>
+</div>
+<p>The waveforms of interest are the inductor voltage and capacitor current.  Using Kirchoff’s laws:</p>
+<div class="math notranslate nohighlight">
+\[ v_L(t) = V_g - i(t) R_L \]</div>
+<div class="math notranslate nohighlight">
+\[ i_C(t) = -v(t) / R \]</div>
+<p>Taking the small ripple approximation, we approximate the waveforms <span class="math notranslate nohighlight">\(v(t)\)</span> and <span class="math notranslate nohighlight">\(i(t)\)</span> with their DC components <span class="math notranslate nohighlight">\(V\)</span> and <span class="math notranslate nohighlight">\(I\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ v_L(t) \approx V_g - I R_L \]</div>
+<div class="math notranslate nohighlight">
+\[ i_C(t) \approx -V / R \]</div>
+</section>
+<section id="switch-in-position-2">
+<h2>Switch in Position 2<a class="headerlink" href="#switch-in-position-2" title="Permalink to this heading">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">Drawing</span><span class="p">()</span>
+<span class="n">V1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">SOURCE_V</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$V_g$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mf">0.1</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+<span class="n">L1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">INDUCTOR2</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">labelI_inline</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span> <span class="s1">&#39;$i$&#39;</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$R_L$&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">0.75</span><span class="p">)</span>
+
+<span class="n">J1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">.5</span><span class="p">)</span>
+<span class="n">J2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">.5</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mf">0.5</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">DOT_OPEN</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">GAP</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;$v$&#39;</span><span class="p">,</span> <span class="s1">&#39;$-$&#39;</span><span class="p">])</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">DOT_OPEN</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span><span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+
+<span class="n">C1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">CAP</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">J1</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">J2</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">labelI_inline</span><span class="p">(</span><span class="n">C1</span><span class="p">,</span> <span class="s1">&#39;$i_C$&#39;</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/0b2d236f139ce97a45c4603d4e0e0ab4bd4ccedd61b72e13df423cc415d7343e.png" src="../_images/0b2d236f139ce97a45c4603d4e0e0ab4bd4ccedd61b72e13df423cc415d7343e.png" />
+</div>
+</div>
+<p>As before, we apply Kirchoff’s Laws and the small ripple approximation:</p>
+<div class="math notranslate nohighlight">
+\[ v_L(t) = V_g - i(t) R_L - v(t) \approx V_g - I R_L - V \]</div>
+<div class="math notranslate nohighlight">
+\[ i_C(t) = i(t) - v(t) / R \approx I - V/R \]</div>
+</section>
+<section id="applying-volt-second-and-charge-balance">
+<h2>Applying volt-second and charge balance<a class="headerlink" href="#applying-volt-second-and-charge-balance" title="Permalink to this heading">¶</a></h2>
+<p>Let’s define the switch to be in position 1 for the ON portion of a PWM signal with duty cycle <span class="math notranslate nohighlight">\(D\)</span> and period <span class="math notranslate nohighlight">\(T_s\)</span>.  Then the full waveforms from <span class="math notranslate nohighlight">\(t=0\)</span> to <span class="math notranslate nohighlight">\(t=T_s\)</span> are defined by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} v_L(t)=   \left\{
+\begin{array}{ll}
+      V_g - I R_L &amp; t &lt; D T_s \\
+      V_g - I R_L - V &amp; t &gt; D T_s \\
+\end{array}
+\right.  \end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} i_C(t)=   \left\{
+\begin{array}{ll}
+      -V/R &amp; t &lt; D T_s \\
+       I - V/R &amp; t &gt; D T_s \\
+\end{array}
+\right.  \end{split}\]</div>
+<p>At steady state, the time-integrated capacitor current <span class="math notranslate nohighlight">\(\langle i_c \rangle\)</span> and inductor voltage <span class="math notranslate nohighlight">\(\langle v_L \rangle\)</span> must equal zero (or else the component states would still be changing).  These conditions are called charge and volt-second balance because of the respective units.  Therefore at steady state we can set the average value integrals to zero (using <span class="math notranslate nohighlight">\(D' \equiv 1-D\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[\langle v_L(t) \rangle = \frac{1}{T_s} \int_0^{T_s} v_L(t) \, \mathrm{d}t\]</div>
+<div class="math notranslate nohighlight">
+\[ = D(V_g - I R_L) + D'(V_g - I R_L - V) = 0\]</div>
+<div class="math notranslate nohighlight">
+\[ V_g - I R_L - D'V = 0 \]</div>
+<p>And similarly for <span class="math notranslate nohighlight">\(i_C(t)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ D'I - V/R = 0 \]</div>
+<p>Using these two equations (from volt-second balance and charge balance), we can solve for the steady-state output voltage <span class="math notranslate nohighlight">\(V\)</span> as a function of <span class="math notranslate nohighlight">\(D\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{V}{V_g} = \frac{1}{D'} \frac{1}{1 + R_L / (D'^2 R)} \]</div>
+<p>Written this way, it is clear that <span class="math notranslate nohighlight">\(R_L\)</span> creates a limiting term on the ideal case <span class="math notranslate nohighlight">\(V/V_g=1/D'\)</span>.  The larger <span class="math notranslate nohighlight">\(R_L/R\)</span> is, the smaller the maximum boost <span class="math notranslate nohighlight">\(V/V_g\)</span> can be:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_voltage</span><span class="p">(</span><span class="n">D_prime</span><span class="p">,</span> <span class="n">R_ratio</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">D_prime</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">R_ratio</span><span class="o">/</span><span class="n">D_prime</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+<span class="n">D_prime</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">D</span>
+<span class="k">for</span> <span class="n">R_ratio</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]:</span>
+    <span class="n">V_ratio</span> <span class="o">=</span> <span class="n">calculate_voltage</span><span class="p">(</span><span class="n">D_prime</span><span class="p">,</span> <span class="n">R_ratio</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">V_ratio</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$R_L/R=</span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">R_ratio</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$D$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$V/V_g$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d3bc264f31cad57c36661b5ef486de41cb8bf468ce987dd3318cc1c5bb07a3e5.png" src="../_images/d3bc264f31cad57c36661b5ef486de41cb8bf468ce987dd3318cc1c5bb07a3e5.png" />
+</div>
+</div>
+</section>
+<section id="constructing-an-equivalent-circuit-model">
+<h2>Constructing an equivalent circuit model<a class="headerlink" href="#constructing-an-equivalent-circuit-model" title="Permalink to this heading">¶</a></h2>
+<p>The strategy to construct an equivalent circuit is to treat the equations we derived for <span class="math notranslate nohighlight">\(\langle v_L(t) \rangle\)</span> and <span class="math notranslate nohighlight">\(\langle i_C(t) \rangle\)</span> as loop and node equations:</p>
+<div class="math notranslate nohighlight">
+\[ V_g - I R_L - D'V = 0 \]</div>
+<div class="math notranslate nohighlight">
+\[ D'I - V/R = 0 \]</div>
+<p><span class="math notranslate nohighlight">\(V_g\)</span>, <span class="math notranslate nohighlight">\(I R_L\)</span>, and <span class="math notranslate nohighlight">\(V/R\)</span> are all straightforward to represent as circuit components, but what are <span class="math notranslate nohighlight">\(D'V\)</span> and <span class="math notranslate nohighlight">\(D'I\)</span>?  We represent them as a “dependent voltage source” and “dependent current source”, respectively.</p>
+<p>First, let’s do the voltage loop.  Note that because these equations include only the DC components of the waveforms, the equivalent circuit will be DC-only.  In other words, <span class="math notranslate nohighlight">\(\langle v_L(t) \rangle = 0\)</span>, so the inductor is a short circuit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">Drawing</span><span class="p">()</span>
+<span class="n">V1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">SOURCE_V</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$V_g$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mf">0.1</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+<span class="n">L1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">INDUCTOR2</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgrey&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">endpts</span><span class="o">=</span><span class="p">[</span><span class="n">L1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span><span class="n">L1</span><span class="o">.</span><span class="n">end</span><span class="p">])</span>
+<span class="n">R1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$R_L$&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">labelI_inline</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span> <span class="s1">&#39;$I$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">SOURCE_V</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;D&#39;V&quot;</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+
+<span class="n">loop_circuit</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">group_elements</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="c1"># save for later</span>
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1631c58aa08db7bac9193190bfa061f0f25de96d8f6af504c0bdc24ad0c978e4.png" src="../_images/1631c58aa08db7bac9193190bfa061f0f25de96d8f6af504c0bdc24ad0c978e4.png" />
+</div>
+</div>
+<p>Now for the charge balance equation.  Because <span class="math notranslate nohighlight">\(\langle i_C(t) \rangle = 0\)</span>, the capacitor is an open circuit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">Drawing</span><span class="p">()</span>
+<span class="n">V1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">SOURCE_I</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;D&#39;I&quot;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mf">0.1</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+
+<span class="n">J1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">.5</span><span class="p">)</span>
+<span class="n">J2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">.5</span><span class="p">)</span>
+
+<span class="n">C1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">CAP</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">J1</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgrey&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">DOT</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">C1</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">DOT_OPEN</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">GAP</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;$v$&#39;</span><span class="p">,</span> <span class="s1">&#39;$-$&#39;</span><span class="p">])</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">DOT_OPEN</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+
+<span class="n">R1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">J2</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">labelI_inline</span><span class="p">(</span><span class="n">R1</span><span class="p">,</span> <span class="s1">&#39;$V/R$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">tox</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+
+<span class="n">node_circuit</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">group_elements</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="c1"># save for later</span>
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c45aaaca4f4f65ea9f6f72e798c7da7849268c1d66d8f4020e36128182353b6c.png" src="../_images/c45aaaca4f4f65ea9f6f72e798c7da7849268c1d66d8f4020e36128182353b6c.png" />
+</div>
+</div>
+<p>Now we need to combine the two equivalent circuits.  Drawing them side by side is revealing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">Drawing</span><span class="p">()</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">loop_circuit</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node_circuit</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">[</span><span class="mf">2.3</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/cd12e9487b09446ebb1d582f280847102056bc2b80570b889524f622038c98d2.png" src="../_images/cd12e9487b09446ebb1d582f280847102056bc2b80570b889524f622038c98d2.png" />
+</div>
+</div>
+<p>The two dependent sources are linked:  the <span class="math notranslate nohighlight">\(D'V\)</span> source depends on the voltage across the <span class="math notranslate nohighlight">\(D'I\)</span> source, and the <span class="math notranslate nohighlight">\(D'I\)</span> source depends on the current through the <span class="math notranslate nohighlight">\(D'V\)</span> source.  This is essentially a “DC transformer” with ratio <span class="math notranslate nohighlight">\(D':1\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">Drawing</span><span class="p">()</span>
+<span class="n">V1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">SOURCE_V</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$V_g$&quot;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mf">0.1</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+<span class="n">RL</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$R_L$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">labelI_inline</span><span class="p">(</span><span class="n">RL</span><span class="p">,</span> <span class="s1">&#39;$I$&#39;</span><span class="p">)</span>
+<span class="n">X1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">transformer</span><span class="p">(</span><span class="n">t1</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">t2</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">core</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;D&#39; : 1&quot;</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;p1&#39;</span><span class="p">)</span>
+<span class="n">J1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">X1</span><span class="o">.</span><span class="n">s1</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">.5</span><span class="p">)</span>
+<span class="n">J2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">GAP</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">J1</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;$v$&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;$-$&#39;</span><span class="p">])</span>
+<span class="n">R1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">J2</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">tox</span><span class="o">=</span><span class="n">X1</span><span class="o">.</span><span class="n">s2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">X1</span><span class="o">.</span><span class="n">s2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">X1</span><span class="o">.</span><span class="n">p2</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">tox</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2412b6b5d85603cbffe96f66971b30eb1834623ccd31011225da7e9a3599658a.png" src="../_images/2412b6b5d85603cbffe96f66971b30eb1834623ccd31011225da7e9a3599658a.png" />
+</div>
+</div>
+<p>This is an equivalent circuit for our boost converter with an ideal transformer and a loss resistor representing the inductor’s winding resistance.</p>
+<p>To solve for the output voltage, we push the voltage source and inductor resistance to the right side of the transformer:</p>
+<div class="math notranslate nohighlight">
+\[V_g \rightarrow V_g / D'\]</div>
+<div class="math notranslate nohighlight">
+\[R_L \rightarrow R_L/D'^2\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">Drawing</span><span class="p">()</span>
+<span class="n">V1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">SOURCE_V</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$V_g/D\prime$&quot;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mf">0.2</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+<span class="n">R1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$R_L/D\prime^2$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">labelI_inline</span><span class="p">(</span><span class="n">R1</span><span class="p">,</span> <span class="s1">&#39;$D\prime I$&#39;</span><span class="p">,</span> <span class="n">ofst</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">J1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">unit</span><span class="o">*</span><span class="mf">.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">GAP</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">J1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;$v$&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;$-$&#39;</span><span class="p">])</span>
+
+<span class="n">R1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">J1</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$R$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elm</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="n">V1</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/345966f7ff96745d0a467a2181b148dd340dac0f93a09dae97aa26546efb7fe8.png" src="../_images/345966f7ff96745d0a467a2181b148dd340dac0f93a09dae97aa26546efb7fe8.png" />
+</div>
+</div>
+<p>The voltage divider formula, along with some manipulation, gives the same equation as before:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{V}{V_g} = \frac{1}{D'} \frac{1}{1 + R_L / (D'^2 R)} \]</div>
+<p>This representation is useful for other things as well.  For instance, the load resistance could be pushed through the transformer to the left side to solve for the current on the primary side.</p>
+<p>We can also solve for the efficiency <span class="math notranslate nohighlight">\(\eta = P_{out} / P_{in}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[P_{in} = V_g I\]</div>
+<div class="math notranslate nohighlight">
+\[P_{out} = V D' I\]</div>
+<div class="math notranslate nohighlight">
+\[\eta = \frac{V}{V_g} D'\]</div>
+<p>Using the equation for <span class="math notranslate nohighlight">\(V/V_g\)</span> from earlier, this gives:</p>
+<div class="math notranslate nohighlight">
+\[\eta = \frac{1}{1 + R_L / (D'^2 R)}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_efficiency</span><span class="p">(</span><span class="n">D_prime</span><span class="p">,</span> <span class="n">R_ratio</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">R_ratio</span><span class="o">/</span><span class="n">D_prime</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
+<span class="n">D_prime</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">D</span>
+<span class="k">for</span> <span class="n">R_ratio</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.002</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]:</span>
+    <span class="n">eta</span> <span class="o">=</span> <span class="n">calculate_efficiency</span><span class="p">(</span><span class="n">D_prime</span><span class="p">,</span> <span class="n">R_ratio</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$R_L/R=</span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">R_ratio</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$D$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\eta$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/886d65f5dfa9410f6a8a6ec29c768bfe08175212a2a78e04f8a75aa8687f14c6.png" src="../_images/886d65f5dfa9410f6a8a6ec29c768bfe08175212a2a78e04f8a75aa8687f14c6.png" />
+</div>
+</div>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
+<p>Applying volt-second balance and charge balance to the converter circuit gives two equations that can be viewed as the loop and node equations of equivalent circuit models.  These two equivalent circuits can be combined using an ideal DC transformer to get an overall equivalent circuit model that has a physical interpretation and is useful for analyzing the original converter circuit.</p>
+</section>
+</section>
+
+<div class="section">
+    
+
+<div class="section">
+  <span style="float: left">
+     
+    <a href="pvwatts-and-pvusa.html">
+      <i class="fa fa-arrow-circle-left"></i> PVWatts and PVUSA
+    </a>
+    
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right">
+     
+    <a href="summing-uniform-distributions.html">
+      Summing Uniform Distributions <i
+        class="fa fa-arrow-circle-right"
+      ></i
+      >
+    </a>
+    
+  </span>
+</div>
+  
+</div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2015-2024, Kevin Anderson.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

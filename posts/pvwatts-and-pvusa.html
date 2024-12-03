@@ -1,0 +1,538 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>PVWatts and PVUSA &#8212; the kevbase</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.min.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+     
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  href="../blog/atom.xml"
+  title="kevbase"
+/>
+ 
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/favicon.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../publications.html">
+  Publications
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../blog.html">
+  Blog
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../report.html">
+  Climate Report
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" >
+</form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items">  
+<h2>
+   <i class="fa fa-calendar"></i>
+  2020-02-01 
+</h2>
+
+<ul>
+       
+<li id="tags">
+  <span
+    ><i class="fa-fw fa fa-tags"></i> </span
+  >
+   
+  <a href="../blog/tag/photovoltaics.html">photovoltaics</a>   
+  <a href="../blog/tag/math.html">math</a>  
+</li>
+ 
+</ul>
+
+<h3>
+  <a href="../blog.html">Recent Posts</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="psm3-pixels-boundaries.html"
+      >04 September - PSM3 Pixel Boundaries</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-spa-benchmarks.html"
+      >21 August - OpenGL Compute Shaders: SPA</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-builtin-accuracy.html"
+      >13 August - OpenGL Compute Shaders: Accuracy of Math Functions</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-first-steps.html"
+      >30 July - OpenGL Compute Shaders: First Steps</a
+    >
+  </li>
+  
+  <li>
+    <a href="linalg-sparse-solve.html"
+      >09 April - Speeding up pvfactors</a
+    >
+  </li>
+  
+</ul>
+
+<h3>
+  <a href="../blog/archive.html">Archives</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="../blog/2022.html">2022 (5)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2021.html">2021 (10)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2020.html">2020 (3)</a>
+  </li>
+   
+</ul>
+
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                 <section class="tex2jax_ignore mathjax_ignore" id="pvwatts-and-pvusa">
+<h1>PVWatts and PVUSA<a class="headerlink" href="#pvwatts-and-pvusa" title="Permalink to this heading">¶</a></h1>
+<p>I read a paper recently that turned on a lightbulb about why the
+PVUSA/ASTM E2848-13 equation is defined the way it is.  To quote the paper <a class="footnote-reference brackets" href="#id6" id="id1">1</a>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>The PVUSA method is based on the simplified assumptions that array current
+is primarily dependent on irradiance and that array voltage is primarily
+dependent on array temperature, which, in turn is dependent on irradiance,
+ambient temperature, and wind speed.
+</pre></div>
+</div>
+<p>The concept of modeling power by modeling current and voltage separately
+(other than IV-curve modeling, of course) is
+obvious in hindsight but had never occurred to me before… so let’s have some fun
+and try it out!</p>
+<p>Start with the fact that PV modules have known electrical characteristics at
+standard test conditions.  Assuming that module output power is only a function
+of POA irradiance (<span class="math notranslate nohighlight">\(G\)</span>) and cell temperature (<span class="math notranslate nohighlight">\(T\)</span>), that means we know
+the value of the 2-D functions
+<span class="math notranslate nohighlight">\(I(G, T)\)</span> and <span class="math notranslate nohighlight">\(V(G, T)\)</span> at one point:</p>
+<div class="math notranslate nohighlight">
+\[
+    I(G_{stc}, T_{stc}) = I_{stc}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+    V(G_{stc}, T_{stc}) = V_{stc}
+\]</div>
+<p>That’s nice, but operating conditions are often pretty different from STC.  Let’s
+take a first-order Taylor expansion as a starting approximation for points away from STC.
+Let’s define some new variables for convenience:</p>
+<div class="math notranslate nohighlight">
+\[
+    \gamma_I \equiv \frac{\partial I}{\partial T} \bigg\rvert_{(G_{stc}, T_{stc})}
+    \quad\quad\quad
+    \beta_I \equiv \frac{\partial I}{\partial G} \bigg\rvert_{(G_{stc}, T_{stc})}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+    \gamma_V \equiv \frac{\partial V}{\partial T} \bigg\rvert_{(G_{stc}, T_{stc})}
+    \quad\quad\quad
+    \beta_V \equiv \frac{\partial V}{\partial G} \bigg\rvert_{(G_{stc}, T_{stc})}
+\]</div>
+<p>So our Taylor expansions are:</p>
+<div class="math notranslate nohighlight">
+\[
+    I(G, T) \approx I_{stc} + \gamma_I (T - T_{stc}) + \beta_I (G - G_{stc})
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+    V(G, T) \approx V_{stc} + \gamma_V (T - T_{stc}) + \beta_V (G - G_{stc})
+\]</div>
+<p>First let’s take a look at current.  Experience tells us that PV current is only very
+slightly dependent on temperature, so let’s assume that <span class="math notranslate nohighlight">\(\gamma_I = 0\)</span>.  We also know
+that PV modules produce zero current at zero irradiance:</p>
+<div class="math notranslate nohighlight">
+\[
+    I(0, T) = 0 \rightarrow \beta_I = I_{stc} / G_{stc}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+    I(G, T) = I_{stc} + \frac{I_{stc}}{G_{stc}} (G - G_{stc})
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+    \boxed{I(G, T) = I_{stc} \frac{G}{G_{stc}}}
+\]</div>
+<p>Simple enough – what we’ve done is just a fancy way of saying “current is linear with
+irradiance and independent of temperature”, but a little formalism doesn’t hurt.</p>
+<p>Now for voltage.  In theory, PV voltage depends on temperature and irradiance
+<em>spectrum</em>, but not irradiance itself, so let’s assume <span class="math notranslate nohighlight">\(\beta_V = 0\)</span>.
+There’s no clever trick we can use to calculate <span class="math notranslate nohighlight">\(\gamma_V\)</span>, but we can
+define <span class="math notranslate nohighlight">\(\alpha_V \equiv \gamma_V / V_{stc}\)</span> to simplify our math.
+Instead of an absolute change like <span class="math notranslate nohighlight">\(\gamma_V\)</span> (V/C),
+<span class="math notranslate nohighlight">\(\alpha_V\)</span> is a percent change (%/C). <span class="math notranslate nohighlight">\(\alpha_V\)</span> is also usually what’s reported
+in datasheets.</p>
+<div class="math notranslate nohighlight">
+\[
+    \boxed{V(G, T) = V_{stc} [1 +  \alpha_V (T - T_{stc})]}
+\]</div>
+<p>Now let’s multiply them together! <span class="math notranslate nohighlight">\(P = IV\)</span>, after all:</p>
+<div class="math notranslate nohighlight">
+\[
+    P(G, T) = \left ( I_{stc} \frac{G}{G_{stc}} \right ) \left ( V_{stc} [1 +  \alpha_V (T - T_{stc})] \right )
+    = P_{stc} \frac{G}{G_{stc}} (1 +  \alpha_V [T - T_{stc}])
+\]</div>
+<p>This is starting to look familiar… except what’s that <span class="math notranslate nohighlight">\(\alpha_V\)</span> doing there?
+Quick, let’s try something out:</p>
+<div class="math notranslate nohighlight">
+\[
+    \gamma_P \equiv \frac{\partial P}{\partial T} \bigg\rvert_{(G_{stc}, T_{stc})}
+    = V_{stc} \frac{\partial I}{\partial T} + I_{stc} \frac{\partial V}{\partial T}
+    = V_{stc} \gamma_I + I_{stc} \gamma_V
+    = I_{stc} \gamma_V
+\]</div>
+<p>Here we are still assuming <span class="math notranslate nohighlight">\(\gamma_I = 0\)</span>.  Now, divide both sides by <span class="math notranslate nohighlight">\(P_{stc}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+    \alpha_P \equiv \frac{\gamma_P}{P_{stc}} 
+    = \frac{I_{stc} \gamma_V}{P_{stc}} 
+    = \frac{\gamma_V}{V_{stc}} 
+    = \alpha_V
+\]</div>
+<p>Ack!  It’s our old friend PVWatts <a class="footnote-reference brackets" href="#id7" id="id2">2</a>!</p>
+<div class="math notranslate nohighlight">
+\[
+    P(G, T) = P_{stc} \frac{G}{G_{stc}} (1 +  \alpha_P [T - T_{stc}])
+\]</div>
+<p>So the PVWatts equation is really just the first-order Taylor expansion around STC
+with a couple assumptions.  How fun!</p>
+<p>But let’s take it a step further – PVWatts isn’t the only PV model in town, and didn’t
+we start this whole ramble by talking about the PVUSA equation?  Let’s rearrange
+our friend PVWatts a bit:</p>
+<div class="math notranslate nohighlight">
+\[
+    P(G, T) = \frac{P_{stc}}{G_{stc}} G [(1 - \alpha_P T_{stc}) + \alpha_P T]
+\]</div>
+<p>And consolidating constants <span class="math notranslate nohighlight">\(b, c\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+    = G (b + c T)
+\]</div>
+<p>But hey, what is <span class="math notranslate nohighlight">\(T\)</span> anyway?  Nobody measures cell temperature, so let’s
+model it with something else.  Recall the quote from <a class="footnote-reference brackets" href="#id6" id="id3">1</a>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>array temperature... is dependent on irradiance, ambient temperature, and wind speed
+</pre></div>
+</div>
+<p>Fair enough!  Here’s a straightforward way to represent that dependence:</p>
+<div class="math notranslate nohighlight">
+\[
+    T(G, T_a, v) = d G + e T_a + f v
+\]</div>
+<p>So let’s plug that model into our consolidated equation, and consolidate again…
+Ack!  It’s our old friend the PVUSA equation!</p>
+<div class="math notranslate nohighlight">
+\[
+    P(G, T_a, v) = G (a_0 + a_1 G + a_2 T_a + a_3 v)
+\]</div>
+<p>So the PVUSA equation is really
+just PVWatts with a specific cell temperature formulation, how fun!  But now
+that we’re digging into it, isn’t <span class="math notranslate nohighlight">\(T = d G + e T_a + f v\)</span> kind of a weird
+temperature model?  In other models (e.g. Faiman <a class="footnote-reference brackets" href="#id8" id="id4">3</a> and Sandia <a class="footnote-reference brackets" href="#id9" id="id5">4</a>), wind
+speed and irradiance have some multiplicative relationship.  For instance at night
+when <span class="math notranslate nohighlight">\(G = 0\)</span>, wind drops out of both models and they predict <span class="math notranslate nohighlight">\(T = T_a\)</span>,
+but <span class="math notranslate nohighlight">\(T = d G + e T_a + f v\)</span> lets wind influence temperature separately from irradiance.
+Let’s try using the Faiman model instead!  For the forgetful reader, the Faiman model is:</p>
+<div class="math notranslate nohighlight">
+\[
+    T = T_a + \frac{G}{U_0 + U_1 v}
+\]</div>
+<p>And so our modified PVUSA equation becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+    P = G \left (a_0 + a_1 T_a + \frac{G}{a_2 + a_3 v} \right )
+\]</div>
+<p>I humbly suggest this equation be named the KSAUSA equation.  Maybe someday I’ll
+test this variant against the normal PVUSA equation, but to be honest when
+I’ve dug into PVUSA regression in the past, I’ve often found that the wind
+speed coefficient wasn’t statistically distinguishable from zero anyway…</p>
+<p>The broader question raised here is more interesting:  should ASTM E2848-13
+capacity testing adapt the PVUSA equation to use more detailed cell temperature
+models instead of the simple form it currently uses?</p>
+<p><em>Edit in 2021: I answered this question at the <a class="reference external" href="https://doi.org/10.1109/PVSC43889.2021.9519077">2021 PVSC</a>.</em></p>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>The PVWatts equation is just the first-order Taylor expansion of <span class="math notranslate nohighlight">\(P=IV\)</span>
+around STC with some terms assumed to be zero.</p></li>
+<li><p>The PVUSA equation is just the PVWatts equation combined with a particular
+form of cell temperature model.</p></li>
+<li><p>The PVUSA equation can be redefined to use other cell temperature formulations,
+which may be useful for ASTM capacity testing.</p></li>
+</ul>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="id6"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>)</span></dt>
+<dd><p>C. M. Whitaker et al., “Application and validation of a new PV performance
+characterization method,” Conference Record of the Twenty Sixth IEEE Photovoltaic
+Specialists Conference - 1997, Anaheim, CA, USA, 1997, pp. 1253-1256.</p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>A. P. Dobos, “PVWatts Version 5 Manual” http://pvwatts.nrel.gov/downloads/pvwattsv5.pdf (2014).</p>
+</dd>
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p>Faiman cell temperature model: https://pvpmc.sandia.gov/modeling-steps/2-dc-module-iv/module-temperature/faiman-module-temperature-model/</p>
+</dd>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id5">4</a></span></dt>
+<dd><p>Sandia cell temperature model: https://pvpmc.sandia.gov/modeling-steps/2-dc-module-iv/module-temperature/sandia-module-temperature-model/</p>
+</dd>
+</dl>
+</section>
+</section>
+
+<div class="section">
+    
+
+<div class="section">
+  <span style="float: left">
+    
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right">
+     
+    <a href="modeling-copper-loss-in-a-boost-converter.html">
+      Modeling copper losses in a boost converter <i
+        class="fa fa-arrow-circle-right"
+      ></i
+      >
+    </a>
+    
+  </span>
+</div>
+  
+</div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2015-2024, Kevin Anderson.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,579 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Basic SIMD in Julia &#8212; the kevbase</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.min.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+     
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  href="../blog/atom.xml"
+  title="kevbase"
+/>
+ 
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/favicon.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../publications.html">
+  Publications
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../blog.html">
+  Blog
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../report.html">
+  Climate Report
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" >
+</form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items">  
+<h2>
+   <i class="fa fa-calendar"></i>
+  2021-08-20 
+</h2>
+
+<ul>
+       
+<li id="tags">
+  <span
+    ><i
+      class="fa-fw fa fa-tag"
+    ></i
+    ></span
+  >
+   
+  <a href="../blog/tag/julia.html">julia</a>  
+</li>
+ 
+</ul>
+
+<h3>
+  <a href="../blog.html">Recent Posts</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="psm3-pixels-boundaries.html"
+      >04 September - PSM3 Pixel Boundaries</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-spa-benchmarks.html"
+      >21 August - OpenGL Compute Shaders: SPA</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-builtin-accuracy.html"
+      >13 August - OpenGL Compute Shaders: Accuracy of Math Functions</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-first-steps.html"
+      >30 July - OpenGL Compute Shaders: First Steps</a
+    >
+  </li>
+  
+  <li>
+    <a href="linalg-sparse-solve.html"
+      >09 April - Speeding up pvfactors</a
+    >
+  </li>
+  
+</ul>
+
+<h3>
+  <a href="../blog/archive.html">Archives</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="../blog/2022.html">2022 (5)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2021.html">2021 (10)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2020.html">2020 (3)</a>
+  </li>
+   
+</ul>
+
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                 <section class="tex2jax_ignore mathjax_ignore" id="basic-simd-in-julia">
+<h1>Basic SIMD in Julia<a class="headerlink" href="#basic-simd-in-julia" title="Permalink to this heading">¶</a></h1>
+<p>This post summarizes what I’ve learned from a few places on the web (mostly Wikipedia and <a class="reference external" href="https://discourse.julialang.org/t/loopvectorization-turbo-performs-worse-than-inbounds-on-trivial-loop/66884/2">this thread</a> on the Julia Discourse).  I am indebted to countless people in the open-source community and Chris Elrod’s posts in that thread are a stand-out example.</p>
+<p>SIMD (single instruction, multiple data) is a cool feature of modern CPUs that allows more than one value to be operated on in a single instruction.  This is sort of “closer to the metal” than traditional parallel processing techniques (multiprocessing, multithreading) in that the OS doesn’t have a role in making it happen – it’s just a special type of CPU instruction.  As a simple example, a CPU capable of 64-bit SIMD could load two 32-bit ints at once and apply some operation to both of them, instead of loading and operating on them one at a time.</p>
+<p>Apparently recent Intel CPUs are capable of <a class="reference external" href="https://en.wikipedia.org/wiki/AVX-512">512-bit SIMD</a>.  Mine is not so recent and supports a more limited form (256-bit, among other restrictions).  Check out this list of CPU flags, which includes a bunch of gibberish that is over my head (<a class="reference external" href="https://unix.stackexchange.com/a/43540/124733">here’s</a> a guide if you’re interested), but notice things like <code class="docutils literal notranslate"><span class="pre">sse</span></code>, <code class="docutils literal notranslate"><span class="pre">sse2</span></code>, and <code class="docutils literal notranslate"><span class="pre">avx</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">print</span><span class="p">(</span><span class="n">readchomp</span><span class="p">(</span><span class="n">pipeline</span><span class="p">(</span><span class="sb">`cat /proc/cpuinfo`</span><span class="p">,</span><span class="w"> </span><span class="sb">`grep flags`</span><span class="p">,</span><span class="w"> </span><span class="sb">`head -n 1`</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm cpuid_fault epb pti tpr_shadow vnmi flexpriority ept vpid fsgsbase smep erms xsaveopt dtherm ida arat pln pts
+</pre></div>
+</div>
+</div>
+</div>
+<p>AVX is the most capable of the three and allows 256-bit operations, so my CPU (Sandy-Bridge era i5) can operate on four double-precision floats at a time (4 doubles multiplied by 64 bits per double = 256 bits).</p>
+<p>Julia’s LoopVectorization package purports to make it trivial to enable SIMD on a naive loop using the hilariously-named <code class="docutils literal notranslate"><span class="pre">&#64;turbo</span></code> macro.  I don’t have any clue how it works under the hood.  But let’s see if it actually helps performance on some simple calculations, and in particular compare it with the <code class="docutils literal notranslate"><span class="pre">&#64;simd</span></code> macro included in base Julia.</p>
+<p>Benchmarking things accurately is tricky in any language.  In Julia a big gotcha is making sure you’re not including compilation time. The <code class="docutils literal notranslate"><span class="pre">BenchmarkTools</span></code> packages provides a fancy <code class="docutils literal notranslate"><span class="pre">&#64;btime</span></code> and <code class="docutils literal notranslate"><span class="pre">&#64;benchmark</span></code> macros to help with this.  I also want to see how the benchmarks change with array size, because look at this amazing chart in the <code class="docutils literal notranslate"><span class="pre">LoopVectorization</span></code> docs: <a class="reference external" href="https://juliasimd.github.io/LoopVectorization.jl/latest/examples/dot_product/">https://juliasimd.github.io/LoopVectorization.jl/latest/examples/dot_product/</a></p>
+<p>I’m curious what pattern my computer will show, if anything.  Maybe <code class="docutils literal notranslate"><span class="pre">BenchmarkTools</span></code> would iterate across input sizes for me if I actually read the docs for once, but what’s the harm in reinventing the wheel?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">LoopVectorization</span><span class="o">:</span><span class="w"> </span><span class="nd">@turbo</span>
+<span class="k">using</span><span class="w"> </span><span class="n">BenchmarkTools</span><span class="o">:</span><span class="w"> </span><span class="nd">@benchmark</span>
+<span class="k">using</span><span class="w"> </span><span class="n">CairoMakie</span><span class="o">:</span><span class="w"> </span><span class="n">Figure</span><span class="p">,</span><span class="w"> </span><span class="n">Axis</span><span class="p">,</span><span class="w"> </span><span class="n">Legend</span><span class="p">,</span><span class="w"> </span><span class="n">lines!</span>
+<span class="k">using</span><span class="w"> </span><span class="n">Statistics</span><span class="o">:</span><span class="w"> </span><span class="n">median</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As Chris pointed out in the thread linked above, Julia’s logic for detecting good functions to automatically inline does not give the weight to otherwise simple functions that use <code class="docutils literal notranslate"><span class="pre">&#64;turbo</span></code>.  So to make the comparison fair (i.e. prevent some, but not all, functions from benefiting from inlining), we’ll manually <code class="docutils literal notranslate"><span class="pre">&#64;inline</span></code> everything.  Otherwise the <code class="docutils literal notranslate"><span class="pre">&#64;turbo</span></code> variant would lag behind the other accelerated variants.</p>
+<p>The first experiment tests the performance of a simple element-wise multiplication function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c"># an uninspired first test -- element-wise multiplication</span>
+<span class="nd">@inline</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">vmul!</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">eachindex</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="w">        </span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c"># same as above, but using @turbo</span>
+<span class="nd">@inline</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">vmul_turbo!</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
+<span class="w">    </span><span class="nd">@turbo</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">eachindex</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="w">        </span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c"># same, but with @inbounds for comparison</span>
+<span class="nd">@inline</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">vmul_inbounds!</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
+<span class="w">    </span><span class="nd">@inbounds</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">eachindex</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="w">        </span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c"># same, but with @inbounds and @simd for comparison</span>
+<span class="nd">@inline</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">vmul_inbounds_simd!</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
+<span class="w">    </span><span class="nd">@inbounds</span><span class="w"> </span><span class="nd">@simd</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">eachindex</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="w">        </span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c"># to show function call penalty</span>
+<span class="nd">@noinline</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">vmul_turbo_noinline!</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
+<span class="w">    </span><span class="nd">@turbo</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">eachindex</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="w">        </span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>vmul_turbo_noinline! (generic function with 1 method)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, a simple helper function to iterate over array sizes and accumulate timings.  We choose the minimum as the summary statistic following this paper:</p>
+<blockquote>
+<div><p>Chen, Jiahao and Jarrett Revels. “Robust benchmarking in noisy environments.” ArXiv abs/1608.04295 (2016).</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="n">get_times</span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
+<span class="w">    </span><span class="n">times</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">Float64</span><span class="p">[]</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">N</span>
+<span class="w">        </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="w">        </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="w">        </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">similar</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="w">        </span><span class="n">bench</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nd">@benchmark</span><span class="w"> </span><span class="o">$</span><span class="n">func</span><span class="p">(</span><span class="o">$</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="o">$</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="o">$</span><span class="n">c</span><span class="p">)</span>
+<span class="w">        </span><span class="n">push!</span><span class="p">(</span><span class="n">times</span><span class="p">,</span><span class="w"> </span><span class="n">minimum</span><span class="p">(</span><span class="n">bench</span><span class="o">.</span><span class="n">times</span><span class="p">))</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">times</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>get_times (generic function with 1 method)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">128</span><span class="p">,</span><span class="w"> </span><span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">times1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_times</span><span class="p">(</span><span class="n">vmul!</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
+<span class="n">times2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_times</span><span class="p">(</span><span class="n">vmul_turbo!</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
+<span class="n">times3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_times</span><span class="p">(</span><span class="n">vmul_inbounds!</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
+<span class="n">times4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_times</span><span class="p">(</span><span class="n">vmul_inbounds_simd!</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
+<span class="n">times5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_times</span><span class="p">(</span><span class="n">vmul_turbo_noinline!</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Figure</span><span class="p">(</span><span class="n">resolution</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">500</span><span class="p">))</span>
+<span class="n">ax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Axis</span><span class="p">(</span><span class="n">fig</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">xlabel</span><span class="o">=</span><span class="s">&quot;N&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylabel</span><span class="o">=</span><span class="s">&quot;GFLOPS&quot;</span><span class="p">)</span>
+
+<span class="n">l1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lines!</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">./</span><span class="w"> </span><span class="n">times1</span><span class="p">)</span>
+<span class="n">l2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lines!</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">./</span><span class="w"> </span><span class="n">times2</span><span class="p">)</span>
+<span class="n">l3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lines!</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">./</span><span class="w"> </span><span class="n">times3</span><span class="p">)</span>
+<span class="n">l4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lines!</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">./</span><span class="w"> </span><span class="n">times4</span><span class="p">)</span>
+<span class="n">l5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lines!</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">./</span><span class="w"> </span><span class="n">times5</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Legend</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">l1</span><span class="p">,</span><span class="w"> </span><span class="n">l2</span><span class="p">,</span><span class="w"> </span><span class="n">l3</span><span class="p">,</span><span class="w"> </span><span class="n">l4</span><span class="p">,</span><span class="w"> </span><span class="n">l5</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;Baseline&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;@turbo&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;@inbounds&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;@inbounds @simd&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;@turbo @noinline&quot;</span><span class="p">])</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c42fe558f22a780c26ac5081fd145900f04c45eb36e62a7875a3a6a66c5d1d89.png" src="../_images/c42fe558f22a780c26ac5081fd145900f04c45eb36e62a7875a3a6a66c5d1d89.png" />
+</div>
+</div>
+<p>Notice a few things here:</p>
+<ol class="arabic simple">
+<li><p>There’s no real performance difference between <code class="docutils literal notranslate"><span class="pre">&#64;inbounds</span></code> and <code class="docutils literal notranslate"><span class="pre">&#64;inbounds</span> <span class="pre">&#64;simd</span></code>. This (as Chris pointed out) is because Julia automatically detects cases where floating point associativity issues don’t prevent automatic reordering of operations and applies <code class="docutils literal notranslate"><span class="pre">&#64;simd</span></code> automatically.  Order doesn’t matter (in a floating point sense) for element-wise multiplication, so Julia automatically applies <code class="docutils literal notranslate"><span class="pre">&#64;simd</span></code> without us asking it to.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;turbo</span></code> offers more consistent performance, partially avoiding the rough sawtooth profile shown by <code class="docutils literal notranslate"><span class="pre">&#64;simd</span></code>.  This has to do with doing a better job of optimizing the remainder of an array after all the complete SIMD-able chunks are processed.  The LoopVectorization docs go into detail here.  Chris tells me that LoopVectorization can’t do as good a job on handling the remainder on this older CPU, and so the performance for <span class="math notranslate nohighlight">\(N \bmod 16 \neq 0\)</span> is worse than it would be on a newer CPU.</p></li>
+</ol>
+<p>So let’s try something where order <em>does</em> matter in a floating point sense.  The LoopVectorization docs use the dot product, so let’s do the same:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c"># something that can&#39;t be freely reassociated -- the dot product</span>
+<span class="nd">@inline</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">dot_product</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="w">    </span><span class="n">dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zero</span><span class="p">(</span><span class="n">eltype</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">eachindex</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="w">        </span><span class="n">dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dp</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">dp</span>
+<span class="k">end</span>
+
+<span class="nd">@inline</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">dot_product_turbo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="w">    </span><span class="n">dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zero</span><span class="p">(</span><span class="n">eltype</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="w">    </span><span class="nd">@turbo</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">eachindex</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="w">        </span><span class="n">dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dp</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">dp</span>
+<span class="k">end</span>
+
+<span class="nd">@inline</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">dot_product_inbounds</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="w">    </span><span class="n">dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zero</span><span class="p">(</span><span class="n">eltype</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="w">    </span><span class="nd">@inbounds</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">eachindex</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="w">        </span><span class="n">dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dp</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">dp</span>
+<span class="k">end</span>
+
+<span class="nd">@inline</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">dot_product_inbounds_simd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="w">    </span><span class="n">dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zero</span><span class="p">(</span><span class="n">eltype</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="w">    </span><span class="nd">@inbounds</span><span class="w"> </span><span class="nd">@simd</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">eachindex</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="w">        </span><span class="n">dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dp</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">dp</span>
+<span class="k">end</span>
+
+<span class="nd">@noinline</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">dot_product_turbo_noinline</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="w">    </span><span class="n">dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zero</span><span class="p">(</span><span class="n">eltype</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="w">    </span><span class="nd">@turbo</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">eachindex</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="w">        </span><span class="n">dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dp</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">dp</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dot_product_turbo_noinline (generic function with 1 method)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="n">get_times_dot_product</span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
+<span class="w">    </span><span class="n">times</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">Float64</span><span class="p">[]</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">N</span>
+<span class="w">        </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="w">        </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="w">        </span><span class="n">bench</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nd">@benchmark</span><span class="w"> </span><span class="o">$</span><span class="n">func</span><span class="p">(</span><span class="o">$</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="o">$</span><span class="n">b</span><span class="p">)</span>
+<span class="w">        </span><span class="n">push!</span><span class="p">(</span><span class="n">times</span><span class="p">,</span><span class="w"> </span><span class="n">minimum</span><span class="p">(</span><span class="n">bench</span><span class="o">.</span><span class="n">times</span><span class="p">))</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">times</span>
+<span class="k">end</span>
+
+<span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">128</span><span class="p">,</span><span class="w"> </span><span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">times1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_times_dot_product</span><span class="p">(</span><span class="n">dot_product</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
+<span class="n">times2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_times_dot_product</span><span class="p">(</span><span class="n">dot_product_turbo</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
+<span class="n">times3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_times_dot_product</span><span class="p">(</span><span class="n">dot_product_inbounds</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
+<span class="n">times4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_times_dot_product</span><span class="p">(</span><span class="n">dot_product_inbounds_simd</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
+<span class="n">times5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_times_dot_product</span><span class="p">(</span><span class="n">dot_product_turbo_noinline</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Figure</span><span class="p">(</span><span class="n">resolution</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">500</span><span class="p">))</span>
+<span class="n">ax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Axis</span><span class="p">(</span><span class="n">fig</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">xlabel</span><span class="o">=</span><span class="s">&quot;N&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylabel</span><span class="o">=</span><span class="s">&quot;GFLOPS&quot;</span><span class="p">)</span>
+
+<span class="n">l1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lines!</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">./</span><span class="w"> </span><span class="n">times1</span><span class="p">)</span>
+<span class="n">l2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lines!</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">./</span><span class="w"> </span><span class="n">times2</span><span class="p">)</span>
+<span class="n">l3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lines!</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">./</span><span class="w"> </span><span class="n">times3</span><span class="p">)</span>
+<span class="n">l4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lines!</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">./</span><span class="w"> </span><span class="n">times4</span><span class="p">)</span>
+<span class="n">l5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lines!</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">./</span><span class="w"> </span><span class="n">times5</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Legend</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">l1</span><span class="p">,</span><span class="w"> </span><span class="n">l2</span><span class="p">,</span><span class="w"> </span><span class="n">l3</span><span class="p">,</span><span class="w"> </span><span class="n">l4</span><span class="p">,</span><span class="w"> </span><span class="n">l5</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;Baseline&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;@turbo&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;@inbounds&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;@inbounds @simd&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;@turbo @noinline&quot;</span><span class="p">])</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/3e6130d8f405632290dbecf6dd26aba01bcd4ce477278b9063207d9882e5cbad.png" src="../_images/3e6130d8f405632290dbecf6dd26aba01bcd4ce477278b9063207d9882e5cbad.png" />
+</div>
+</div>
+<p>Notice a few things:</p>
+<ol class="arabic simple">
+<li><p>As expected, Julia no longer automatically applies <code class="docutils literal notranslate"><span class="pre">&#64;simd</span></code> to the <code class="docutils literal notranslate"><span class="pre">&#64;inbounds</span></code> variant</p></li>
+<li><p>The sawtooth is more dramatic for <code class="docutils literal notranslate"><span class="pre">&#64;inbounds</span> <span class="pre">&#64;simd</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;turbo</span></code> only beats <code class="docutils literal notranslate"><span class="pre">&#64;simd</span></code> about half the time, for this task on on this CPU</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;turbo</span></code> has an interesting performance spike for <span class="math notranslate nohighlight">\(N \bmod 8 = 0\)</span></p></li>
+<li><p>Performance is <em>terrible</em> if some form of SIMD is not applied</p></li>
+</ol>
+</section>
+
+<div class="section">
+    
+
+<div class="section">
+  <span style="float: left">
+     
+    <a href="daily-eia-data.html">
+      <i class="fa fa-arrow-circle-left"></i> Daily EIA Data
+    </a>
+    
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right">
+     
+    <a href="seasonal-tilt-optimization.html">
+      Seasonal tilt optimization <i
+        class="fa fa-arrow-circle-right"
+      ></i
+      >
+    </a>
+    
+  </span>
+</div>
+  
+</div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2015-2024, Kevin Anderson.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

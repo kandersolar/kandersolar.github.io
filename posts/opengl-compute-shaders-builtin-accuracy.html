@@ -1,0 +1,687 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>OpenGL Compute Shaders: Accuracy of Math Functions &#8212; the kevbase</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.min.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+     
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  href="../blog/atom.xml"
+  title="kevbase"
+/>
+ 
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/favicon.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../publications.html">
+  Publications
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../blog.html">
+  Blog
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../report.html">
+  Climate Report
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" >
+</form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items">  
+<h2>
+   <i class="fa fa-calendar"></i>
+  2022-08-13 
+</h2>
+
+<ul>
+       
+<li id="tags">
+  <span
+    ><i class="fa-fw fa fa-tags"></i> </span
+  >
+   
+  <a href="../blog/tag/gpgpu.html">gpgpu</a>   
+  <a href="../blog/tag/python.html">python</a>  
+</li>
+ 
+</ul>
+
+<h3>
+  <a href="../blog.html">Recent Posts</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="psm3-pixels-boundaries.html"
+      >04 September - PSM3 Pixel Boundaries</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-spa-benchmarks.html"
+      >21 August - OpenGL Compute Shaders: SPA</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-first-steps.html"
+      >30 July - OpenGL Compute Shaders: First Steps</a
+    >
+  </li>
+  
+  <li>
+    <a href="linalg-sparse-solve.html"
+      >09 April - Speeding up pvfactors</a
+    >
+  </li>
+  
+  <li>
+    <a href="ground-sky-vf.html"
+      >29 December - Ground-to-sky viewfactor</a
+    >
+  </li>
+  
+</ul>
+
+<h3>
+  <a href="../blog/archive.html">Archives</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="../blog/2022.html">2022 (5)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2021.html">2021 (10)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2020.html">2020 (3)</a>
+  </li>
+   
+</ul>
+
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                 <section class="tex2jax_ignore mathjax_ignore" id="opengl-compute-shaders-accuracy-of-math-functions">
+<h1>OpenGL Compute Shaders: Accuracy of Math Functions<a class="headerlink" href="#opengl-compute-shaders-accuracy-of-math-functions" title="Permalink to this heading">¶</a></h1>
+<p>This notebook is the second in a series of notebooks about general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders.  In working towards a GPU-based implementation of the venerable Solar Position Algorithm (<a class="reference external" href="https://doi.org/10.1016/j.solener.2003.12.003">Reda &amp; Andreas 2004</a>) I found that the <code class="docutils literal notranslate"><span class="pre">asin</span></code> provided by GLSL is not as accurate as I had expected, even considering the reduced precision of 32-bit floats.  This notebook examines the (in)accuracy of this GPU’s GLSL implementations of some basic functions useful for scientific programming.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">moderngl</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>I use the handy helper function from my “first steps” notebook here as well.  This encapsulates (1) the boilerplate necessary to shuttle data to and from the GPU and (2) the initialization code on the GPU side needed prior to performing the actual computation of interest.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">context</span> <span class="o">=</span> <span class="n">moderngl</span><span class="o">.</span><span class="n">create_standalone_context</span><span class="p">(</span><span class="n">require</span><span class="o">=</span><span class="mi">430</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">groupsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+
+    <span class="n">SHADER_SOURCE</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    #version 430</span>
+
+<span class="s2">    #define GROUPSIZE </span><span class="si">%%</span><span class="s2">N</span><span class="si">%%</span>
+
+<span class="s2">    layout(local_size_x=GROUPSIZE, local_size_y=1, local_size_z=1) in;</span>
+
+<span class="s2">    layout (std430, binding=0) buffer in_0</span>
+<span class="s2">    {</span>
+<span class="s2">        float inputs[1];</span>
+<span class="s2">    };</span>
+<span class="s2">    </span>
+<span class="s2">    layout (std430, binding=1) buffer out_0</span>
+<span class="s2">    {</span>
+<span class="s2">        float outputs[1];</span>
+<span class="s2">    };</span>
+<span class="s2">    </span>
+<span class="s2">    void main()</span>
+<span class="s2">    {</span>
+<span class="s2">        const int local_id = int(gl_LocalInvocationID.x);</span>
+<span class="s2">        const int group_id = int(gl_WorkGroupID.x);</span>
+<span class="s2">        const int i = group_id * GROUPSIZE + local_id;</span>
+<span class="s2">        </span><span class="si">%%</span><span class="s2">JOB</span><span class="si">%%</span>
+<span class="s2">    }</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%%</span><span class="s2">N</span><span class="si">%%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">),</span> <span class="n">groupsize</span><span class="p">)))</span>
+    <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%%</span><span class="s2">JOB</span><span class="si">%%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">job</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">compute_shader</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">compute_shader</span><span class="p">(</span><span class="n">SHADER_SOURCE</span><span class="p">)</span>
+    
+    <span class="n">buffer_inputs</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">buffer_outputs</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">reserve</span><span class="o">=</span><span class="n">inputs</span><span class="o">.</span><span class="n">nbytes</span><span class="p">)</span>
+
+    <span class="n">buffer_inputs</span><span class="o">.</span><span class="n">bind_to_storage_buffer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">buffer_outputs</span><span class="o">.</span><span class="n">bind_to_storage_buffer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">n_group</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">groupsize</span>
+    <span class="n">compute_shader</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">group_x</span><span class="o">=</span><span class="n">n_group</span><span class="p">)</span>
+    
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">buffer_outputs</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">outputs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here I am using numpy’s implementations as the ground truth, using standard 64-bit floats on the numpy side.  My goal here is not to have a perfect apples to apples comparison of outputs given identical inputs, but rather to get a sense for the all-in differences between “normal” (64-bit) computations running on the CPU and the 32-bit GPU-based computations I’m doing.  So the differences here are presumably some combination of the differences in precision, function implementation, and other factors like whatever SIMD is active here (not sure there is any on this AMD CPU).</p>
+<p>So let’s calculate some differences!  Some functions have a clear domain of maximum relevance; for the others I chose a reasonable but arbitrary domain.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compare</span><span class="p">(</span><span class="n">np_func</span><span class="p">,</span> <span class="n">glsl_func</span><span class="p">,</span> <span class="n">xlo</span><span class="p">,</span> <span class="n">xhi</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlo</span> <span class="o">+</span> <span class="mf">1e-5</span><span class="p">,</span> <span class="n">xhi</span> <span class="o">-</span> <span class="mf">1e-5</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+    <span class="n">cpu64</span> <span class="o">=</span> <span class="n">np_func</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">cpu32</span> <span class="o">=</span> <span class="n">np_func</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;f4&#39;</span><span class="p">))</span>
+    <span class="n">gpu</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;outputs[i] = </span><span class="si">{</span><span class="n">glsl_func</span><span class="si">}</span><span class="s1">(inputs[i]);&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;f4&#39;</span><span class="p">))</span>
+    <span class="n">gpu_diff</span> <span class="o">=</span> <span class="n">gpu</span> <span class="o">/</span> <span class="n">cpu64</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">prec_diff</span> <span class="o">=</span> <span class="n">cpu32</span> <span class="o">/</span> <span class="n">cpu64</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">gpu_diff</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">prec_diff</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">glsl_func</span><span class="si">}</span><span class="s1">(x)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">1.2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">gpu_diff</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">),</span> <span class="mf">1.2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">gpu_diff</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">gpu_diff</span>
+
+
+<span class="n">combos</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">,</span> <span class="s1">&#39;sin&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">,</span> <span class="s1">&#39;asin&#39;</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">,</span> <span class="s1">&#39;cos&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">,</span> <span class="s1">&#39;acos&#39;</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">,</span> <span class="s1">&#39;tan&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">,</span> <span class="s1">&#39;atan&#39;</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">,</span> <span class="s1">&#39;exp&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">combos</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">combos</span><span class="p">)),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">125</span><span class="p">)</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">forward_func</span><span class="p">,</span> <span class="n">glsl_forward_func</span><span class="p">,</span> <span class="n">backward_func</span><span class="p">,</span> <span class="n">glsl_backward_func</span><span class="p">,</span> <span class="n">xflo</span><span class="p">,</span> <span class="n">xfhi</span><span class="p">,</span> <span class="n">xblo</span><span class="p">,</span> <span class="n">xbhi</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">combos</span><span class="p">):</span>
+    <span class="n">forward_diff</span> <span class="o">=</span> <span class="n">compare</span><span class="p">(</span><span class="n">forward_func</span><span class="p">,</span> <span class="n">glsl_forward_func</span><span class="p">,</span> <span class="n">xflo</span><span class="p">,</span> <span class="n">xfhi</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">backward_diff</span> <span class="o">=</span> <span class="n">compare</span><span class="p">(</span><span class="n">backward_func</span><span class="p">,</span> <span class="n">glsl_backward_func</span><span class="p">,</span> <span class="n">xblo</span><span class="p">,</span> <span class="n">xbhi</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Relative Difference&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="n">glsl_forward_func</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">forward_diff</span><span class="p">)</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">glsl_backward_func</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">backward_diff</span><span class="p">)</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/8688fb675c6770dcdbfb999a5f5c7f46731df127bdbb39cd1b06238824070889.png" src="../_images/8688fb675c6770dcdbfb999a5f5c7f46731df127bdbb39cd1b06238824070889.png" />
+</div>
+</div>
+<p>Here, blue is the difference between GPU and 64-bit CPU results and transparent orange is the difference between 32- and 64-bit CPU results for comparison.</p>
+<p>Since we’re dealing with (signed) 32-bit floats with 23 significand bits, we can only expect 7-ish decimal digits of accuracy at best, which is about what we see for several functions here.  In fact, the GPU errors for the majority of functions are mainly explained by just the precision difference, suggesting the underlying implementation is pretty good.
+However, some of them are way less accurate – the GLSL <span class="math notranslate nohighlight">\(\arccos\)</span> and <span class="math notranslate nohighlight">\(\arcsin\)</span> implementations have relative errors way out at ~<span class="math notranslate nohighlight">\(\pm 10^{-4}\)</span>!  I wonder why those are so large compared with the others.  <span class="math notranslate nohighlight">\(\arctan\)</span> at least gets a shout out for beating <span class="math notranslate nohighlight">\(\arcsin\)</span> and <span class="math notranslate nohighlight">\(\arccos\)</span> by 1–2 orders of magnitude, but it’s still quite bad…</p>
+<p>The forward trig functions have some pathological cases where they approach zero or (in the case of <span class="math notranslate nohighlight">\(\tan\)</span> and <span class="math notranslate nohighlight">\(\log\)</span>) diverge.  Remember that these are relative (not absolute) differences.</p>
+<p>Here are some summary statistics in tabular form, for reference:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.precision&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sin</th>
+      <th>asin</th>
+      <th>cos</th>
+      <th>acos</th>
+      <th>tan</th>
+      <th>atan</th>
+      <th>exp</th>
+      <th>log</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.00e+00</th>
+      <td>-8.34e-06</td>
+      <td>-4.06e-04</td>
+      <td>-9.03e-05</td>
+      <td>-2.34e-04</td>
+      <td>-1.45e-04</td>
+      <td>-2.08e-05</td>
+      <td>-4.39e-07</td>
+      <td>-2.21e-04</td>
+    </tr>
+    <tr>
+      <th>1.00e-03</th>
+      <td>-9.48e-07</td>
+      <td>-4.05e-04</td>
+      <td>-4.68e-05</td>
+      <td>-2.21e-04</td>
+      <td>-2.90e-05</td>
+      <td>-2.07e-05</td>
+      <td>-4.13e-07</td>
+      <td>-3.97e-06</td>
+    </tr>
+    <tr>
+      <th>9.99e-01</th>
+      <td>5.78e-05</td>
+      <td>3.26e-04</td>
+      <td>2.89e-05</td>
+      <td>1.07e-04</td>
+      <td>8.80e-05</td>
+      <td>4.76e-06</td>
+      <td>3.95e-07</td>
+      <td>4.43e-06</td>
+    </tr>
+    <tr>
+      <th>1.00e+00</th>
+      <td>1.12e-02</td>
+      <td>3.26e-04</td>
+      <td>1.45e-04</td>
+      <td>4.52e-04</td>
+      <td>1.12e-02</td>
+      <td>4.81e-06</td>
+      <td>4.55e-07</td>
+      <td>3.61e-05</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>I don’t have much use for the hyperbolic trig functions, but might as well try them out too:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combos</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">,</span> <span class="s1">&#39;sinh&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsinh</span><span class="p">,</span> <span class="s1">&#39;asinh&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">,</span> <span class="s1">&#39;cosh&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arccosh</span><span class="p">,</span> <span class="s1">&#39;acosh&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">,</span> <span class="s1">&#39;tanh&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arctanh</span><span class="p">,</span> <span class="s1">&#39;atanh&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">combos</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">combos</span><span class="p">)),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">125</span><span class="p">)</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">forward_func</span><span class="p">,</span> <span class="n">glsl_forward_func</span><span class="p">,</span> <span class="n">backward_func</span><span class="p">,</span> <span class="n">glsl_backward_func</span><span class="p">,</span> <span class="n">xflo</span><span class="p">,</span> <span class="n">xfhi</span><span class="p">,</span> <span class="n">xblo</span><span class="p">,</span> <span class="n">xbhi</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">combos</span><span class="p">):</span>
+    <span class="n">forward_diff</span> <span class="o">=</span> <span class="n">compare</span><span class="p">(</span><span class="n">forward_func</span><span class="p">,</span> <span class="n">glsl_forward_func</span><span class="p">,</span> <span class="n">xflo</span><span class="p">,</span> <span class="n">xfhi</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">backward_diff</span> <span class="o">=</span> <span class="n">compare</span><span class="p">(</span><span class="n">backward_func</span><span class="p">,</span> <span class="n">glsl_backward_func</span><span class="p">,</span> <span class="n">xblo</span><span class="p">,</span> <span class="n">xbhi</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Relative Difference&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="n">glsl_forward_func</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">forward_diff</span><span class="p">)</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">glsl_backward_func</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">backward_diff</span><span class="p">)</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/9e4d64c5b42fe9a1e6f3604b5549f2754e60b701a34c4aa5ddc59d005d8003a0.png" src="../_images/9e4d64c5b42fe9a1e6f3604b5549f2754e60b701a34c4aa5ddc59d005d8003a0.png" />
+</div>
+</div>
+<p>For a lark, let’s try to make an improved <span class="math notranslate nohighlight">\(\arcsin\)</span> implementation.  This GPU’s implementation of <code class="docutils literal notranslate"><span class="pre">atan</span></code>, although having larger error than I’d like, is still better than its <code class="docutils literal notranslate"><span class="pre">asin</span></code>, and Wikipedia <a class="reference external" href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions#Relationships_among_the_inverse_trigonometric_functions">claims</a> that you can calculate <span class="math notranslate nohighlight">\(\arcsin\)</span> using <span class="math notranslate nohighlight">\(\arctan\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\arcsin(x) = \arctan \left( \frac{x}{\sqrt{1-x^2}} \right)
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="mf">1e-5</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">glsl_asin</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="s1">&#39;outputs[i] = asin(inputs[i]);&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;f4&#39;</span><span class="p">))</span>
+<span class="n">identity_asin</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="s1">&#39;outputs[i] = atan(inputs[i], sqrt(1-pow(inputs[i], 2)));&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;f4&#39;</span><span class="p">))</span>
+<span class="n">numpy_64_asin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">numpy_32_asin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;f4&#39;</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">125</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">glsl_asin</span><span class="o">/</span><span class="n">numpy_64_asin</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">numpy_32_asin</span><span class="o">/</span><span class="n">numpy_64_asin</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;glsl&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Relative Difference&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">identity_asin</span><span class="o">/</span><span class="n">numpy_64_asin</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">numpy_32_asin</span><span class="o">/</span><span class="n">numpy_64_asin</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;identity&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\arcsin$ comparison&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/558a43a26edac74d614a266c58e6bfe7e86f7f09a5f8e01323c6ae898bc45508.png" src="../_images/558a43a26edac74d614a266c58e6bfe7e86f7f09a5f8e01323c6ae898bc45508.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;glsl&#39;</span><span class="p">:</span> <span class="n">glsl_asin</span><span class="o">/</span><span class="n">numpy_64_asin</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">&#39;identity&#39;</span><span class="p">:</span> <span class="n">identity_asin</span><span class="o">/</span><span class="n">numpy_64_asin</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">&#39;precision&#39;</span><span class="p">:</span> <span class="n">numpy_32_asin</span><span class="o">/</span><span class="n">numpy_64_asin</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">})</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>glsl</th>
+      <th>identity</th>
+      <th>precision</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.00e+00</th>
+      <td>-4.06e-04</td>
+      <td>-2.07e-05</td>
+      <td>-1.95e-06</td>
+    </tr>
+    <tr>
+      <th>1.00e-03</th>
+      <td>-4.06e-04</td>
+      <td>-2.07e-05</td>
+      <td>-1.95e-06</td>
+    </tr>
+    <tr>
+      <th>9.99e-01</th>
+      <td>3.26e-04</td>
+      <td>4.82e-06</td>
+      <td>2.88e-07</td>
+    </tr>
+    <tr>
+      <th>1.00e+00</th>
+      <td>3.26e-04</td>
+      <td>4.82e-06</td>
+      <td>2.88e-07</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>So this replacement is indeed much better!  Although there is still some room for improvement, because as we saw earlier, the <code class="docutils literal notranslate"><span class="pre">atan</span></code> implementation it’s based on is flawed.  Potential alternatives with even lower error: CORDIC, Maclaurin series, Chebyshev polynomials, lookup tables…</p>
+<p>Finally, the GPU info:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>python<span class="w"> </span>-m<span class="w"> </span>moderngl
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>moderngl 5.6.4
+--------------
+vendor: AMD
+renderer: AMD RENOIR (LLVM 13.0.1, DRM 3.46, 5.18.10-76051810-generic)
+version: 4.6 (Core Profile) Mesa 22.0.1
+python: 3.8.13 (default, Mar 28 2022, 11:38:47) 
+[GCC 7.5.0]
+platform: linux
+code: 460
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="section">
+    
+
+<div class="section">
+  <span style="float: left">
+     
+    <a href="opengl-compute-shaders-first-steps.html">
+      <i class="fa fa-arrow-circle-left"></i> OpenGL Compute Shaders: First Steps
+    </a>
+    
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right">
+     
+    <a href="opengl-compute-shaders-spa-benchmarks.html">
+      OpenGL Compute Shaders: SPA <i
+        class="fa fa-arrow-circle-right"
+      ></i
+      >
+    </a>
+    
+  </span>
+</div>
+  
+</div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2015-2024, Kevin Anderson.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

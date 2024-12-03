@@ -1,0 +1,812 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Climate Report &#8212; the kevbase</title>
+    
+    <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.min.css" />
+    
+    <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Blog" href="blog.html" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+     
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  href="blog/atom.xml"
+  title="kevbase"
+/>
+ 
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="index.html">
+  <img src="_static/favicon.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="index.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="publications.html">
+  Publications
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="blog.html">
+  Blog
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="current reference internal nav-link" href="#">
+  Climate Report
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" >
+</form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#eia-monthly-electric-power-sector">
+   EIA Monthly: Electric Power Sector
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                 <section class="tex2jax_ignore mathjax_ignore" id="climate-report">
+<h1>Climate Report<a class="headerlink" href="#climate-report" title="Permalink to this heading">¶</a></h1>
+<p>Additional time series data about climate change come in all the time.
+Here are some plots that I like to track.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>I think that what is essential for this problem is a global consciousness,
+a view that transcends our exclusive identifications with the generational
+and political groupings into which by accident we have been born.
+
+The solution to these problems requires a perspective that embraces the
+planet and the future, because we are all in this greenhouse together. 
+
+Carl Sagan, https://youtu.be/Wp-WiNXH6hI?t=985
+</pre></div>
+</div>
+<section id="eia-monthly-electric-power-sector">
+<h2>EIA Monthly: Electric Power Sector<a class="headerlink" href="#eia-monthly-electric-power-sector" title="Permalink to this heading">¶</a></h2>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://www.eia.gov/totalenergy/data/browser/csv.php?tbl=T07.02B&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Generation Total&#39;</span><span class="p">)]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;YYYYMM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;13&#39;</span><span class="p">)]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Electricity Net Generation From &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;YYYYMM&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y%m&#39;</span><span class="p">)</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;Value&#39;</span><span class="p">)</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Conventional Hydroelectric Power&#39;</span><span class="p">:</span> <span class="s1">&#39;Hydroelectric&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;Nuclear Electric Power&#39;</span><span class="p">:</span> <span class="s1">&#39;Nuclear&#39;</span><span class="p">})</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Not Available&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Not Meaningful&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">df2</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">5000</span><span class="p">]</span>  <span class="c1"># only keep the main players</span>
+
+<span class="n">fractions</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df2</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">lower</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;tab10&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Million kWh&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;tab10&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/4308e3febcc9333f6564cb292dda78739ebc37039b95051cc21f3671f63025b2.png" src="_images/4308e3febcc9333f6564cb292dda78739ebc37039b95051cc21f3671f63025b2.png" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Utility-Scale Solar Monthly Generation&#39;</span><span class="p">)</span>
+
+<span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Solar&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2009&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Million kWh&#39;</span><span class="p">)</span>
+
+<span class="n">fractions</span><span class="p">[</span><span class="s1">&#39;Solar&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2009&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">moving_average</span> <span class="o">=</span> <span class="n">fractions</span><span class="p">[</span><span class="s1">&#39;Solar&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">moving_average</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2009&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Fraction of total [%]&#39;</span><span class="p">)</span>
+
+<span class="n">yoy_change</span> <span class="o">=</span> <span class="n">moving_average</span> <span class="o">-</span> <span class="n">moving_average</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">yoy_change</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2009&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Year-on-year change [</span><span class="si">% o</span><span class="s1">f total]&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="s1">&#39;2017-02-01&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/8b7ced885ebcd5151248b75a7ff5fc7d7742fbfd6ee36e4aa6b86cf285614347.png" src="_images/8b7ced885ebcd5151248b75a7ff5fc7d7742fbfd6ee36e4aa6b86cf285614347.png" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Utility-Scale Wind Monthly Generation&#39;</span><span class="p">)</span>
+
+<span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Wind&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2000&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Million kWh&#39;</span><span class="p">)</span>
+
+<span class="n">fractions</span><span class="p">[</span><span class="s1">&#39;Wind&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2000&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">moving_average</span> <span class="o">=</span> <span class="n">fractions</span><span class="p">[</span><span class="s1">&#39;Wind&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">moving_average</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2000&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Fraction of total [%]&#39;</span><span class="p">)</span>
+
+<span class="n">yoy_change</span> <span class="o">=</span> <span class="n">moving_average</span> <span class="o">-</span> <span class="n">moving_average</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">yoy_change</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2000&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Year-on-year change [</span><span class="si">% o</span><span class="s1">f total]&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/ead7a4739bc2d889e5cc0baa307c5e4ab30157ed6cd6c12a569c597a45cd9503.png" src="_images/ead7a4739bc2d889e5cc0baa307c5e4ab30157ed6cd6c12a569c597a45cd9503.png" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># reorder for plotting purposes</span>
+<span class="n">col_order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Nuclear&#39;</span><span class="p">,</span> <span class="s1">&#39;Hydroelectric&#39;</span><span class="p">,</span> <span class="s1">&#39;Wind&#39;</span><span class="p">,</span> <span class="s1">&#39;Solar&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;Coal&#39;</span><span class="p">,</span> <span class="s1">&#39;Natural Gas&#39;</span><span class="p">,</span> <span class="s1">&#39;Petroleum&#39;</span><span class="p">]</span>
+<span class="n">fractions</span> <span class="o">=</span> <span class="n">fractions</span><span class="p">[</span><span class="n">col_order</span><span class="p">]</span>
+<span class="n">fractions</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">12</span><span class="o">*</span><span class="mi">10</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">area</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Share of total generation [%]&#39;</span><span class="p">)</span>
+
+<span class="n">handles</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">handles</span><span class="p">),</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span>
+           <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center right&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/80c39861a60ae5b86247dfb57a8d9294eeec56a4caa904ab80a1826530dc1acb.png" src="_images/80c39861a60ae5b86247dfb57a8d9294eeec56a4caa904ab80a1826530dc1acb.png" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clean</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Solar&#39;</span><span class="p">,</span> <span class="s1">&#39;Wind&#39;</span><span class="p">,</span> <span class="s1">&#39;Hydroelectric&#39;</span><span class="p">,</span> <span class="s1">&#39;Nuclear&#39;</span><span class="p">]</span>
+<span class="n">clean_fraction</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df2</span><span class="p">[</span><span class="n">clean</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">df2</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">clean_fraction</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">clean_fraction_rolling</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span>
+    <span class="n">df2</span><span class="p">[</span><span class="n">clean</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span>
+    <span class="n">df2</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">clean_fraction_rolling</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Clean Fraction [%]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/752a98ebc1c17a13833117440394fab4a03c20ed43f155a3ff71333ba2561426.png" src="_images/752a98ebc1c17a13833117440394fab4a03c20ed43f155a3ff71333ba2561426.png" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fractions</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">clean_fraction</span><span class="o">=</span><span class="n">clean_fraction</span><span class="p">)</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>source</th>
+      <th>Nuclear</th>
+      <th>Hydroelectric</th>
+      <th>Wind</th>
+      <th>Solar</th>
+      <th>Coal</th>
+      <th>Natural Gas</th>
+      <th>Petroleum</th>
+      <th>clean_fraction</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-06-01</th>
+      <td>18.119899</td>
+      <td>7.140738</td>
+      <td>9.305009</td>
+      <td>4.396890</td>
+      <td>20.124649</td>
+      <td>40.499868</td>
+      <td>0.412947</td>
+      <td>38.962537</td>
+    </tr>
+    <tr>
+      <th>2022-07-01</th>
+      <td>16.984118</td>
+      <td>6.040335</td>
+      <td>7.266166</td>
+      <td>3.863308</td>
+      <td>21.196885</td>
+      <td>44.292088</td>
+      <td>0.357100</td>
+      <td>34.153926</td>
+    </tr>
+    <tr>
+      <th>2022-08-01</th>
+      <td>17.461327</td>
+      <td>5.334941</td>
+      <td>6.261486</td>
+      <td>3.650367</td>
+      <td>21.474939</td>
+      <td>45.436719</td>
+      <td>0.380221</td>
+      <td>32.708121</td>
+    </tr>
+    <tr>
+      <th>2022-09-01</th>
+      <td>18.986310</td>
+      <td>5.048759</td>
+      <td>8.137286</td>
+      <td>3.932148</td>
+      <td>19.233807</td>
+      <td>44.211849</td>
+      <td>0.449840</td>
+      <td>36.104503</td>
+    </tr>
+    <tr>
+      <th>2022-10-01</th>
+      <td>19.771369</td>
+      <td>4.796682</td>
+      <td>10.975141</td>
+      <td>3.980029</td>
+      <td>18.047118</td>
+      <td>41.933071</td>
+      <td>0.496591</td>
+      <td>39.523221</td>
+    </tr>
+    <tr>
+      <th>2022-11-01</th>
+      <td>20.306741</td>
+      <td>5.832162</td>
+      <td>13.474558</td>
+      <td>2.731460</td>
+      <td>18.322058</td>
+      <td>38.877329</td>
+      <td>0.455693</td>
+      <td>42.344920</td>
+    </tr>
+    <tr>
+      <th>2022-12-01</th>
+      <td>20.111751</td>
+      <td>5.914089</td>
+      <td>11.250993</td>
+      <td>1.960395</td>
+      <td>21.226962</td>
+      <td>38.414282</td>
+      <td>1.121528</td>
+      <td>39.237228</td>
+    </tr>
+    <tr>
+      <th>2023-01-01</th>
+      <td>21.490761</td>
+      <td>6.723861</td>
+      <td>11.882365</td>
+      <td>2.404783</td>
+      <td>18.453646</td>
+      <td>39.044584</td>
+      <td>NaN</td>
+      <td>42.501770</td>
+    </tr>
+    <tr>
+      <th>2023-02-01</th>
+      <td>20.798191</td>
+      <td>6.356310</td>
+      <td>14.417961</td>
+      <td>3.144272</td>
+      <td>15.772944</td>
+      <td>39.510322</td>
+      <td>NaN</td>
+      <td>44.716734</td>
+    </tr>
+    <tr>
+      <th>2023-03-01</th>
+      <td>20.020015</td>
+      <td>6.403212</td>
+      <td>14.196719</td>
+      <td>3.844391</td>
+      <td>15.834793</td>
+      <td>39.316102</td>
+      <td>0.384768</td>
+      <td>44.464337</td>
+    </tr>
+    <tr>
+      <th>2023-04-01</th>
+      <td>19.848344</td>
+      <td>6.091896</td>
+      <td>15.077412</td>
+      <td>5.137460</td>
+      <td>13.934298</td>
+      <td>39.515978</td>
+      <td>0.394613</td>
+      <td>46.155112</td>
+    </tr>
+    <tr>
+      <th>2023-05-01</th>
+      <td>19.718305</td>
+      <td>8.767549</td>
+      <td>10.278141</td>
+      <td>5.396044</td>
+      <td>13.941305</td>
+      <td>41.537119</td>
+      <td>0.361538</td>
+      <td>44.160038</td>
+    </tr>
+    <tr>
+      <th>2023-06-01</th>
+      <td>19.066547</td>
+      <td>5.688755</td>
+      <td>8.078902</td>
+      <td>5.144297</td>
+      <td>16.822201</td>
+      <td>44.841807</td>
+      <td>0.357490</td>
+      <td>37.978502</td>
+    </tr>
+    <tr>
+      <th>2023-07-01</th>
+      <td>17.086490</td>
+      <td>5.159907</td>
+      <td>6.818513</td>
+      <td>4.588743</td>
+      <td>19.244678</td>
+      <td>46.713629</td>
+      <td>0.388040</td>
+      <td>33.653653</td>
+    </tr>
+    <tr>
+      <th>2023-08-01</th>
+      <td>17.145297</td>
+      <td>5.168479</td>
+      <td>7.013491</td>
+      <td>4.354006</td>
+      <td>19.125855</td>
+      <td>46.796143</td>
+      <td>0.396729</td>
+      <td>33.681273</td>
+    </tr>
+    <tr>
+      <th>2023-09-01</th>
+      <td>19.117041</td>
+      <td>4.778952</td>
+      <td>8.227253</td>
+      <td>4.511917</td>
+      <td>17.386428</td>
+      <td>45.545373</td>
+      <td>0.433036</td>
+      <td>36.635163</td>
+    </tr>
+    <tr>
+      <th>2023-10-01</th>
+      <td>19.564673</td>
+      <td>5.731125</td>
+      <td>11.618457</td>
+      <td>4.461753</td>
+      <td>16.118496</td>
+      <td>42.115691</td>
+      <td>0.389806</td>
+      <td>41.376008</td>
+    </tr>
+    <tr>
+      <th>2023-11-01</th>
+      <td>20.364625</td>
+      <td>5.891645</td>
+      <td>12.109000</td>
+      <td>3.333989</td>
+      <td>16.640254</td>
+      <td>41.298861</td>
+      <td>0.361626</td>
+      <td>41.699259</td>
+    </tr>
+    <tr>
+      <th>2023-12-01</th>
+      <td>20.930330</td>
+      <td>5.844283</td>
+      <td>11.649929</td>
+      <td>2.774494</td>
+      <td>16.976905</td>
+      <td>41.458384</td>
+      <td>0.365676</td>
+      <td>41.199035</td>
+    </tr>
+    <tr>
+      <th>2024-01-01</th>
+      <td>19.069335</td>
+      <td>5.831500</td>
+      <td>9.649185</td>
+      <td>2.646130</td>
+      <td>20.771108</td>
+      <td>41.557916</td>
+      <td>0.474827</td>
+      <td>37.196149</td>
+    </tr>
+    <tr>
+      <th>2024-02-01</th>
+      <td>21.184346</td>
+      <td>6.394614</td>
+      <td>13.646462</td>
+      <td>4.035275</td>
+      <td>14.328620</td>
+      <td>40.113670</td>
+      <td>0.297013</td>
+      <td>45.260697</td>
+    </tr>
+    <tr>
+      <th>2024-03-01</th>
+      <td>20.551733</td>
+      <td>7.408353</td>
+      <td>14.875901</td>
+      <td>5.048689</td>
+      <td>12.312165</td>
+      <td>39.509218</td>
+      <td>0.293941</td>
+      <td>47.884676</td>
+    </tr>
+    <tr>
+      <th>2024-04-01</th>
+      <td>19.447430</td>
+      <td>6.477188</td>
+      <td>16.167844</td>
+      <td>6.386713</td>
+      <td>12.519974</td>
+      <td>38.645704</td>
+      <td>0.355147</td>
+      <td>48.479175</td>
+    </tr>
+    <tr>
+      <th>2024-05-01</th>
+      <td>19.688226</td>
+      <td>6.623427</td>
+      <td>11.790929</td>
+      <td>6.643026</td>
+      <td>13.930003</td>
+      <td>40.987658</td>
+      <td>0.336731</td>
+      <td>44.745608</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rolling</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">rolling</span><span class="p">[</span><span class="s1">&#39;Renewables&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rolling</span><span class="p">[[</span><span class="s1">&#39;Solar&#39;</span><span class="p">,</span> <span class="s1">&#39;Wind&#39;</span><span class="p">,</span> <span class="s1">&#39;Hydroelectric&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">rolling</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2015&#39;</span><span class="p">:,</span> <span class="p">[</span><span class="s1">&#39;Coal&#39;</span><span class="p">,</span> <span class="s1">&#39;Nuclear&#39;</span><span class="p">,</span> <span class="s1">&#39;Renewables&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.6e6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Million kWh (12-month moving)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/9b7fd98b75f35726c760b3ede69b93f7d3e0949ea5776ec9e3df39e1b330cd94.png" src="_images/9b7fd98b75f35726c760b3ede69b93f7d3e0949ea5776ec9e3df39e1b330cd94.png" />
+</div>
+</div>
+<p>This page was last regenerated on:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2024-09-22&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2020&#39;</span><span class="p">:,</span> <span class="n">clean</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">drawstyle</span><span class="o">=</span><span class="s1">&#39;steps-post&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/682167748a40a4ea8733ec0ff2e53d4d6da26df0abbb299d4267ee0929505f98.png" src="_images/682167748a40a4ea8733ec0ff2e53d4d6da26df0abbb299d4267ee0929505f98.png" />
+</div>
+</div>
+</section>
+</section>
+
+<div class="section">
+   
+</div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="blog.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Blog</p>
+        </div>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2015-2024, Kevin Anderson.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

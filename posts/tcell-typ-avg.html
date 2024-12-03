@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>T_cell_typ_avg &#8212; the kevbase</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.min.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+     
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  href="../blog/atom.xml"
+  title="kevbase"
+/>
+ 
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/favicon.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../publications.html">
+  Publications
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../blog.html">
+  Blog
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../report.html">
+  Climate Report
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" >
+</form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items">  
+<h2>
+   <i class="fa fa-calendar"></i>
+  2021-06-17 
+</h2>
+
+<ul>
+       
+<li id="tags">
+  <span
+    ><i class="fa-fw fa fa-tags"></i> </span
+  >
+   
+  <a href="../blog/tag/photovoltaics.html">photovoltaics</a>   
+  <a href="../blog/tag/math.html">math</a>  
+</li>
+ 
+</ul>
+
+<h3>
+  <a href="../blog.html">Recent Posts</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="psm3-pixels-boundaries.html"
+      >04 September - PSM3 Pixel Boundaries</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-spa-benchmarks.html"
+      >21 August - OpenGL Compute Shaders: SPA</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-builtin-accuracy.html"
+      >13 August - OpenGL Compute Shaders: Accuracy of Math Functions</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-first-steps.html"
+      >30 July - OpenGL Compute Shaders: First Steps</a
+    >
+  </li>
+  
+  <li>
+    <a href="linalg-sparse-solve.html"
+      >09 April - Speeding up pvfactors</a
+    >
+  </li>
+  
+</ul>
+
+<h3>
+  <a href="../blog/archive.html">Archives</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="../blog/2022.html">2022 (5)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2021.html">2021 (10)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2020.html">2020 (3)</a>
+  </li>
+   
+</ul>
+
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                 <section class="tex2jax_ignore mathjax_ignore" id="t-cell-typ-avg">
+<h1>T_cell_typ_avg<a class="headerlink" href="#t-cell-typ-avg" title="Permalink to this heading">¶</a></h1>
+<p>This is a short note that derives the “typical average cell temperature” used in
+the “Weather-Corrected Performance Ratio”. The Weather-Corrected Performance Ratio
+<a class="footnote-reference brackets" href="#id2" id="id1">1</a> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+    \mathrm{PR_{corr}} = \frac{\sum_i \mathrm{EN_{AC}}_{\_i}}
+                              {\sum_i \left[ P_{\mathrm{STC}} \left( \frac{G_{\mathrm{POA}\_i}}{G_{\mathrm{STC}}}\right) \left( 1 - \frac{\delta}{100}(T_{\mathrm{cell\_typ\_avg}} - T_{\mathrm{cell}\_i})\right) \right] }
+\]</div>
+<p>The denominator is essentially the PVWatts DC model, except the reference
+cell temperature is not <span class="math notranslate nohighlight">\(T_{\mathrm{STC}}\)</span> but rather a “typical/average” cell
+temperature.  The report has this to say about that decision:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Correction to a cell temperature of 25°C usually results in a higher PR
+because modules more frequently operate at 45°C. Thus, while correction
+to 25°C essentially solves the problem of seasonal variations, it may
+overstate the actual performance and thus does not allow the financier
+to assess the effect of local climate on the expected performance.
+Therefore, correction to 25°C is not an acceptable method for removing
+the seasonal variability in the PR metric because it would change the PR
+value stated in the contract. 
+</pre></div>
+</div>
+<p>Fair enough for back in 2013, but I wonder if this reasoning is still applicable
+in 2021 (do financiers still look at PR?).  But I have several beefs with performance
+ratios and they will have to wait for another day.</p>
+<p>I’ve had several conversations over the years where people asked me why the
+equation doesn’t use 25°C, and what the significance of this magic
+irradiance-weighted average cell temperature is.  I think the above snippet
+explains the motivation, but here’s a derivation of why it is defined the way it is.</p>
+<p>Let’s start by assuming that there is some <span class="math notranslate nohighlight">\(T^*\)</span> such that this relation holds,
+<em>i.e.</em> the two PRs are equal:</p>
+<div class="math notranslate nohighlight">
+\[
+    \frac{\sum_i \mathrm{EN_{AC}}_{\_i}}
+         {\sum_i \left[ P_{\mathrm{STC}} \left( \frac{G_{\mathrm{POA}\_i}}{G_{\mathrm{STC}}}\right)\right] }
+         =
+    \frac{\sum_i \mathrm{EN_{AC}}_{\_i}}
+         {\sum_i \left[ P_{\mathrm{STC}} \left( \frac{G_{\mathrm{POA}\_i}}{G_{\mathrm{STC}}}\right) \left( 1 - \frac{\delta}{100}(T^* - T_{\mathrm{cell}\_i})\right) \right] }
+\]</div>
+<p>The numerators are equal (and nonzero), so the denominators must be equal as well:</p>
+<div class="math notranslate nohighlight">
+\[
+    \sum_i \left[ P_{\mathrm{STC}} \left( \frac{G_{\mathrm{POA}\_i}}{G_{\mathrm{STC}}}\right)\right]
+    =
+    \sum_i \left[ P_{\mathrm{STC}} \left( \frac{G_{\mathrm{POA}\_i}}{G_{\mathrm{STC}}}\right) \left( 1 - \frac{\delta}{100}(T^* - T_{\mathrm{cell}\_i})\right) \right] 
+\]</div>
+<p><span class="math notranslate nohighlight">\(P_{\mathrm{STC}}\)</span> and <span class="math notranslate nohighlight">\(G_{\mathrm{STC}}\)</span> are constants that can be factored out of the summations and then canceled:</p>
+<div class="math notranslate nohighlight">
+\[
+    \sum_i G_{\mathrm{POA}\_i}
+    =
+    \sum_i \left[  G_{\mathrm{POA}\_i} \left( 1 - \frac{\delta}{100}(T^* - T_{\mathrm{cell}\_i})\right) \right] 
+\]</div>
+<p>We can distribute the right-hand side and separate the sums:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \begin{split}
+    \sum_i G_{\mathrm{POA}\_i}
+    &amp;=
+    \sum_i \left[ G_{\mathrm{POA}\_i} \left( 1 - \frac{\delta}{100}(T^* - T_{\mathrm{cell}\_i})\right) \right] 
+    \\
+    &amp;= \sum_i G_{\mathrm{POA}\_i}  - \sum_i \left[G_{\mathrm{POA}\_i} \left( \frac{\delta}{100}(T^* - T_{\mathrm{cell}\_i})\right) \right] 
+    \end{split}
+\end{split}\]</div>
+<p>The irradiance summations cancel, reducing to:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_i \left[ G_{\mathrm{POA}\_i} \left( \frac{\delta}{100}(T^* - T_{\mathrm{cell}\_i})\right) \right] = 0
+\]</div>
+<p>Assuming <span class="math notranslate nohighlight">\(\delta/100 \neq 0\)</span>, we can factor it out of the summation and cancel it, leaving:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_i \left[ G_{\mathrm{POA}\_i} (T^* - T_{\mathrm{cell}\_i})\right] = 0
+\]</div>
+<p>Distributing again, we find:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_i \left[ G_{\mathrm{POA}\_i} T^* \right] = \sum_i \left[ G_{\mathrm{POA}\_i}  T_{\mathrm{cell}\_i}\right]
+\]</div>
+<p>As <span class="math notranslate nohighlight">\(T^*\)</span> is a constant, we can factor it out of the summation and then solve for it:</p>
+<div class="math notranslate nohighlight">
+\[
+T^* = \frac{ \sum_i \left[ G_{\mathrm{POA}\_i}  T_{\mathrm{cell}\_i}\right]}{\sum_i G_{\mathrm{POA}\_i}}
+\]</div>
+<p>And we are done: the right-hand expression is exactly the definition of <span class="math notranslate nohighlight">\(T_{\mathrm{cell\_typ\_avg}}\)</span>
+in the technical report (Eq 5).</p>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>T. Dierauf et al., “Weather-Corrected Performance Ratio”, NREL Technical
+Report TP-5200-57991.  April 2013.  https://doi.org/10.2172/1078057</p>
+</dd>
+</dl>
+</section>
+</section>
+
+<div class="section">
+    
+
+<div class="section">
+  <span style="float: left">
+     
+    <a href="floating-point-fun.html">
+      <i class="fa fa-arrow-circle-left"></i> Floating Point Fun
+    </a>
+    
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right">
+     
+    <a href="merra2-vs-psm3.html">
+      Comparing PSM3 and MERRA2 GHI <i
+        class="fa fa-arrow-circle-right"
+      ></i
+      >
+    </a>
+    
+  </span>
+</div>
+  
+</div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2015-2024, Kevin Anderson.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

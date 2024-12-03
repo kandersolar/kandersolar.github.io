@@ -1,0 +1,342 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <id>https://kevbase.com</id>
+  <title>kevbase</title>
+  <updated>2024-12-03T23:15:22.576303+00:00</updated>
+  <link href="https://kevbase.com"/>
+  <link href="https://kevbase.com/blog/atom.xml" rel="self"/>
+  <generator uri="https://ablog.readthedocs.org/" version="0.10.23">ABlog</generator>
+  <entry>
+    <id>https://kevbase.com/posts/pvwatts-and-pvusa.html</id>
+    <title>PVWatts and PVUSA</title>
+    <updated>2020-02-01T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;I read a paper recently that turned on a lightbulb about why the
+PVUSA/ASTM E2848-13 equation is defined the way it is.  To quote the paper &lt;a class="footnote-reference brackets" href="#id6" id="id1"&gt;1&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;The concept of modeling power by modeling current and voltage separately
+(other than IV-curve modeling, of course) is
+obvious in hindsight but had never occurred to me before… so let’s have some fun
+and try it out!&lt;/p&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/pvwatts-and-pvusa.html"/>
+    <summary>I read a paper recently that turned on a lightbulb about why the
+PVUSA/ASTM E2848-13 equation is defined the way it is.  To quote the paper 1:The concept of modeling power by modeling current and voltage separately
+(other than IV-curve modeling, of course) is
+obvious in hindsight but had never occurred to me before… so let’s have some fun
+and try it out!</summary>
+    <category term="photovoltaics" label="photovoltaics"/>
+    <category term="math" label="math"/>
+    <published>2020-02-01T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/modeling-copper-loss-in-a-boost-converter.html</id>
+    <title>Modeling copper losses in a boost converter</title>
+    <updated>2020-06-14T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;This post will work through a simple power electronics problem.  An ideal boost converter uses only lossless components (L, C) and no lossy components (R).  However, real inductors will have nonzero resistance in its wiring.  This copper loss has a strong effect on the converter’s ability to boost voltage.  This follows the approach of Chapter 3 of Fundamentals of Power Electronics, 2e by Erickson and Maksimović.&lt;/p&gt;
+&lt;p&gt;First let’s draw the boost converter we’ll be modeling.  Note that in this context, the precise switching circuit (PWM driver, MOSFET, etc) is irrelevant and represented by an ideal switch.&lt;/p&gt;
+&lt;img alt="_images/8885e4db5ddc7b123dd6d72128b31a1ff44c064e4c238554329d4b13552f8bb8.png" src="_images/8885e4db5ddc7b123dd6d72128b31a1ff44c064e4c238554329d4b13552f8bb8.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/modeling-copper-loss-in-a-boost-converter.html"/>
+    <summary>This post will work through a simple power electronics problem.  An ideal boost converter uses only lossless components (L, C) and no lossy components (R).  However, real inductors will have nonzero resistance in its wiring.  This copper loss has a strong effect on the converter’s ability to boost voltage.  This follows the approach of Chapter 3 of Fundamentals of Power Electronics, 2e by Erickson and Maksimović.First let’s draw the boost converter we’ll be modeling.  Note that in this context, the precise switching circuit (PWM driver, MOSFET, etc) is irrelevant and represented by an ideal switch.</summary>
+    <category term="electrical-engineering" label="electrical-engineering"/>
+    <category term="erickson-maksimovic" label="erickson-maksimovic"/>
+    <category term="python" label="python"/>
+    <published>2020-06-14T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/summing-uniform-distributions.html</id>
+    <title>Summing Uniform Distributions</title>
+    <updated>2020-09-25T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;The distribution of the sum of N uniformly distributed variables came up in a recent RdTools PR.  The approach taken there was to just sample each distribution and sum the samples, but I wondered how it could be done analytically.  This notebook is inspired by &lt;a class="reference external" href="https://math.stackexchange.com/a/2966816/197200"&gt;this StackExchange post&lt;/a&gt; and extends the derivation from just summing two uniform distributions on &lt;span class="math notranslate nohighlight"&gt;\([0,1]\)&lt;/span&gt; to two distributions with arbitrary bounds.&lt;/p&gt;
+&lt;p&gt;Given two independent random variables &lt;span class="math notranslate nohighlight"&gt;\(A\)&lt;/span&gt; and &lt;span class="math notranslate nohighlight"&gt;\(B\)&lt;/span&gt; with probability densities &lt;span class="math notranslate nohighlight"&gt;\(f_a(x)\)&lt;/span&gt; and &lt;span class="math notranslate nohighlight"&gt;\(f_b(x)\)&lt;/span&gt;, the probability density &lt;span class="math notranslate nohighlight"&gt;\(f_c(x)\)&lt;/span&gt; of their sum &lt;span class="math notranslate nohighlight"&gt;\(A + B = C\)&lt;/span&gt; is given by the convolution &lt;span class="math notranslate nohighlight"&gt;\(f_a * f_b\)&lt;/span&gt;:&lt;/p&gt;
+&lt;img alt="_images/f855b259c1c3cb5b4237806809a1db8a8f63a324d9dd537a73b2d97f9bc75a58.png" src="_images/f855b259c1c3cb5b4237806809a1db8a8f63a324d9dd537a73b2d97f9bc75a58.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/summing-uniform-distributions.html"/>
+    <summary>The distribution of the sum of N uniformly distributed variables came up in a recent RdTools PR.  The approach taken there was to just sample each distribution and sum the samples, but I wondered how it could be done analytically.  This notebook is inspired by this StackExchange post and extends the derivation from just summing two uniform distributions on [0,1] to two distributions with arbitrary bounds.Given two independent random variables A and B with probability densities f_a(x) and f_b(x), the probability density f_c(x) of their sum A + B = C is given by the convolution f_a * f_b:</summary>
+    <category term="math" label="math"/>
+    <category term="python" label="python"/>
+    <published>2020-09-25T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/floating-point-fun.html</id>
+    <title>Floating Point Fun</title>
+    <updated>2021-03-09T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;Computers must represent real numbers with some finite precision (ignoring
+symbolic algebra packages), and sometimes that precision limit ends up causing
+problems that you might not expect.  Here are a couple examples.&lt;/p&gt;
+&lt;p&gt;The function &lt;span class="math notranslate nohighlight"&gt;\(f(x) = \exp(x) - 1\)&lt;/span&gt; is kind of fun – by subtracting
+one from the exponential, it removes the only constant term in the
+Maclaurin series of &lt;span class="math notranslate nohighlight"&gt;\(\exp(x)\)&lt;/span&gt;:&lt;/p&gt;
+&lt;img alt="_images/expm1_comparison.png" src="_images/expm1_comparison.png" style="width: 6in;" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/floating-point-fun.html"/>
+    <summary>Computers must represent real numbers with some finite precision (ignoring
+symbolic algebra packages), and sometimes that precision limit ends up causing
+problems that you might not expect.  Here are a couple examples.The function f(x) = \exp(x) - 1 is kind of fun – by subtracting
+one from the exponential, it removes the only constant term in the
+Maclaurin series of \exp(x):</summary>
+    <category term="python" label="python"/>
+    <published>2021-03-09T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/tcell-typ-avg.html</id>
+    <title>T_cell_typ_avg</title>
+    <updated>2021-06-17T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;This is a short note that derives the “typical average cell temperature” used in
+the “Weather-Corrected Performance Ratio”. The Weather-Corrected Performance Ratio
+&lt;a class="footnote-reference brackets" href="#id2" id="id1"&gt;1&lt;/a&gt; is defined as:&lt;/p&gt;
+&lt;p&gt;The denominator is essentially the PVWatts DC model, except the reference
+cell temperature is not &lt;span class="math notranslate nohighlight"&gt;\(T_{\mathrm{STC}}\)&lt;/span&gt; but rather a “typical/average” cell
+temperature.  The report has this to say about that decision:&lt;/p&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/tcell-typ-avg.html"/>
+    <summary>This is a short note that derives the “typical average cell temperature” used in
+the “Weather-Corrected Performance Ratio”. The Weather-Corrected Performance Ratio
+1 is defined as:The denominator is essentially the PVWatts DC model, except the reference
+cell temperature is not T_{\mathrm{STC}} but rather a “typical/average” cell
+temperature.  The report has this to say about that decision:</summary>
+    <category term="photovoltaics" label="photovoltaics"/>
+    <category term="math" label="math"/>
+    <published>2021-06-17T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/merra2-vs-psm3.html</id>
+    <title>Comparing PSM3 and MERRA2 GHI</title>
+    <updated>2021-08-03T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;MERRA2 is a global weather reanalysis dataset providing, among other things, hourly GHI data. I’m not very familiar with MERRA2 and wanted to do a quick comparison with PSM3 (which I am quite familiar with) just to get a rough handle on how the two datasets compare when it comes to irradiance data.&lt;/p&gt;
+&lt;p&gt;Important notes if you want to run this notebook yourself:&lt;/p&gt;
+&lt;img alt="_images/22248a8eda0d5eea89e77b4c275fe38216931dcdebac3642942f12ed9cc57f45.png" src="_images/22248a8eda0d5eea89e77b4c275fe38216931dcdebac3642942f12ed9cc57f45.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/merra2-vs-psm3.html"/>
+    <summary>MERRA2 is a global weather reanalysis dataset providing, among other things, hourly GHI data. I’m not very familiar with MERRA2 and wanted to do a quick comparison with PSM3 (which I am quite familiar with) just to get a rough handle on how the two datasets compare when it comes to irradiance data.Important notes if you want to run this notebook yourself:</summary>
+    <category term="photovoltaics" label="photovoltaics"/>
+    <category term="python" label="python"/>
+    <published>2021-08-03T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/marvin-the-antlion.html</id>
+    <title>Marvin the antlion</title>
+    <updated>2021-08-04T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;The antlion, cousin of the lacewing, is a strange little pit-digging insect.
+In their adult forms, they’re among Mother Nature’s great works of art:&lt;/p&gt;
+&lt;p&gt;Adult lacewings are a fairly common (but by no means unwelcome!) sight in North Carolina,
+fluttering delicately on an evening breeze.  However, to stumble over the lacewing
+in its larval form takes, in my experience, a much more keen eye.  The larvae are
+fierce predators, some of whom have an interesting habit of carrying shields on their
+backs made of lint, detritus, and whatever else they can get their grubby little mitts on.
+I, by accident, encountered a fine specimen on an NC Oak tree.  I took a video where
+you can sort of make out its legs and mandibles when it’s flipped over:&lt;/p&gt;
+&lt;img alt="marvin" src="_images/marvin.jpg" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/marvin-the-antlion.html"/>
+    <summary>The antlion, cousin of the lacewing, is a strange little pit-digging insect.
+In their adult forms, they’re among Mother Nature’s great works of art:Adult lacewings are a fairly common (but by no means unwelcome!) sight in North Carolina,
+fluttering delicately on an evening breeze.  However, to stumble over the lacewing
+in its larval form takes, in my experience, a much more keen eye.  The larvae are
+fierce predators, some of whom have an interesting habit of carrying shields on their
+backs made of lint, detritus, and whatever else they can get their grubby little mitts on.
+I, by accident, encountered a fine specimen on an NC Oak tree.  I took a video where
+you can sort of make out its legs and mandibles when it’s flipped over:marvin</summary>
+    <category term="biology" label="biology"/>
+    <published>2021-08-04T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/daily-eia-data.html</id>
+    <title>Daily EIA Data</title>
+    <updated>2021-08-11T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;I found an EIA tool that reported the daily net generation breakdown for the lower 48.  I didn’t check if its API endpoint is documented anywhere (who needs documentation when web browsers come with built-in developer tools?) but it’s pretty straightforward and I played around with the data a bit.  Its monthly sums more or less match the generation numbers in Table 7.2b (see &lt;a class="reference external" href="http://kevbase.com/site/report.html"&gt;this page&lt;/a&gt;), although there are some small differences, maybe because of excluding Hawaii and Alaska?  Unfortunately it doesn’t seem to report any data prior to 2018-07-01.&lt;/p&gt;
+&lt;p&gt;Grab the entire dataset:&lt;/p&gt;
+&lt;img alt="_images/41a2bb877847f58996b1eaaecdbb481c977f3b845b007f2ff60afe0afe2fd65e.png" src="_images/41a2bb877847f58996b1eaaecdbb481c977f3b845b007f2ff60afe0afe2fd65e.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/daily-eia-data.html"/>
+    <summary>I found an EIA tool that reported the daily net generation breakdown for the lower 48.  I didn’t check if its API endpoint is documented anywhere (who needs documentation when web browsers come with built-in developer tools?) but it’s pretty straightforward and I played around with the data a bit.  Its monthly sums more or less match the generation numbers in Table 7.2b (see this page), although there are some small differences, maybe because of excluding Hawaii and Alaska?  Unfortunately it doesn’t seem to report any data prior to 2018-07-01.Grab the entire dataset:</summary>
+    <category term="photovoltaics" label="photovoltaics"/>
+    <category term="python" label="python"/>
+    <published>2021-08-11T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/julia-basic-simd.html</id>
+    <title>Basic SIMD in Julia</title>
+    <updated>2021-08-20T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;This post summarizes what I’ve learned from a few places on the web (mostly Wikipedia and &lt;a class="reference external" href="https://discourse.julialang.org/t/loopvectorization-turbo-performs-worse-than-inbounds-on-trivial-loop/66884/2"&gt;this thread&lt;/a&gt; on the Julia Discourse).  I am indebted to countless people in the open-source community and Chris Elrod’s posts in that thread are a stand-out example.&lt;/p&gt;
+&lt;p&gt;SIMD (single instruction, multiple data) is a cool feature of modern CPUs that allows more than one value to be operated on in a single instruction.  This is sort of “closer to the metal” than traditional parallel processing techniques (multiprocessing, multithreading) in that the OS doesn’t have a role in making it happen – it’s just a special type of CPU instruction.  As a simple example, a CPU capable of 64-bit SIMD could load two 32-bit ints at once and apply some operation to both of them, instead of loading and operating on them one at a time.&lt;/p&gt;
+&lt;img alt="_images/c42fe558f22a780c26ac5081fd145900f04c45eb36e62a7875a3a6a66c5d1d89.png" src="_images/c42fe558f22a780c26ac5081fd145900f04c45eb36e62a7875a3a6a66c5d1d89.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/julia-basic-simd.html"/>
+    <summary>This post summarizes what I’ve learned from a few places on the web (mostly Wikipedia and this thread on the Julia Discourse).  I am indebted to countless people in the open-source community and Chris Elrod’s posts in that thread are a stand-out example.SIMD (single instruction, multiple data) is a cool feature of modern CPUs that allows more than one value to be operated on in a single instruction.  This is sort of “closer to the metal” than traditional parallel processing techniques (multiprocessing, multithreading) in that the OS doesn’t have a role in making it happen – it’s just a special type of CPU instruction.  As a simple example, a CPU capable of 64-bit SIMD could load two 32-bit ints at once and apply some operation to both of them, instead of loading and operating on them one at a time.</summary>
+    <category term="julia" label="julia"/>
+    <published>2021-08-20T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/seasonal-tilt-optimization.html</id>
+    <title>Seasonal tilt optimization</title>
+    <updated>2021-09-27T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;Playing around with optimizing the tilt of a south-facing adjustable-tilt collector to maximize total insolation capture.&lt;/p&gt;
+&lt;p&gt;Normal fixed tilt – no seasonal changes&lt;/p&gt;
+&lt;img alt="_images/916a27ea506715c73d7546c8abdb46dc73e813867be0d18b191d7c1be3aedce1.png" src="_images/916a27ea506715c73d7546c8abdb46dc73e813867be0d18b191d7c1be3aedce1.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/seasonal-tilt-optimization.html"/>
+    <summary>Playing around with optimizing the tilt of a south-facing adjustable-tilt collector to maximize total insolation capture.Normal fixed tilt – no seasonal changes</summary>
+    <category term="photovoltaics" label="photovoltaics"/>
+    <category term="python" label="python"/>
+    <published>2021-09-27T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/gcr-vs-theta-max.html</id>
+    <title>Single-axis tracking: GCR vs max angle</title>
+    <updated>2021-09-30T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;Single-axis tracker rotation angles are commonly limited by the hardware’s maximum allowed rotation (45 and 60 degrees are common limits).  For arrays with backtracking activated, the time spent at max angle depends on GCR: the higher the GCR, the more the array backtracks, and the less time it spends at max angle.  So at some sufficiently large GCR the array will just touch max angle for an instant before it starts backtracking.  I don’t have a situation in mind for when this might be useful, but it seemed like a fun math problem to determine that boundary GCR.&lt;/p&gt;
+&lt;p&gt;The approach here is focused on the point on the tracking curve when backtracking is about to begin, as that represents the maximum realized angle of the tracker.  We start with Equation 14 from NREL Technical Report 76626 (&lt;a class="reference external" href="https://www.nrel.gov/docs/fy20osti/76626.pdf"&gt;PDF&lt;/a&gt;):&lt;/p&gt;
+&lt;img alt="_images/863da4e53fdcbb7759ff8879f899f8c604f273947cf81fed8911698b5add18ba.png" src="_images/863da4e53fdcbb7759ff8879f899f8c604f273947cf81fed8911698b5add18ba.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/gcr-vs-theta-max.html"/>
+    <summary>Single-axis tracker rotation angles are commonly limited by the hardware’s maximum allowed rotation (45 and 60 degrees are common limits).  For arrays with backtracking activated, the time spent at max angle depends on GCR: the higher the GCR, the more the array backtracks, and the less time it spends at max angle.  So at some sufficiently large GCR the array will just touch max angle for an instant before it starts backtracking.  I don’t have a situation in mind for when this might be useful, but it seemed like a fun math problem to determine that boundary GCR.The approach here is focused on the point on the tracking curve when backtracking is about to begin, as that represents the maximum realized angle of the tracker.  We start with Equation 14 from NREL Technical Report 76626 (PDF):</summary>
+    <category term="photovoltaics" label="photovoltaics"/>
+    <category term="python" label="python"/>
+    <published>2021-09-30T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/led-iv-curves.html</id>
+    <title>LED I-V Curves</title>
+    <updated>2021-12-25T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;I thought it would be fun to do some quick-and-dirty measurements of the
+I-V characteristic of some LEDs I had laying around.  I have no idea where
+they came from, but one is red and one is white.&lt;/p&gt;
+&lt;p&gt;Fun fact: white LEDs, which of course would require many junctions of varying
+bandgap to produce white light directly, are often implemented by coating a
+blue LED in a phosphor that downconverts some photons into the rest of the
+visible spectrum.&lt;/p&gt;
+&lt;img alt="_images/red-led-iv.png" src="_images/red-led-iv.png" style="width: 6in;" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/led-iv-curves.html"/>
+    <summary>I thought it would be fun to do some quick-and-dirty measurements of the
+I-V characteristic of some LEDs I had laying around.  I have no idea where
+they came from, but one is red and one is white.Fun fact: white LEDs, which of course would require many junctions of varying
+bandgap to produce white light directly, are often implemented by coating a
+blue LED in a phosphor that downconverts some photons into the rest of the
+visible spectrum.</summary>
+    <category term="electrical-engineering" label="electrical-engineering"/>
+    <category term="python" label="python"/>
+    <published>2021-12-25T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/ground-sky-vf.html</id>
+    <title>Ground-to-sky viewfactor</title>
+    <updated>2021-12-29T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;This post shows two things:&lt;/p&gt;
+&lt;p&gt;How to calculate, in an infinite sheds model, the view factor to the sky from a point underneath the array&lt;/p&gt;
+&lt;img alt="_images/dbd358264b913bf19442ca1c96acc7ecfbce066a9ac29a27e2542c85c2260ca4.png" src="_images/dbd358264b913bf19442ca1c96acc7ecfbce066a9ac29a27e2542c85c2260ca4.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/ground-sky-vf.html"/>
+    <summary>This post shows two things:How to calculate, in an infinite sheds model, the view factor to the sky from a point underneath the array</summary>
+    <category term="photovoltaics" label="photovoltaics"/>
+    <category term="python" label="python"/>
+    <published>2021-12-29T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/linalg-sparse-solve.html</id>
+    <title>Speeding up pvfactors</title>
+    <updated>2022-04-09T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;This post is an example of identifying bottlenecks in numerical python code and benchmarking possible alternatives.  Specifically, it shows some of the timings I did for the &lt;a class="reference external" href="https://github.com/SunPower/pvfactors/pull/140"&gt;SunPower/pvfactors#140&lt;/a&gt; pull request to the pvfactors bifacial PV simulation package.&lt;/p&gt;
+&lt;p&gt;The function of interest is &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;pvfactors.engine.PVEngine.run_full_mode&lt;/span&gt;&lt;/code&gt;, which (as of pvfactors version 1.5.2) doesn’t run as fast as I’d like it to run, especially for large simulations (many PV rows and many timestamps).&lt;/p&gt;
+&lt;img alt="_images/df6a5387853de6988fa551975a2edd2a6ccedc74afa7566dfc398611c4fcd1be.png" src="_images/df6a5387853de6988fa551975a2edd2a6ccedc74afa7566dfc398611c4fcd1be.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/linalg-sparse-solve.html"/>
+    <summary>This post is an example of identifying bottlenecks in numerical python code and benchmarking possible alternatives.  Specifically, it shows some of the timings I did for the SunPower/pvfactors#140 pull request to the pvfactors bifacial PV simulation package.The function of interest is pvfactors.engine.PVEngine.run_full_mode, which (as of pvfactors version 1.5.2) doesn’t run as fast as I’d like it to run, especially for large simulations (many PV rows and many timestamps).</summary>
+    <category term="photovoltaics" label="photovoltaics"/>
+    <category term="python" label="python"/>
+    <published>2022-04-09T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/opengl-compute-shaders-first-steps.html</id>
+    <title>OpenGL Compute Shaders: First Steps</title>
+    <updated>2022-07-30T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;This notebook is a first exploration into general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders.  OpenGL is primarily geared towards rendering graphics and most of its functionality is organized into a sequential rendering pipeline.  However, it also includes the ability to run computations outside of the rendering pipeline using so-called “compute shaders”.  In essence, a shader is just a little program, written in a C-like language, that executes on the GPU.  I am neither qualified nor interested in explaining more than that; if you’re interested then I suggest reading one of the many OpenGL tutorials on the internet.  I warn you in advance: it is a big rabbit hole!&lt;/p&gt;
+&lt;p&gt;If the goal is general-purpose GPU computing, you might wonder why I chose to use OpenGL (geared towards graphics, with GPGPU as an auxiliary function) instead of something like CUDA or OpenCL.  I have the naive impression that OpenGL is easier to set up on a new computer than the the more general alternatives are, and a long-term goal of mine is to distribute GPU-accelerated code to the masses, so ease of installation is important. Perhaps someday I’ll change my mind and switch to OpenCL, but for now I experiment with OpenGL.&lt;/p&gt;
+&lt;img alt="_images/ec182f328b9f54e0409a8dd7088007a0e39083a4e4b6c9df15ddcfac666e0943.png" src="_images/ec182f328b9f54e0409a8dd7088007a0e39083a4e4b6c9df15ddcfac666e0943.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/opengl-compute-shaders-first-steps.html"/>
+    <summary>This notebook is a first exploration into general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders.  OpenGL is primarily geared towards rendering graphics and most of its functionality is organized into a sequential rendering pipeline.  However, it also includes the ability to run computations outside of the rendering pipeline using so-called “compute shaders”.  In essence, a shader is just a little program, written in a C-like language, that executes on the GPU.  I am neither qualified nor interested in explaining more than that; if you’re interested then I suggest reading one of the many OpenGL tutorials on the internet.  I warn you in advance: it is a big rabbit hole!If the goal is general-purpose GPU computing, you might wonder why I chose to use OpenGL (geared towards graphics, with GPGPU as an auxiliary function) instead of something like CUDA or OpenCL.  I have the naive impression that OpenGL is easier to set up on a new computer than the the more general alternatives are, and a long-term goal of mine is to distribute GPU-accelerated code to the masses, so ease of installation is important. Perhaps someday I’ll change my mind and switch to OpenCL, but for now I experiment with OpenGL.</summary>
+    <category term="gpgpu" label="gpgpu"/>
+    <category term="python" label="python"/>
+    <published>2022-07-30T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/opengl-compute-shaders-builtin-accuracy.html</id>
+    <title>OpenGL Compute Shaders: Accuracy of Math Functions</title>
+    <updated>2022-08-13T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;This notebook is the second in a series of notebooks about general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders.  In working towards a GPU-based implementation of the venerable Solar Position Algorithm (&lt;a class="reference external" href="https://doi.org/10.1016/j.solener.2003.12.003"&gt;Reda &amp;amp; Andreas 2004&lt;/a&gt;) I found that the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;asin&lt;/span&gt;&lt;/code&gt; provided by GLSL is not as accurate as I had expected, even considering the reduced precision of 32-bit floats.  This notebook examines the (in)accuracy of this GPU’s GLSL implementations of some basic functions useful for scientific programming.&lt;/p&gt;
+&lt;p&gt;I use the handy helper function from my “first steps” notebook here as well.  This encapsulates (1) the boilerplate necessary to shuttle data to and from the GPU and (2) the initialization code on the GPU side needed prior to performing the actual computation of interest.&lt;/p&gt;
+&lt;img alt="_images/8688fb675c6770dcdbfb999a5f5c7f46731df127bdbb39cd1b06238824070889.png" src="_images/8688fb675c6770dcdbfb999a5f5c7f46731df127bdbb39cd1b06238824070889.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/opengl-compute-shaders-builtin-accuracy.html"/>
+    <summary>This notebook is the second in a series of notebooks about general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders.  In working towards a GPU-based implementation of the venerable Solar Position Algorithm (Reda &amp; Andreas 2004) I found that the asin provided by GLSL is not as accurate as I had expected, even considering the reduced precision of 32-bit floats.  This notebook examines the (in)accuracy of this GPU’s GLSL implementations of some basic functions useful for scientific programming.I use the handy helper function from my “first steps” notebook here as well.  This encapsulates (1) the boilerplate necessary to shuttle data to and from the GPU and (2) the initialization code on the GPU side needed prior to performing the actual computation of interest.</summary>
+    <category term="gpgpu" label="gpgpu"/>
+    <category term="python" label="python"/>
+    <published>2022-08-13T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/opengl-compute-shaders-spa-benchmarks.html</id>
+    <title>OpenGL Compute Shaders: SPA</title>
+    <updated>2022-08-21T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;This notebook is the third in a series of notebooks about general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders with the goal of an accurate and fast GPU implementation of Reda &amp;amp; Andreas’s Solar Position Algorithm.  There’s still some work to do, but what I have is already useful in many contexts and as I get close to the finish line I wanted to do some more rigorous validation in terms of accuracy and runtime speed, using pvlib’s numpy and numba implementations as the baseline.&lt;/p&gt;
+&lt;p&gt;These comparisons (both error and runtime) will be specific to this particular GPU.  I will be interested to see how the results vary across devices…&lt;/p&gt;
+&lt;img alt="_images/671574af43eb95f6328f7ffd7b014c0e441165cc2151c9c4266e062a23506886.png" src="_images/671574af43eb95f6328f7ffd7b014c0e441165cc2151c9c4266e062a23506886.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/opengl-compute-shaders-spa-benchmarks.html"/>
+    <summary>This notebook is the third in a series of notebooks about general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders with the goal of an accurate and fast GPU implementation of Reda &amp; Andreas’s Solar Position Algorithm.  There’s still some work to do, but what I have is already useful in many contexts and as I get close to the finish line I wanted to do some more rigorous validation in terms of accuracy and runtime speed, using pvlib’s numpy and numba implementations as the baseline.These comparisons (both error and runtime) will be specific to this particular GPU.  I will be interested to see how the results vary across devices…</summary>
+    <category term="gpgpu" label="gpgpu"/>
+    <category term="python" label="python"/>
+    <category term="photovoltaics" label="photovoltaics"/>
+    <published>2022-08-21T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://kevbase.com/posts/psm3-pixels-boundaries.html</id>
+    <title>PSM3 Pixel Boundaries</title>
+    <updated>2022-09-04T00:00:00+00:00</updated>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;The PSM3 provides data with a nominal 2 km spatial resolution, at least according to the NSRDB &lt;a class="reference external" href="https://nsrdb.nrel.gov/data-sets/us-data"&gt;website&lt;/a&gt;.  I am interested in what the real underlying data grid actually looks like; this notebook shows that the real grid is defined by angular extent (regular in latitude/longitude), not spatial extent.&lt;/p&gt;
+&lt;p&gt;Before getting started – querying 5-minute PSM3 data is a bit slow, and likely I’ll want to re-run cells here as I tweak the notebook, so let’s cache the requests to speed things up.&lt;/p&gt;
+&lt;img alt="_images/9cdffd12c96ee8da6617542ba717dbc1f76ffe81021fb0dfe554775768fc2654.png" src="_images/9cdffd12c96ee8da6617542ba717dbc1f76ffe81021fb0dfe554775768fc2654.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://kevbase.com/posts/psm3-pixels-boundaries.html"/>
+    <summary>The PSM3 provides data with a nominal 2 km spatial resolution, at least according to the NSRDB website.  I am interested in what the real underlying data grid actually looks like; this notebook shows that the real grid is defined by angular extent (regular in latitude/longitude), not spatial extent.Before getting started – querying 5-minute PSM3 data is a bit slow, and likely I’ll want to re-run cells here as I tweak the notebook, so let’s cache the requests to speed things up.</summary>
+    <category term="python" label="python"/>
+    <category term="photovoltaics" label="photovoltaics"/>
+    <published>2022-09-04T00:00:00+00:00</published>
+  </entry>
+</feed>

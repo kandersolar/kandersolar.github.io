@@ -1,0 +1,577 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Seasonal tilt optimization &#8212; the kevbase</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.min.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+     
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  href="../blog/atom.xml"
+  title="kevbase"
+/>
+ 
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/favicon.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../publications.html">
+  Publications
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../blog.html">
+  Blog
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../report.html">
+  Climate Report
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" >
+</form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items">  
+<h2>
+   <i class="fa fa-calendar"></i>
+  2021-09-27 
+</h2>
+
+<ul>
+       
+<li id="tags">
+  <span
+    ><i class="fa-fw fa fa-tags"></i> </span
+  >
+   
+  <a href="../blog/tag/photovoltaics.html">photovoltaics</a>   
+  <a href="../blog/tag/python.html">python</a>  
+</li>
+ 
+</ul>
+
+<h3>
+  <a href="../blog.html">Recent Posts</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="psm3-pixels-boundaries.html"
+      >04 September - PSM3 Pixel Boundaries</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-spa-benchmarks.html"
+      >21 August - OpenGL Compute Shaders: SPA</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-builtin-accuracy.html"
+      >13 August - OpenGL Compute Shaders: Accuracy of Math Functions</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-first-steps.html"
+      >30 July - OpenGL Compute Shaders: First Steps</a
+    >
+  </li>
+  
+  <li>
+    <a href="linalg-sparse-solve.html"
+      >09 April - Speeding up pvfactors</a
+    >
+  </li>
+  
+</ul>
+
+<h3>
+  <a href="../blog/archive.html">Archives</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="../blog/2022.html">2022 (5)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2021.html">2021 (10)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2020.html">2020 (3)</a>
+  </li>
+   
+</ul>
+
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simple-tilt-optimization">
+   Simple tilt optimization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#partitioned-optimization-anchored-equal-widths">
+   Partitioned Optimization (anchored, equal widths)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#partitioned-optimization-floating-equal-widths">
+   Partitioned Optimization (floating, equal widths)
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                 <section class="tex2jax_ignore mathjax_ignore" id="seasonal-tilt-optimization">
+<h1>Seasonal tilt optimization<a class="headerlink" href="#seasonal-tilt-optimization" title="Permalink to this heading">¶</a></h1>
+<p>Playing around with optimizing the tilt of a south-facing adjustable-tilt collector to maximize total insolation capture.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pvlib</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">for</span> <span class="n">pkg</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pvlib</span><span class="p">,</span> <span class="n">scipy</span><span class="p">,</span> <span class="n">pd</span><span class="p">,</span> <span class="n">np</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pkg</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">pkg</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pvlib 0.9.0
+scipy 1.4.1
+pandas 1.3.1
+numpy 1.20.3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">location</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="mf">39.7407</span><span class="p">,</span> <span class="o">-</span><span class="mf">105.1773</span><span class="p">,</span> <span class="n">altitude</span><span class="o">=</span><span class="mi">1790</span><span class="p">)</span>
+<span class="c1"># Note: before pvlib 0.9.0 the return values were reversed (meta, tmy = ...)</span>
+<span class="n">tmy</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">iotools</span><span class="o">.</span><span class="n">get_psm3</span><span class="p">(</span><span class="n">location</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span> <span class="n">location</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span>
+                                   <span class="s1">&#39;DEMO_KEY&#39;</span><span class="p">,</span> <span class="s1">&#39;kevin.anderson@nrel.gov&#39;</span><span class="p">,</span>
+                                   <span class="n">names</span><span class="o">=</span><span class="s1">&#39;tmy&#39;</span><span class="p">)</span>
+<span class="n">reference_year</span> <span class="o">=</span> <span class="mi">2019</span>
+<span class="n">tmy</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">reference_year</span><span class="p">)</span> <span class="k">for</span> <span class="n">dt</span> <span class="ow">in</span> <span class="n">tmy</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: PSM3 TMYs are already timestamped on the half-hour mark,</span>
+<span class="c1"># so no need to do a half-interval shift for solar position</span>
+<span class="n">solar_position</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">get_solarposition</span><span class="p">(</span><span class="n">tmy</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">dni_extra</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">irradiance</span><span class="o">.</span><span class="n">get_extra_radiation</span><span class="p">(</span><span class="n">tmy</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simulate_insolation</span><span class="p">(</span><span class="n">surface_tilt</span><span class="p">,</span> <span class="n">solar_position</span><span class="p">,</span> <span class="n">weather</span><span class="p">,</span> <span class="n">dni_et</span><span class="p">):</span>
+    <span class="n">poa_components</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">irradiance</span><span class="o">.</span><span class="n">get_total_irradiance</span><span class="p">(</span>
+        <span class="n">surface_tilt</span><span class="o">=</span><span class="n">surface_tilt</span><span class="p">,</span>
+        <span class="n">surface_azimuth</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span>
+        <span class="n">solar_zenith</span><span class="o">=</span><span class="n">solar_position</span><span class="p">[</span><span class="s1">&#39;apparent_zenith&#39;</span><span class="p">],</span>
+        <span class="n">solar_azimuth</span><span class="o">=</span><span class="n">solar_position</span><span class="p">[</span><span class="s1">&#39;azimuth&#39;</span><span class="p">],</span>
+        <span class="n">dni</span><span class="o">=</span><span class="n">weather</span><span class="p">[</span><span class="s1">&#39;DNI&#39;</span><span class="p">],</span>
+        <span class="n">ghi</span><span class="o">=</span><span class="n">weather</span><span class="p">[</span><span class="s1">&#39;GHI&#39;</span><span class="p">],</span>
+        <span class="n">dhi</span><span class="o">=</span><span class="n">weather</span><span class="p">[</span><span class="s1">&#39;DHI&#39;</span><span class="p">],</span>
+        <span class="n">dni_extra</span><span class="o">=</span><span class="n">dni_et</span><span class="p">,</span>
+        <span class="n">model</span><span class="o">=</span><span class="s1">&#39;haydavies&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">poa_components</span><span class="p">[</span><span class="s1">&#39;poa_global&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="simple-tilt-optimization">
+<h2>Simple tilt optimization<a class="headerlink" href="#simple-tilt-optimization" title="Permalink to this heading">¶</a></h2>
+<p>Normal fixed tilt – no seasonal changes</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">tilt</span><span class="p">):</span>
+    <span class="c1"># negative so that minimizing is actually maximizing</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">simulate_insolation</span><span class="p">(</span><span class="n">tilt</span><span class="p">,</span> <span class="n">solar_position</span><span class="p">,</span> <span class="n">tmy</span><span class="p">,</span> <span class="n">dni_extra</span><span class="p">)</span>
+
+<span class="c1"># nice and fast!</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bounded&#39;</span><span class="p">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">x</span>  <span class="c1"># optimal tilt in degrees</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Wall time: 57.8 ms
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>37.888115750997976
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="partitioned-optimization-anchored-equal-widths">
+<h2>Partitioned Optimization (anchored, equal widths)<a class="headerlink" href="#partitioned-optimization-anchored-equal-widths" title="Permalink to this heading">¶</a></h2>
+<p>Multiple tilts, equal intervals, first interval starts Jan 1</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">optimize_partitioned</span><span class="p">(</span><span class="n">n_partitions</span><span class="p">):</span>
+    <span class="n">boundaries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8760</span><span class="p">,</span> <span class="n">n_partitions</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">starts</span> <span class="o">=</span> <span class="n">boundaries</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ends</span> <span class="o">=</span> <span class="n">boundaries</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">optimal_tilt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">tmy</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">st</span><span class="p">,</span> <span class="n">ed</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">starts</span><span class="p">,</span> <span class="n">ends</span><span class="p">):</span>
+        <span class="n">solpos</span> <span class="o">=</span> <span class="n">solar_position</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span>
+        <span class="n">weather</span> <span class="o">=</span> <span class="n">tmy</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span>
+        <span class="n">dni_et</span> <span class="o">=</span> <span class="n">dni_extra</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span>
+        <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">tilt</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">simulate_insolation</span><span class="p">(</span><span class="n">tilt</span><span class="p">,</span> <span class="n">solpos</span><span class="p">,</span> <span class="n">weather</span><span class="p">,</span> <span class="n">dni_et</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bounded&#39;</span><span class="p">)</span>
+        <span class="n">optimal_tilt</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span>
+    <span class="k">return</span> <span class="n">optimal_tilt</span>
+
+<span class="n">tilts</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">insolations</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">]:</span>
+    <span class="n">tilt</span> <span class="o">=</span> <span class="n">optimize_partitioned</span><span class="p">(</span><span class="n">n_partitions</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">insolation</span> <span class="o">=</span> <span class="n">simulate_insolation</span><span class="p">(</span><span class="n">tilt</span><span class="p">,</span> <span class="n">solar_position</span><span class="p">,</span> <span class="n">tmy</span><span class="p">,</span> <span class="n">dni_extra</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">tilts</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">tilt</span>
+    <span class="n">insolations</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">insolation</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tilts</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Optimal Module Tilt [degrees]&#39;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">insolations</span><span class="p">)</span> <span class="o">/</span> <span class="n">insolations</span><span class="p">[</span><span class="s1">&#39;n=1&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Insolation Gain over n=1 [%]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Insolation Gain over n=1 [%]&#39;)
+</pre></div>
+</div>
+<img alt="../_images/916a27ea506715c73d7546c8abdb46dc73e813867be0d18b191d7c1be3aedce1.png" src="../_images/916a27ea506715c73d7546c8abdb46dc73e813867be0d18b191d7c1be3aedce1.png" />
+</div>
+</div>
+<p>Not a huge increase in total insolation by moving from 4 to 12 adjustments per year.  If you add <code class="docutils literal notranslate"><span class="pre">n=2</span></code> to this plot it shows hardly any gain over <code class="docutils literal notranslate"><span class="pre">n=1</span></code> because this is anchoring at Jan 1 and each 6-month interval has to accommodate both winter and summer and ends up specializing for neither of them.  For <code class="docutils literal notranslate"><span class="pre">n=2</span></code> it would be better to anchor at e.g. April so that one interval covers late spring to early fall and the other is late fall to early spring so that they can target the respective high and low solar elevations.</p>
+</section>
+<section id="partitioned-optimization-floating-equal-widths">
+<h2>Partitioned Optimization (floating, equal widths)<a class="headerlink" href="#partitioned-optimization-floating-equal-widths" title="Permalink to this heading">¶</a></h2>
+<p>Multiple tilts, equal intervals, starting any time of year (not just Jan 1).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">optimize_partitioned_floating</span><span class="p">(</span><span class="n">n_partitions</span><span class="p">,</span> <span class="n">shift</span><span class="p">):</span>
+    <span class="n">boundaries</span> <span class="o">=</span> <span class="n">shift</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8760</span><span class="p">,</span> <span class="n">n_partitions</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">starts</span> <span class="o">=</span> <span class="n">boundaries</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ends</span> <span class="o">=</span> <span class="n">boundaries</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="c1"># instead of wrapping around, just extend into a duplicate year:</span>
+    <span class="n">solar_position2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">solar_position</span><span class="p">,</span> <span class="n">solar_position</span><span class="p">])</span>
+    <span class="n">tmy2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tmy</span><span class="p">,</span> <span class="n">tmy</span><span class="p">])</span>
+    <span class="n">dni_extra2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">dni_extra</span><span class="p">,</span> <span class="n">dni_extra</span><span class="p">])</span>
+    <span class="n">optimal_tilt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">tmy2</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">st</span><span class="p">,</span> <span class="n">ed</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">starts</span><span class="p">,</span> <span class="n">ends</span><span class="p">):</span>
+        <span class="n">solpos</span> <span class="o">=</span> <span class="n">solar_position2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span>
+        <span class="n">weather</span> <span class="o">=</span> <span class="n">tmy2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span>
+        <span class="n">dni_et</span> <span class="o">=</span> <span class="n">dni_extra2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span>
+        <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">tilt</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">simulate_insolation</span><span class="p">(</span><span class="n">tilt</span><span class="p">,</span> <span class="n">solpos</span><span class="p">,</span> <span class="n">weather</span><span class="p">,</span> <span class="n">dni_et</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bounded&#39;</span><span class="p">)</span>
+        <span class="n">optimal_tilt</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">optimal_tilt</span> <span class="o">=</span> <span class="n">optimal_tilt</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="n">optimal_tilt</span> <span class="o">=</span> <span class="n">optimal_tilt</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">optimal_tilt</span>
+
+<span class="n">optimize_partitioned_floating</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">optimize_partitioned_floating</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8760</span><span class="o">//</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ideal Tilt [degrees]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ac41eae8e489c66b261482796d4713313969f2c5d6657727a01ecb36bf76f557.png" src="../_images/ac41eae8e489c66b261482796d4713313969f2c5d6657727a01ecb36bf76f557.png" />
+</div>
+</div>
+<p>As expected, changing the shift dates so that the <code class="docutils literal notranslate"><span class="pre">n=2</span></code> square wave is closer to being in-phase with solar position allows the optimized tilts to be more specialized.</p>
+<p>Here is some art showing how the ideal angles change based on anchor choice:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shifts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8760</span><span class="p">,</span> <span class="mi">73</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>  <span class="c1"># 73 evenly divides 365</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">]):</span>
+    <span class="n">tilts</span> <span class="o">=</span> <span class="p">[</span><span class="n">optimize_partitioned_floating</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">shift</span><span class="p">)</span> <span class="k">for</span> <span class="n">shift</span> <span class="ow">in</span> <span class="n">shifts</span><span class="p">]</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tmy</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tilts</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Ideal Tilt [degrees]&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e38e096dd732bd3f9bd83204dce134b1aa48fb4c76088f2819ca91f07bd460d4.png" src="../_images/e38e096dd732bd3f9bd83204dce134b1aa48fb4c76088f2819ca91f07bd460d4.png" />
+</div>
+</div>
+<p>Compare annual insolation across <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">shift</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">]:</span>
+    <span class="n">insolations</span> <span class="o">=</span> <span class="p">[</span><span class="n">simulate_insolation</span><span class="p">(</span><span class="n">optimize_partitioned_floating</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">shift</span><span class="p">),</span> <span class="n">solar_position</span><span class="p">,</span> <span class="n">tmy</span><span class="p">,</span> <span class="n">dni_extra</span><span class="p">)</span> <span class="k">for</span> <span class="n">shift</span> <span class="ow">in</span> <span class="n">shifts</span><span class="p">]</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">insolations</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">tmy</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">shifts</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Anchor Point&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Annual Insolation [Wh/m2]&#39;</span><span class="p">)</span>
+
+<span class="n">equinoxes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span><span class="s1">&#39;2019-03-20&#39;</span><span class="p">,</span> <span class="s1">&#39;2019-09-23&#39;</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">eq</span> <span class="ow">in</span> <span class="n">equinoxes</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">eq</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/717a4a4bf9b93833468a04d06fd0243c849a1c9521751e2df18ad3cbc0bbbc88.png" src="../_images/717a4a4bf9b93833468a04d06fd0243c849a1c9521751e2df18ad3cbc0bbbc88.png" />
+</div>
+</div>
+<p>Look at how <code class="docutils literal notranslate"><span class="pre">n=3</span></code> performs poorly relative to <code class="docutils literal notranslate"><span class="pre">n=2</span></code> for some shifts!  I suppose it is mostly down to requiring equal intervals; if nonequal intervals were allowed then annual insolation would presumably be monotonic non-decreasing with <code class="docutils literal notranslate"><span class="pre">n</span></code> – if <code class="docutils literal notranslate"><span class="pre">n+1</span></code> were somehow worse than <code class="docutils literal notranslate"><span class="pre">n</span></code>, you could just shrink one interval down to zero length and match <code class="docutils literal notranslate"><span class="pre">n</span></code> exactly.</p>
+<p>Also <code class="docutils literal notranslate"><span class="pre">n=2</span></code> really isn’t that bad – there’s maybe a ~1% increase from <code class="docutils literal notranslate"><span class="pre">n=2</span></code> on the equinox to <code class="docutils literal notranslate"><span class="pre">n=12</span></code>.  And <code class="docutils literal notranslate"><span class="pre">n=4</span></code> is no better than equinox-aligned <code class="docutils literal notranslate"><span class="pre">n=2</span></code>. For <code class="docutils literal notranslate"><span class="pre">n&gt;=4</span></code> the shift doesn’t really change the annual insolation capture (though the optimal angles still change for each interval</p>
+<p>Note that the code to generate this plot is pretty inefficient for large <code class="docutils literal notranslate"><span class="pre">n</span></code>; each of these profiles has <code class="docutils literal notranslate"><span class="pre">n</span></code> periods per year, so there is no new information to be had after <code class="docutils literal notranslate"><span class="pre">8760/n</span></code> shifts.  E.g. for <code class="docutils literal notranslate"><span class="pre">n=2</span></code> a shift of zero is the same as a shift of 4380.</p>
+</section>
+</section>
+
+<div class="section">
+    
+
+<div class="section">
+  <span style="float: left">
+     
+    <a href="julia-basic-simd.html">
+      <i class="fa fa-arrow-circle-left"></i> Basic SIMD in Julia
+    </a>
+    
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right">
+     
+    <a href="gcr-vs-theta-max.html">
+      Single-axis tracking: GCR vs max angle <i
+        class="fa fa-arrow-circle-right"
+      ></i
+      >
+    </a>
+    
+  </span>
+</div>
+  
+</div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2015-2024, Kevin Anderson.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

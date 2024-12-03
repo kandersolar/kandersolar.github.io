@@ -1,0 +1,718 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>OpenGL Compute Shaders: First Steps &#8212; the kevbase</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.min.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+     
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  href="../blog/atom.xml"
+  title="kevbase"
+/>
+ 
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/favicon.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../publications.html">
+  Publications
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../blog.html">
+  Blog
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../report.html">
+  Climate Report
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" >
+</form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items">  
+<h2>
+   <i class="fa fa-calendar"></i>
+  2022-07-30 
+</h2>
+
+<ul>
+       
+<li id="tags">
+  <span
+    ><i class="fa-fw fa fa-tags"></i> </span
+  >
+   
+  <a href="../blog/tag/gpgpu.html">gpgpu</a>   
+  <a href="../blog/tag/python.html">python</a>  
+</li>
+ 
+</ul>
+
+<h3>
+  <a href="../blog.html">Recent Posts</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="psm3-pixels-boundaries.html"
+      >04 September - PSM3 Pixel Boundaries</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-spa-benchmarks.html"
+      >21 August - OpenGL Compute Shaders: SPA</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-builtin-accuracy.html"
+      >13 August - OpenGL Compute Shaders: Accuracy of Math Functions</a
+    >
+  </li>
+  
+  <li>
+    <a href="linalg-sparse-solve.html"
+      >09 April - Speeding up pvfactors</a
+    >
+  </li>
+  
+  <li>
+    <a href="ground-sky-vf.html"
+      >29 December - Ground-to-sky viewfactor</a
+    >
+  </li>
+  
+</ul>
+
+<h3>
+  <a href="../blog/archive.html">Archives</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="../blog/2022.html">2022 (5)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2021.html">2021 (10)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2020.html">2020 (3)</a>
+  </li>
+   
+</ul>
+
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                 <section class="tex2jax_ignore mathjax_ignore" id="opengl-compute-shaders-first-steps">
+<h1>OpenGL Compute Shaders: First Steps<a class="headerlink" href="#opengl-compute-shaders-first-steps" title="Permalink to this heading">¶</a></h1>
+<p>This notebook is a first exploration into general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders.  OpenGL is primarily geared towards rendering graphics and most of its functionality is organized into a sequential rendering pipeline.  However, it also includes the ability to run computations outside of the rendering pipeline using so-called “compute shaders”.  In essence, a shader is just a little program, written in a C-like language, that executes on the GPU.  I am neither qualified nor interested in explaining more than that; if you’re interested then I suggest reading one of the many OpenGL tutorials on the internet.  I warn you in advance: it is a big rabbit hole!</p>
+<p>If the goal is general-purpose GPU computing, you might wonder why I chose to use OpenGL (geared towards graphics, with GPGPU as an auxiliary function) instead of something like CUDA or OpenCL.  I have the naive impression that OpenGL is easier to set up on a new computer than the the more general alternatives are, and a long-term goal of mine is to distribute GPU-accelerated code to the masses, so ease of installation is important. Perhaps someday I’ll change my mind and switch to OpenCL, but for now I experiment with OpenGL.</p>
+<p>This is my first foray into the world of GPU programming, so I don’t necessarily suggest using this as learning material.  I can’t promise I’m following best practices because I don’t know what the best practices are.  This is just a record of what I managed to get working.</p>
+<p>Currently I’m using <a class="reference external" href="https://moderngl.readthedocs.io/en/latest/index.html">moderngl</a> as an OpenGL interface to my graphics card:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>python<span class="w"> </span>-m<span class="w"> </span>moderngl
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>moderngl 5.6.4
+--------------
+vendor: AMD
+renderer: AMD RENOIR (LLVM 13.0.1, DRM 3.44, 5.16.19-76051619-generic)
+version: 4.6 (Core Profile) Mesa 22.0.1
+python: 3.8.13 (default, Mar 28 2022, 11:38:47) 
+[GCC 7.5.0]
+platform: linux
+code: 460
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">moderngl</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The overall strategy here is more or less to set up an OpenGL context, transfer the computation inputs to the GPU, perform the computation, and transfer the computation outputs back to the CPU.</p>
+<p>Here is a small helper function that takes some generic computation and an input array, and handles all the OpenGL setup and data shuffling to and from the GPU.  This is probably a dumb way to use OpenGL but I wanted an easy way to compare different computations, so this is what I used.  I use 32-bit floats because I’m told that’s what GPUs prefer.  Future applications might require switching from single-precision to double-precision floats.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a single OpenGL context and re-use it for all that follows</span>
+<span class="n">context</span> <span class="o">=</span> <span class="n">moderngl</span><span class="o">.</span><span class="n">create_standalone_context</span><span class="p">(</span><span class="n">require</span><span class="o">=</span><span class="mi">430</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">groupsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function to run a computation on some input array.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+
+    <span class="n">SHADER_SOURCE</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    #version 430</span>
+
+<span class="s2">    #define GROUPSIZE </span><span class="si">%%</span><span class="s2">N</span><span class="si">%%</span>
+
+<span class="s2">    layout(local_size_x=GROUPSIZE, local_size_y=1, local_size_z=1) in;</span>
+
+<span class="s2">    layout (std430, binding=0) buffer in_0</span>
+<span class="s2">    {</span>
+<span class="s2">        float inputs[1];</span>
+<span class="s2">    };</span>
+<span class="s2">    </span>
+<span class="s2">    layout (std430, binding=1) buffer out_0</span>
+<span class="s2">    {</span>
+<span class="s2">        float outputs[1];</span>
+<span class="s2">    };</span>
+<span class="s2">    </span>
+<span class="s2">    void main()</span>
+<span class="s2">    {</span>
+<span class="s2">        // setup</span>
+<span class="s2">        const int local_id = int(gl_LocalInvocationID.x);</span>
+<span class="s2">        const int group_id = int(gl_WorkGroupID.x);</span>
+<span class="s2">        const int i = group_id * GROUPSIZE + local_id;</span>
+<span class="s2">        // custom job, to be specified externally while I experiment</span>
+<span class="s2">        </span><span class="si">%%</span><span class="s2">JOB</span><span class="si">%%</span>
+<span class="s2">    }</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%%</span><span class="s2">N</span><span class="si">%%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">),</span> <span class="n">groupsize</span><span class="p">)))</span>
+    <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%%</span><span class="s2">JOB</span><span class="si">%%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">job</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">compute_shader</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">compute_shader</span><span class="p">(</span><span class="n">SHADER_SOURCE</span><span class="p">)</span>
+    
+    <span class="n">buffer_inputs</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">buffer_outputs</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">reserve</span><span class="o">=</span><span class="n">inputs</span><span class="o">.</span><span class="n">nbytes</span><span class="p">)</span>
+
+    <span class="n">buffer_inputs</span><span class="o">.</span><span class="n">bind_to_storage_buffer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">buffer_outputs</span><span class="o">.</span><span class="n">bind_to_storage_buffer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">n_group</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">groupsize</span>
+    <span class="n">compute_shader</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">group_x</span><span class="o">=</span><span class="n">n_group</span><span class="p">)</span>
+    
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">buffer_outputs</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">outputs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can try it out on a simple example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;f4&#39;</span><span class="p">)</span>
+<span class="n">computation</span> <span class="o">=</span> <span class="s2">&quot;outputs[i] = tan(inputs[i]);&quot;</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">computation</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;tan(x) on the GPU!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;tan(x) on the GPU!&#39;)
+</pre></div>
+</div>
+<img alt="../_images/ec182f328b9f54e0409a8dd7088007a0e39083a4e4b6c9df15ddcfac666e0943.png" src="../_images/ec182f328b9f54e0409a8dd7088007a0e39083a4e4b6c9df15ddcfac666e0943.png" />
+</div>
+</div>
+<p>One important thing to be aware of is that IEEE-754 compliance is apparently not guaranteed (or I’m doing something wrong):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outputs_cpu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">outputs_cpu</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">-</span> <span class="n">outputs_cpu</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Numerical Error (GPU - CPU)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Numerical Error (GPU - CPU)&#39;)
+</pre></div>
+</div>
+<img alt="../_images/3ffb99cdfc7b4c00986d235c2ede8988726c415714609f97fa19165da882b0c0.png" src="../_images/3ffb99cdfc7b4c00986d235c2ede8988726c415714609f97fa19165da882b0c0.png" />
+</div>
+</div>
+<p>Now let’s take a look at speed.  Shuffling data between CPU and GPU isn’t free.  The question is how much overhead that introduces, and what conditions are necessary for using the GPU to be worthwhile.  First up let’s look at how <code class="docutils literal notranslate"><span class="pre">arctan(x)</span></code> runtime scales with the size of <code class="docutils literal notranslate"><span class="pre">x</span></code>.  For the CPU runtimes I’m calling numpy – perhaps using numba would be a fairer comparison, but I’m just feeling things out at this point.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">timing_plots</span><span class="p">(</span><span class="n">timings</span><span class="p">):</span>
+    <span class="n">timings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">timings</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">timings</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">logx</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">logy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Elapsed Time [s]&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="n">timings</span><span class="p">[</span><span class="s1">&#39;gpu&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">timings</span><span class="p">[</span><span class="s1">&#39;cpu&#39;</span><span class="p">]</span>
+    <span class="n">ratio</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">logy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Ratio (GPU/CPU)&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">timings</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">N</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;f4&#39;</span><span class="p">)</span>
+    <span class="n">timing</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="n">n</span><span class="p">}</span>
+
+    <span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">timing</span><span class="p">[</span><span class="s1">&#39;cpu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span>
+    
+    <span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="s2">&quot;outputs[i] = atan(inputs[i]);&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">timing</span><span class="p">[</span><span class="s1">&#39;gpu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span>
+
+    <span class="n">timings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timing</span><span class="p">)</span>
+
+<span class="n">timing_plots</span><span class="p">(</span><span class="n">timings</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/bbad706fa67741267e9a2466a0ca7446f1a6d132bc23b91dfa41d2adb50f1422.png" src="../_images/bbad706fa67741267e9a2466a0ca7446f1a6d132bc23b91dfa41d2adb50f1422.png" />
+</div>
+</div>
+<p>So it seems like for this problem (<code class="docutils literal notranslate"><span class="pre">arctan(x)</span></code>) the improved scaling ability on the GPU doesn’t really result in a meaningful improvement, even for large input sizes.  However, input size isn’t the only variable here – what about problem complexity?  Input size is probably the main influence on the overhead cost (since it directly affects how much data you’re sending to/from the GPU), so let’s use the same sizes but increase the computation cost by 10x:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">timings</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">N</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;f4&#39;</span><span class="p">)</span>
+    <span class="n">timing</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="n">n</span><span class="p">}</span>
+
+    <span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">x</span><span class="p">))))))))))</span>
+    <span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">timing</span><span class="p">[</span><span class="s1">&#39;cpu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span>
+
+    <span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="s2">&quot;outputs[i] = atan(atan(atan(atan(atan(atan(atan(atan(atan(atan(inputs[i]))))))))));&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">timing</span><span class="p">[</span><span class="s1">&#39;gpu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span>
+
+    <span class="n">timings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timing</span><span class="p">)</span>
+
+<span class="n">timing_plots</span><span class="p">(</span><span class="n">timings</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c82f4f62ec901ecbd5447efe1fc6dbae4a8f0a6071aeca35d89adda734c78c24.png" src="../_images/c82f4f62ec901ecbd5447efe1fc6dbae4a8f0a6071aeca35d89adda734c78c24.png" />
+</div>
+</div>
+<p>Now we see that the GPU starts winning at relatively small input sizes around 1e4!  But wait a minute, isn’t the CPU-based method unfairly penalized because of repeated and unnecessary memory allocations?  Let’s fix that by using numpy’s <code class="docutils literal notranslate"><span class="pre">out</span></code> kwarg:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">timings</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">N</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;f4&#39;</span><span class="p">)</span>
+    <span class="n">timing</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="n">n</span><span class="p">}</span>
+
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">x1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">x1</span><span class="p">)</span>
+    <span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">timing</span><span class="p">[</span><span class="s1">&#39;cpu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span>
+
+    <span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    float y = atan(inputs[i]);</span>
+<span class="s2">    for(int i = 0; i &lt; 9; i++){</span>
+<span class="s2">        y = atan(y);</span>
+<span class="s2">    }</span>
+<span class="s2">    outputs[i] = y;</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">timing</span><span class="p">[</span><span class="s1">&#39;gpu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span>
+
+    <span class="n">timings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timing</span><span class="p">)</span>
+
+<span class="n">timing_plots</span><span class="p">(</span><span class="n">timings</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/62323b0359a917201ff1d7234be767445a673a2788ec858dd3439beb667b1b73.png" src="../_images/62323b0359a917201ff1d7234be767445a673a2788ec858dd3439beb667b1b73.png" />
+</div>
+</div>
+<p>Doesn’t seem to have really changed the picture, so maybe we don’t need to stress out about memory allocations in this context.</p>
+<p>Let’s bump up the complexity again, this time to 100 arctans:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">timings</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">N</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;f4&#39;</span><span class="p">)</span>
+    <span class="n">timing</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="n">n</span><span class="p">}</span>
+
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">x1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">99</span><span class="p">):</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">x1</span><span class="p">)</span>
+    <span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">timing</span><span class="p">[</span><span class="s1">&#39;cpu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span>
+
+    <span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    float y = atan(inputs[i]);</span>
+<span class="s2">    for(int i = 0; i &lt; 99; i++){</span>
+<span class="s2">        y = atan(y);</span>
+<span class="s2">    }</span>
+<span class="s2">    outputs[i] = y;</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">timing</span><span class="p">[</span><span class="s1">&#39;gpu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span>
+
+    <span class="n">timings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timing</span><span class="p">)</span>
+
+<span class="n">timing_plots</span><span class="p">(</span><span class="n">timings</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/3c9393a19ba95fdde9b6ac41644c41414a455e77ca9828e91f312f09c3eefd4d.png" src="../_images/3c9393a19ba95fdde9b6ac41644c41414a455e77ca9828e91f312f09c3eefd4d.png" />
+</div>
+</div>
+<p>Now the GPU wins at basically all problem sizes, but with massive speedup for medium-large problems!</p>
+<p>Let’s disect our OpenGL code and see what the line-by-line runtime looks like:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;f4&#39;</span><span class="p">)</span>
+<span class="n">groupsize</span> <span class="o">=</span> <span class="mi">1024</span>
+<span class="n">job</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">float y = atan(inputs[i]);</span>
+<span class="s2">for(int i = 0; i &lt; 99; i++){</span>
+<span class="s2">    y = atan(y);</span>
+<span class="s2">}</span>
+<span class="s2">outputs[i] = y;</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">n_group</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">groupsize</span>
+
+<span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<span class="n">SHADER_SOURCE</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">#version 430</span>
+
+<span class="s2">#define GROUPSIZE </span><span class="si">%%</span><span class="s2">N</span><span class="si">%%</span>
+
+<span class="s2">layout(local_size_x=GROUPSIZE, local_size_y=1, local_size_z=1) in;</span>
+
+<span class="s2">layout (std430, binding=0) buffer in_0</span>
+<span class="s2">{</span>
+<span class="s2">    float inputs[1];</span>
+<span class="s2">};</span>
+
+<span class="s2">layout (std430, binding=1) buffer out_0</span>
+<span class="s2">{</span>
+<span class="s2">    float outputs[1];</span>
+<span class="s2">};</span>
+
+<span class="s2">void main()</span>
+<span class="s2">{</span>
+<span class="s2">    // setup</span>
+<span class="s2">    const int local_id = int(gl_LocalInvocationID.x);</span>
+<span class="s2">    const int group_id = int(gl_WorkGroupID.x);</span>
+<span class="s2">    const int i = group_id * GROUPSIZE + local_id;</span>
+<span class="s2">    // custom job, to be specified externally while I experiment</span>
+<span class="s2">    </span><span class="si">%%</span><span class="s2">JOB</span><span class="si">%%</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%%</span><span class="s2">N</span><span class="si">%%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">),</span> <span class="n">groupsize</span><span class="p">)))</span>
+<span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%%</span><span class="s2">JOB</span><span class="si">%%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">job</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;shader definition &amp; interpolation:&#39;</span><span class="p">,</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span><span class="p">)</span>
+
+<span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<span class="n">compute_shader</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">compute_shader</span><span class="p">(</span><span class="n">SHADER_SOURCE</span><span class="p">)</span>
+<span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;shader compilation:&#39;</span><span class="p">,</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span><span class="p">)</span>
+
+<span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<span class="n">buffer_inputs</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">buffer_outputs</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">reserve</span><span class="o">=</span><span class="n">inputs</span><span class="o">.</span><span class="n">nbytes</span><span class="p">)</span>
+<span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;buffer initialization:&#39;</span><span class="p">,</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span><span class="p">)</span>
+
+<span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<span class="n">buffer_inputs</span><span class="o">.</span><span class="n">bind_to_storage_buffer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">buffer_outputs</span><span class="o">.</span><span class="n">bind_to_storage_buffer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;buffer binding:&#39;</span><span class="p">,</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span><span class="p">)</span>
+
+<span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<span class="n">compute_shader</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">group_x</span><span class="o">=</span><span class="n">n_group</span><span class="p">)</span>
+<span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;shader execution:&#39;</span><span class="p">,</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span><span class="p">)</span>
+
+<span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">buffer_outputs</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;fetching results:&#39;</span><span class="p">,</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>shader definition &amp; interpolation: 4.4764019548892975e-05
+shader compilation: 0.0005510500050149858
+buffer initialization: 0.001609519007615745
+buffer binding: 6.838899571448565e-05
+shader execution: 4.4234038796275854e-05
+fetching results: 0.002403047983534634
+</pre></div>
+</div>
+</div>
+</div>
+<p>I’m not 100% sure whether all of the actual computation is correctly binned here – it could be that some of the time currently allocated to “fetching results” is actually just idle time waiting for the GPU to finish its computations.</p>
+<p>Regardless, all of this is just mind-bogglingly fast.  My main conclusion is that, especially for medium-large inputs (&gt;1e4) and complex computations, all-in GPU runtime (including data transfer) can be significantly (1-2 orders of magnitude) faster than the CPU runtime, suggesting that even with my inexperienced and likely inefficient use of OpenGL it is a viable option for speeding up real-world computations.</p>
+</section>
+
+<div class="section">
+    
+
+<div class="section">
+  <span style="float: left">
+     
+    <a href="linalg-sparse-solve.html">
+      <i class="fa fa-arrow-circle-left"></i> Speeding up pvfactors
+    </a>
+    
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right">
+     
+    <a href="opengl-compute-shaders-builtin-accuracy.html">
+      OpenGL Compute Shaders: Accuracy of Math Functions <i
+        class="fa fa-arrow-circle-right"
+      ></i
+      >
+    </a>
+    
+  </span>
+</div>
+  
+</div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2015-2024, Kevin Anderson.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

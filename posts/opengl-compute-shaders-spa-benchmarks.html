@@ -1,0 +1,1135 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>OpenGL Compute Shaders: SPA &#8212; the kevbase</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.min.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+     
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  href="../blog/atom.xml"
+  title="kevbase"
+/>
+ 
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/favicon.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../publications.html">
+  Publications
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../blog.html">
+  Blog
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../report.html">
+  Climate Report
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" >
+</form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items">  
+<h2>
+   <i class="fa fa-calendar"></i>
+  2022-08-21 
+</h2>
+
+<ul>
+       
+<li id="tags">
+  <span
+    ><i class="fa-fw fa fa-tags"></i> </span
+  >
+   
+  <a href="../blog/tag/gpgpu.html">gpgpu</a>   
+  <a href="../blog/tag/python.html">python</a>   
+  <a href="../blog/tag/photovoltaics.html">photovoltaics</a>  
+</li>
+ 
+</ul>
+
+<h3>
+  <a href="../blog.html">Recent Posts</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="psm3-pixels-boundaries.html"
+      >04 September - PSM3 Pixel Boundaries</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-builtin-accuracy.html"
+      >13 August - OpenGL Compute Shaders: Accuracy of Math Functions</a
+    >
+  </li>
+  
+  <li>
+    <a href="opengl-compute-shaders-first-steps.html"
+      >30 July - OpenGL Compute Shaders: First Steps</a
+    >
+  </li>
+  
+  <li>
+    <a href="linalg-sparse-solve.html"
+      >09 April - Speeding up pvfactors</a
+    >
+  </li>
+  
+  <li>
+    <a href="ground-sky-vf.html"
+      >29 December - Ground-to-sky viewfactor</a
+    >
+  </li>
+  
+</ul>
+
+<h3>
+  <a href="../blog/archive.html">Archives</a>
+</h3>
+<ul>
+   
+  <li>
+    <a href="../blog/2022.html">2022 (5)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2021.html">2021 (10)</a>
+  </li>
+    
+  <li>
+    <a href="../blog/2020.html">2020 (3)</a>
+  </li>
+   
+</ul>
+
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   OpenGL Compute Shaders: SPA
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#accuracy-benchmarks">
+   Accuracy Benchmarks
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#minute-simulation">
+     2019 1-minute simulation
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hourly-simulation">
+     1900–2100 hourly simulation
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lat-lon-sweep">
+     Lat/Lon Sweep
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#refraction-correction">
+     Refraction Correction
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#execution-speed-benchmarks">
+   Execution Speed Benchmarks
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                 <section class="tex2jax_ignore mathjax_ignore" id="opengl-compute-shaders-spa">
+<h1>OpenGL Compute Shaders: SPA<a class="headerlink" href="#opengl-compute-shaders-spa" title="Permalink to this heading">¶</a></h1>
+<p>This notebook is the third in a series of notebooks about general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders with the goal of an accurate and fast GPU implementation of Reda &amp; Andreas’s Solar Position Algorithm.  There’s still some work to do, but what I have is already useful in many contexts and as I get close to the finish line I wanted to do some more rigorous validation in terms of accuracy and runtime speed, using pvlib’s numpy and numba implementations as the baseline.</p>
+<p>These comparisons (both error and runtime) will be specific to this particular GPU.  I will be interested to see how the results vary across devices…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">moderngl</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pvlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">time</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This function does the data processing needed to shuffle the arguments to and from the OpenGL kernel, as well as coordinate the kernel execution itself.  Again, no promises that this is the best way to do it – but it works!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">context</span> <span class="o">=</span> <span class="n">moderngl</span><span class="o">.</span><span class="n">create_standalone_context</span><span class="p">(</span><span class="n">require</span><span class="o">=</span><span class="mi">430</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">gpu_spa</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">elevation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">pressure</span><span class="o">=</span><span class="mi">101325</span><span class="p">,</span> <span class="n">delta_t</span><span class="o">=</span><span class="mi">67</span><span class="p">,</span> <span class="n">atmos_refract</span><span class="o">=</span><span class="mf">0.5667</span><span class="p">,</span> <span class="n">groupsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+    <span class="n">n_times</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+    <span class="n">n_vars</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">unixtimes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">times</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">elevation</span><span class="p">,</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">pressure</span><span class="p">,</span> <span class="n">delta_t</span><span class="p">,</span> <span class="n">atmos_refract</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;f4&#39;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;spa.glsl&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%%</span><span class="s2">N</span><span class="si">%%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">n_times</span><span class="p">,</span> <span class="n">groupsize</span><span class="p">)))</span>
+
+    <span class="n">compute_shader</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">compute_shader</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    
+    <span class="n">buffer_times</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">unixtimes</span><span class="p">)</span>
+    <span class="n">buffer_parameters</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">buffer_outputs</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">reserve</span><span class="o">=</span><span class="n">n_vars</span><span class="o">*</span><span class="mi">4</span><span class="o">*</span><span class="n">n_times</span><span class="p">)</span>
+
+    <span class="n">buffer_times</span><span class="o">.</span><span class="n">bind_to_storage_buffer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">buffer_parameters</span><span class="o">.</span><span class="n">bind_to_storage_buffer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">buffer_outputs</span><span class="o">.</span><span class="n">bind_to_storage_buffer</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="n">n_group</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">n_times</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">groupsize</span>
+    <span class="n">compute_shader</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">group_x</span><span class="o">=</span><span class="n">n_group</span><span class="p">)</span>
+    
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">buffer_outputs</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;elevation&#39;</span><span class="p">:</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="n">n_vars</span><span class="p">],</span>
+        <span class="s1">&#39;apparent_elevation&#39;</span><span class="p">:</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="n">n_vars</span><span class="p">],</span>
+        <span class="s1">&#39;zenith&#39;</span><span class="p">:</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">2</span><span class="p">::</span><span class="n">n_vars</span><span class="p">],</span>
+        <span class="s1">&#39;apparent_zenith&#39;</span><span class="p">:</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">3</span><span class="p">::</span><span class="n">n_vars</span><span class="p">],</span>
+        <span class="s1">&#39;azimuth&#39;</span><span class="p">:</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">4</span><span class="p">::</span><span class="n">n_vars</span><span class="p">],</span>
+    <span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">times</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="accuracy-benchmarks">
+<h1>Accuracy Benchmarks<a class="headerlink" href="#accuracy-benchmarks" title="Permalink to this heading">¶</a></h1>
+<p>First, check that the GPU implementation gives the same output as pvlib under several test scenarios.  pvlib’s numpy implementation is the reference.</p>
+<section id="minute-simulation">
+<h2>2019 1-minute simulation<a class="headerlink" href="#minute-simulation" title="Permalink to this heading">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">describe</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;rmse&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">d</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">**</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;mbe&#39;</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+        <span class="s1">&#39;mae&#39;</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+    <span class="p">})</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">times</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2019-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-01-01&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+<span class="n">gpu</span> <span class="o">=</span> <span class="n">gpu_spa</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">cpu</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">solarposition</span><span class="o">.</span><span class="n">get_solarposition</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">describe</span><span class="p">(</span><span class="n">cpu</span><span class="p">,</span> <span class="n">gpu</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>apparent_elevation</th>
+      <th>apparent_zenith</th>
+      <th>azimuth</th>
+      <th>elevation</th>
+      <th>equation_of_time</th>
+      <th>zenith</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>rmse</th>
+      <td>0.001248</td>
+      <td>0.001248</td>
+      <td>0.000568</td>
+      <td>0.000334</td>
+      <td>NaN</td>
+      <td>0.000334</td>
+    </tr>
+    <tr>
+      <th>mbe</th>
+      <td>-0.000004</td>
+      <td>0.000004</td>
+      <td>-0.000219</td>
+      <td>-0.000002</td>
+      <td>NaN</td>
+      <td>0.000002</td>
+    </tr>
+    <tr>
+      <th>mae</th>
+      <td>0.000258</td>
+      <td>0.000258</td>
+      <td>0.000411</td>
+      <td>0.000257</td>
+      <td>NaN</td>
+      <td>0.000257</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filt</span> <span class="o">=</span> <span class="n">cpu</span><span class="p">[</span><span class="s1">&#39;zenith&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">89</span>
+<span class="n">describe</span><span class="p">(</span><span class="n">cpu</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filt</span><span class="p">,</span> <span class="p">:],</span> <span class="n">gpu</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filt</span><span class="p">,</span> <span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>apparent_elevation</th>
+      <th>apparent_zenith</th>
+      <th>azimuth</th>
+      <th>elevation</th>
+      <th>equation_of_time</th>
+      <th>zenith</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>rmse</th>
+      <td>0.000323</td>
+      <td>0.000323</td>
+      <td>0.000561</td>
+      <td>0.000325</td>
+      <td>NaN</td>
+      <td>0.000325</td>
+    </tr>
+    <tr>
+      <th>mbe</th>
+      <td>0.000008</td>
+      <td>-0.000008</td>
+      <td>-0.000216</td>
+      <td>0.000008</td>
+      <td>NaN</td>
+      <td>-0.000008</td>
+    </tr>
+    <tr>
+      <th>mae</th>
+      <td>0.000246</td>
+      <td>0.000246</td>
+      <td>0.000408</td>
+      <td>0.000248</td>
+      <td>NaN</td>
+      <td>0.000248</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Error is very low for this test, although there is likely still some room for improvement.  These results (and all others in this notebook) are still using the <code class="docutils literal notranslate"><span class="pre">arcsin</span></code>/<code class="docutils literal notranslate"><span class="pre">arctan</span></code> hack from the previous post, so there is some accuracy to be gained there if nowhere else.</p>
+<p>One of SPA’s claims to fame is its accuracy over such a wide time span; I’m not necessarily interested in trying to match that, but we should at least test some years besides 2019:</p>
+</section>
+<section id="hourly-simulation">
+<h2>1900–2100 hourly simulation<a class="headerlink" href="#hourly-simulation" title="Permalink to this heading">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">times</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;1900-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2100-01-01&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+<span class="n">gpu</span> <span class="o">=</span> <span class="n">gpu_spa</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">cpu</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">solarposition</span><span class="o">.</span><span class="n">get_solarposition</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">describe</span><span class="p">(</span><span class="n">cpu</span><span class="p">,</span> <span class="n">gpu</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>apparent_elevation</th>
+      <th>apparent_zenith</th>
+      <th>azimuth</th>
+      <th>elevation</th>
+      <th>equation_of_time</th>
+      <th>zenith</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>rmse</th>
+      <td>35.638818</td>
+      <td>35.638818</td>
+      <td>106.151313</td>
+      <td>35.629696</td>
+      <td>NaN</td>
+      <td>35.629696</td>
+    </tr>
+    <tr>
+      <th>mbe</th>
+      <td>0.411457</td>
+      <td>-0.411457</td>
+      <td>4.656588</td>
+      <td>0.408023</td>
+      <td>NaN</td>
+      <td>-0.408023</td>
+    </tr>
+    <tr>
+      <th>mae</th>
+      <td>21.895442</td>
+      <td>21.895442</td>
+      <td>64.165011</td>
+      <td>21.890567</td>
+      <td>NaN</td>
+      <td>21.890567</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Yikes!  So something is going wrong somewhere… dropping nighttime and the atmospheric correction doesn’t fix it either:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filt</span> <span class="o">=</span> <span class="n">cpu</span><span class="p">[</span><span class="s1">&#39;zenith&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">89</span>
+<span class="n">describe</span><span class="p">(</span><span class="n">cpu</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filt</span><span class="p">,</span> <span class="p">:],</span> <span class="n">gpu</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filt</span><span class="p">,</span> <span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>apparent_elevation</th>
+      <th>apparent_zenith</th>
+      <th>azimuth</th>
+      <th>elevation</th>
+      <th>equation_of_time</th>
+      <th>zenith</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>rmse</th>
+      <td>36.085840</td>
+      <td>36.085840</td>
+      <td>85.652276</td>
+      <td>36.084422</td>
+      <td>NaN</td>
+      <td>36.084422</td>
+    </tr>
+    <tr>
+      <th>mbe</th>
+      <td>16.209380</td>
+      <td>-16.209380</td>
+      <td>-21.528633</td>
+      <td>16.198121</td>
+      <td>NaN</td>
+      <td>-16.198121</td>
+    </tr>
+    <tr>
+      <th>mae</th>
+      <td>22.415592</td>
+      <td>22.415592</td>
+      <td>53.339417</td>
+      <td>22.417768</td>
+      <td>NaN</td>
+      <td>22.417768</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Turns out that it all goes haywire for dates prior to Jan 1 2000:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gpu</span><span class="p">[</span><span class="s1">&#39;zenith&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cpu</span><span class="p">[</span><span class="s1">&#39;zenith&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;1999-01-01&#39;</span><span class="p">:</span><span class="s1">&#39;2001-01-01&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="../_images/671574af43eb95f6328f7ffd7b014c0e441165cc2151c9c4266e062a23506886.png" src="../_images/671574af43eb95f6328f7ffd7b014c0e441165cc2151c9c4266e062a23506886.png" />
+</div>
+</div>
+<p>Guess I need to take another look at my julian date handlers!  Moving on, let’s try out different locations to make sure things don’t get wonky at negative latitudes or near the poles or something:</p>
+</section>
+<section id="lat-lon-sweep">
+<h2>Lat/Lon Sweep<a class="headerlink" href="#lat-lon-sweep" title="Permalink to this heading">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">times</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2019-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-01-01&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+
+<span class="n">rmse</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">mbe</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">mae</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">lat</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">lon</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="n">gpu</span> <span class="o">=</span> <span class="n">gpu_spa</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span>
+        <span class="n">cpu</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">solarposition</span><span class="o">.</span><span class="n">get_solarposition</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">describe</span><span class="p">(</span><span class="n">cpu</span><span class="p">,</span> <span class="n">gpu</span><span class="p">)</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="n">lon</span><span class="p">)</span>
+        <span class="n">rmse</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;rmse&#39;</span><span class="p">,</span> <span class="p">:])</span>
+        <span class="n">mbe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;mbe&#39;</span><span class="p">,</span> <span class="p">:])</span>
+        <span class="n">mae</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;mae&#39;</span><span class="p">,</span> <span class="p">:])</span>
+
+<span class="n">rmse</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">rmse</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">mbe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">mbe</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">mae</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">mae</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;apparent_zenith&#39;</span><span class="p">,</span> <span class="s1">&#39;zenith&#39;</span><span class="p">,</span> <span class="s1">&#39;azimuth&#39;</span><span class="p">]:</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([(</span><span class="s1">&#39;rmse&#39;</span><span class="p">,</span> <span class="n">rmse</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;mbe&#39;</span><span class="p">,</span> <span class="n">mbe</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;mae&#39;</span><span class="p">,</span> <span class="n">mae</span><span class="p">)]):</span>
+        <span class="n">piv</span> <span class="o">=</span> <span class="n">err</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span>
+                              <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span>
+                              <span class="n">values</span><span class="o">=</span><span class="n">column</span><span class="p">)</span>
+        <span class="n">pcm</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">piv</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">piv</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">piv</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Latitude [$\degree$]&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Longitude [$\degree$]&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> [$\degree$]&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">pcm</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/250bbab6b332fa2a1a8e488502649042c7847ee2e7165e095d8d23e1400bcf55.png" src="../_images/250bbab6b332fa2a1a8e488502649042c7847ee2e7165e095d8d23e1400bcf55.png" />
+<img alt="../_images/b92bdebb8019ad5aba7dd6e4e35ac09d530e529d014f5c6cf3962ac45d13224d.png" src="../_images/b92bdebb8019ad5aba7dd6e4e35ac09d530e529d014f5c6cf3962ac45d13224d.png" />
+<img alt="../_images/b70ac7f2b0ffbc759966fbe6e014125f924ad4c6513b1e2eee0e42222be62520.png" src="../_images/b70ac7f2b0ffbc759966fbe6e014125f924ad4c6513b1e2eee0e42222be62520.png" />
+</div>
+</div>
+<p>Some interesting patterns that I’m not immediately sure how to interpret, but in any case the variation with location doesn’t seem very significant.  Now let’s play with the other SPA knobs:</p>
+</section>
+<section id="refraction-correction">
+<h2>Refraction Correction<a class="headerlink" href="#refraction-correction" title="Permalink to this heading">¶</a></h2>
+<p>The SPA zenith refraction correction depends on annual average temperature and pressure.  To make sure that correction is calculated correctly, let’s sweep across both and ensure that refraction-corrected (“apparent”) zenith still matches between the two implementations.  The temperatures and pressures chosen here are each roughly representative of the ranges found on Earth, although certain combinations might not be particularly realistic.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">times</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2019-06-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2019-06-02&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;10s&#39;</span><span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">temperature</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">n</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">pressure</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">30000</span><span class="p">,</span> <span class="mi">102000</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">n</span><span class="p">)):</span>
+        <span class="n">gpu</span> <span class="o">=</span> <span class="n">gpu_spa</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="n">pressure</span><span class="o">=</span><span class="n">pressure</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="n">temperature</span><span class="p">)</span>
+        <span class="n">cpu</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">solarposition</span><span class="o">.</span><span class="n">get_solarposition</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="n">pressure</span><span class="o">=</span><span class="n">pressure</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="n">temperature</span><span class="p">)</span>
+        <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">gpu</span><span class="p">[</span><span class="s1">&#39;apparent_zenith&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cpu</span><span class="p">[</span><span class="s1">&#39;apparent_zenith&#39;</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+        <span class="n">emax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">gpu</span><span class="p">[</span><span class="s1">&#39;apparent_zenith&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cpu</span><span class="p">[</span><span class="s1">&#39;apparent_zenith&#39;</span><span class="p">]))</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cpu</span><span class="p">[</span><span class="s1">&#39;apparent_zenith&#39;</span><span class="p">],</span> <span class="n">gpu</span><span class="p">[</span><span class="s1">&#39;apparent_zenith&#39;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">axline</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">slope</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;T=</span><span class="si">{</span><span class="n">temperature</span><span class="si">:</span><span class="s1">0.0f</span><span class="si">}</span><span class="s1"> $\degree$C  P=</span><span class="si">{</span><span class="n">pressure</span><span class="o">/</span><span class="mi">1000</span><span class="si">:</span><span class="s1">0.01f</span><span class="si">}</span><span class="s1"> kPa&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;rmse=</span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s1">0.06f</span><span class="si">}</span><span class="se">\n</span><span class="s1">max=</span><span class="si">{</span><span class="n">emax</span><span class="si">:</span><span class="s1">0.06f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;GPU&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;CPU&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Apparent Zenith&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/71cd961511697998f4e0bd6ba53d72f11c4aebe8573f39fb73240c1c1059b9b5.png" src="../_images/71cd961511697998f4e0bd6ba53d72f11c4aebe8573f39fb73240c1c1059b9b5.png" />
+</div>
+</div>
+<p>All looks pretty good here.  Now, on to comparing calculation times!</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="execution-speed-benchmarks">
+<h1>Execution Speed Benchmarks<a class="headerlink" href="#execution-speed-benchmarks" title="Permalink to this heading">¶</a></h1>
+<p>My first-order mental model of GPU processing is that runtime is a combination of fixed costs (shader compilation, OpenGL context overhead) that are more or less constant for any input and variable costs (memory allocation, data transfer, and of course the actual algorithm runtime) that scale with the number of timestamps being simulated.  So of course it will be interesting to compare runtimes across a range of <span class="math notranslate nohighlight">\(N\)</span>, the number of simulated timestamps.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;reloading spa&#39;</span><span class="p">)</span>
+
+<span class="n">timings</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="mi">10</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2019-01-01&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">timing</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="n">n</span><span class="p">}</span>
+
+    <span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">solarposition</span><span class="o">.</span><span class="n">spa_python</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;numpy&#39;</span><span class="p">)</span>
+    <span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">timing</span><span class="p">[</span><span class="s1">&#39;cpu (numpy)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span>
+
+    <span class="c1"># warmup</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">solarposition</span><span class="o">.</span><span class="n">spa_python</span><span class="p">(</span><span class="n">times</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;numba&#39;</span><span class="p">)</span>
+
+    <span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">solarposition</span><span class="o">.</span><span class="n">spa_python</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;numba&#39;</span><span class="p">,</span> <span class="n">numthreads</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">timing</span><span class="p">[</span><span class="s1">&#39;cpu (numba, 4 threads)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span>
+
+    <span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">solarposition</span><span class="o">.</span><span class="n">spa_python</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;numba&#39;</span><span class="p">,</span> <span class="n">numthreads</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">timing</span><span class="p">[</span><span class="s1">&#39;cpu (numba, 8 threads)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span>
+
+    <span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">solarposition</span><span class="o">.</span><span class="n">spa_python</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;numba&#39;</span><span class="p">,</span> <span class="n">numthreads</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">timing</span><span class="p">[</span><span class="s1">&#39;cpu (numba, 16 threads)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span>
+
+    <span class="n">st</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">gpu_spa</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">)</span>
+    <span class="n">ed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">timing</span><span class="p">[</span><span class="s1">&#39;gpu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ed</span> <span class="o">-</span> <span class="n">st</span>
+
+    <span class="n">timings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timing</span><span class="p">)</span>
+
+<span class="n">timings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">timings</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/kevin/miniconda3/envs/dev/lib/python3.8/site-packages/pvlib/spa.py:991: UserWarning: The number of threads is more than the length of the time array. Only using %s threads.
+  warnings.warn(&#39;The number of threads is more than the length of &#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">timings</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">logx</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">logy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Elapsed Time [s]&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="n">ratio</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">timings</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">timings</span><span class="p">[</span><span class="s1">&#39;cpu (numpy)&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ratio</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">logx</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">logy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Speed-up (numpy=1)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c0d45a606666eeba998140d9a3d784863c92160eaca873351d562347a5344d68.png" src="../_images/c0d45a606666eeba998140d9a3d784863c92160eaca873351d562347a5344d68.png" />
+</div>
+</div>
+<p>So, on this machine, the GPU implementation is:</p>
+<ul class="simple">
+<li><p>Faster than the numpy implementation for all N</p></li>
+<li><p>Faster than the numba implementation starting somewhere between 1000 and 10000 timestamps</p></li>
+<li><p>Vastly faster (two orders of magnitude) for 100000 timestamps and beyond</p></li>
+</ul>
+<p>So for an 8760 you might expect a (20x, 3x) speedup over (numpy, numba).  For an annual 1-minute simulation (N=525600), the speedup might be (200x, 20x) over (numpy, numba).  Boggles the mind, especially considering that this GPU is a weeny integrated GPU (I think)!</p>
+<p>Here are the same timings in tabular form, for reference:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">timings</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cpu (numpy)</th>
+      <th>cpu (numba, 4 threads)</th>
+      <th>cpu (numba, 8 threads)</th>
+      <th>cpu (numba, 16 threads)</th>
+      <th>gpu</th>
+    </tr>
+    <tr>
+      <th>N</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>10</th>
+      <td>0.005542</td>
+      <td>0.000670</td>
+      <td>0.000681</td>
+      <td>0.001133</td>
+      <td>0.002333</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>0.009041</td>
+      <td>0.000662</td>
+      <td>0.000809</td>
+      <td>0.001022</td>
+      <td>0.001723</td>
+    </tr>
+    <tr>
+      <th>1000</th>
+      <td>0.016032</td>
+      <td>0.002164</td>
+      <td>0.001544</td>
+      <td>0.001640</td>
+      <td>0.002802</td>
+    </tr>
+    <tr>
+      <th>10000</th>
+      <td>0.073568</td>
+      <td>0.015643</td>
+      <td>0.009942</td>
+      <td>0.007940</td>
+      <td>0.002448</td>
+    </tr>
+    <tr>
+      <th>100000</th>
+      <td>0.655516</td>
+      <td>0.153031</td>
+      <td>0.091456</td>
+      <td>0.069525</td>
+      <td>0.006387</td>
+    </tr>
+    <tr>
+      <th>1000000</th>
+      <td>8.010285</td>
+      <td>1.538795</td>
+      <td>0.917086</td>
+      <td>0.703851</td>
+      <td>0.023457</td>
+    </tr>
+    <tr>
+      <th>10000000</th>
+      <td>102.137903</td>
+      <td>16.005205</td>
+      <td>9.922412</td>
+      <td>7.520801</td>
+      <td>0.275046</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratio</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cpu (numpy)</th>
+      <th>cpu (numba, 4 threads)</th>
+      <th>cpu (numba, 8 threads)</th>
+      <th>cpu (numba, 16 threads)</th>
+      <th>gpu</th>
+    </tr>
+    <tr>
+      <th>N</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>10</th>
+      <td>1.0</td>
+      <td>8.266644</td>
+      <td>8.141435</td>
+      <td>4.890245</td>
+      <td>2.375776</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>1.0</td>
+      <td>13.652682</td>
+      <td>11.175203</td>
+      <td>8.847653</td>
+      <td>5.247172</td>
+    </tr>
+    <tr>
+      <th>1000</th>
+      <td>1.0</td>
+      <td>7.407335</td>
+      <td>10.382628</td>
+      <td>9.775966</td>
+      <td>5.720831</td>
+    </tr>
+    <tr>
+      <th>10000</th>
+      <td>1.0</td>
+      <td>4.702821</td>
+      <td>7.399333</td>
+      <td>9.265220</td>
+      <td>30.048933</td>
+    </tr>
+    <tr>
+      <th>100000</th>
+      <td>1.0</td>
+      <td>4.283561</td>
+      <td>7.167524</td>
+      <td>9.428449</td>
+      <td>102.639141</td>
+    </tr>
+    <tr>
+      <th>1000000</th>
+      <td>1.0</td>
+      <td>5.205558</td>
+      <td>8.734495</td>
+      <td>11.380647</td>
+      <td>341.483374</td>
+    </tr>
+    <tr>
+      <th>10000000</th>
+      <td>1.0</td>
+      <td>6.381543</td>
+      <td>10.293657</td>
+      <td>13.580722</td>
+      <td>371.348489</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Closing thoughts:</p>
+<ul class="simple">
+<li><p>It’s a shame that the shader compilation cost is incurred on every invocation.  I want to see if I can modify the shader in such a way that I can compile it once but apply it to an input of any length.  That would hopefully make it more competitive with numba for the smaller inputs.</p></li>
+<li><p>Definitely need to fix that “reverse Y2K bug”…</p></li>
+<li><p>Definitely want to re-run this notebook on a different computer.  I’ve addressed the big error sources on this machine, but the fact that the trignometric functions have such large error here gives me significant pause – maybe other computers will have totally different error sources.  If the error is acceptable across machines (or I rewrite the code to only use “safe” GLSL functions), then evaluating the speed-up with a proper beefy GPU would be very cool.</p></li>
+</ul>
+</section>
+
+<div class="section">
+    
+
+<div class="section">
+  <span style="float: left">
+     
+    <a href="opengl-compute-shaders-builtin-accuracy.html">
+      <i class="fa fa-arrow-circle-left"></i> OpenGL Compute Shaders: Accuracy of Math Functions
+    </a>
+    
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right">
+     
+    <a href="psm3-pixels-boundaries.html">
+      PSM3 Pixel Boundaries <i
+        class="fa fa-arrow-circle-right"
+      ></i
+      >
+    </a>
+    
+  </span>
+</div>
+  
+</div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2015-2024, Kevin Anderson.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

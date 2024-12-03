@@ -1,0 +1,88 @@
+/* sphinx panels */
+.card-body {
+    padding-right: 0 !important;
+    text-align: center;
+}
+
+/* Sphinx Gallery */
+div.sphx-glr-download-link-note {
+    display: none;
+}
+
+div.sphx-glr-download {
+    display: none;
+}
+
+/* Pubs external links sidebar */
+.pubs-link {
+  display:inline;
+}
+
+.google-scholar {
+  background:
+    url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAABmklEQVRIie3Svy8DYRgH8LcxiYjBTExsFg5Ja2hdbX4MiH9AIlcVkerpxehFS8RoEHcqftwl7EbeVpWmicXU+AeECNdKrpqvqdLo0bvWYPBNvuvnefLkIeQ/tcQbeXH2S/e3fYE0/7swffV5VnOGczGDXj/Lu/wJsWZ0XEM9T7N7HqrDQ3U4FzPgBAZOYOjzX510rqOhKnh09a2NX86mi/BXnBMYun2JO9d8st0W7I3ogzzVH0thM5wTGDhf4rknmBqtrAIOd1gP8TRX+Ap/iwsM3f7LAjeTWiGAw9QdDj80DtDXUzO0El5s72z8rEtMNZXhlWAreHGA5c1HNnMIHBqQ1DxCqgFJNTAnP8G9cGN9c7Obj21lIal5BI+MsoZUA95Q2trNS1P8Fkkzhz8HHL/Z+JaS0LP3SYUBlSpGH4ZswYQQIscwbQWXLzBpH7/AlBVcucaEbXz3HC1RhvxPcDSO3F4SzbZxQgiRY9j+8SRx0KpgQgjRNNQpMeyUwXEUlAQ2qoZLsx9Dh8KwJDOsHTCIWgqtvwL/2XwAoW4+eh6r+0gAAAAASUVORK5CYII=)
+    no-repeat
+    left center;
+  display:inline;
+  padding-left: 25px;
+}
+
+.orcid {
+  background:
+    url(https://orcid.org/assets/vectors/orcid.logo.icon.svg)
+    no-repeat
+    left center;
+  background-size: 21px 18px;
+  display:inline;
+  padding-left: 25px;
+}
+
+.osti {
+  background:
+    url(https://www.osti.gov/sites/www.osti.gov/files/public/styles/large/public/image-files/OSTI_favicon_32px.png)
+    no-repeat
+    left center;
+  background-size: 21px 21px;
+  display:inline;
+  padding-left: 25px;
+}
+
+/* Sidebar for blog archive / each post */
+ul.ablog-archive {
+    padding-left: 0px;
+}
+
+.bd-sidebar h2 {
+    font-size: 1.4em;
+}
+
+.bd-sidebar ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.bd-sidebar li {
+    padding-bottom: .5em;
+}
+
+div.bd-sidebar h3, div.bd-sidebar h2, div.bd-sidebar ul {
+    padding-left: 5%;
+}
+
+/* In-page post lists */
+ul.postlist {
+    padding-left: 0;
+}
+
+ul.postlist > li > p:first-child {
+    font-size: 1.5em;
+}
+
+ul.postlist li + li {
+    margin-top: 2em;
+}
+
+ul.postlist li > p > a {
+    font-style: normal;
+    font-size: 1.3em;
+}
