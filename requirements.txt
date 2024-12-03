@@ -1,0 +1,26 @@
+matplotlib==3.3.4
+ipywidgets==7.7.1
+ipython==8.4.0
+myst_nb==0.17.1
+sphinx==5.3.0
+ablog==0.10.23
+sphinxcontrib-bibtex<2.0.0  # https://github.com/executablebooks/jupyter-book/issues/1137
+sphinx-panels
+#sphinx-gallery
+pydata-sphinx-theme==0.8.0
+myst-parser==0.18.1
+docutils==0.17.1
+
+#imageio
+#xlrd
+#openpyxl
+#pymc3==3.11.4
+#xarray==0.20.1
+#sphinxcontrib-images
+#pandas
+#pvlib
+#tables
+#cartopy==0.18.0
+#perfplot
+#numpy==1.22.3
+#schemdraw==0.10.0
