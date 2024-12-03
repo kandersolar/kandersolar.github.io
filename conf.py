@@ -27,7 +27,7 @@ warnings.filterwarnings(
 # -- Project information -----------------------------------------------------
 
 import datetime
-from sphinx_gallery.sorting import ExplicitOrder
+#from sphinx_gallery.sorting import ExplicitOrder
 
 project = 'kevbase'
 copyright = f'2015-{datetime.date.today().year}, Kevin Anderson'
