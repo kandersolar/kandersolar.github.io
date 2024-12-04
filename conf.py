@@ -42,7 +42,7 @@ author = 'Kevin Anderson'
 extensions = [
     "myst_nb",
     "ablog",
-    "sphinx_panels",
+    "sphinx_design",
     "sphinxcontrib.bibtex",
 #    "sphinx_gallery.gen_gallery",
     'IPython.sphinxext.ipython_directive',
@@ -50,6 +50,7 @@ extensions = [
     #'sphinxcontrib.images',
     #"sphinxext.opengraph",
 ]
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

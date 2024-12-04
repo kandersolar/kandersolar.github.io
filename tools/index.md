@@ -2,38 +2,23 @@
 # Tools
 
 
-````{panels}
-:card: border-0 pl-0
-:body: pl-0
-:container: pl-0
+````{grid} 3
 
----
-:column: col-4
+```{grid-item-card}  Phase plotter
 :img-top: ../images/phase-plotter.png
+:link: phase-plotter.html
 
-+++
-
-```{link-button} phase-plotter.html
-:type: url
-:text: Phase plotter
-:classes: btn-outline-primary btn-block stretched-link
 ```
 
 
----
-:column: col-4
+```{grid-item-card}  Bifurcation
 :img-top: ../images/bifurcation.png
+:link: bifurcation.html
 
-+++
-
-```{link-button} bifurcation.html
-:type: url
-:text: Bifurcation diagram
-:classes: btn-outline-primary btn-block stretched-link
 ```
-
 
 ````
+
 
 
 ```{toctree}
