@@ -44,4 +44,5 @@ self
 publications
 blog
 report
+tools/index
 ```

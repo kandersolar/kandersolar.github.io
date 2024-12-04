@@ -85,6 +85,9 @@ html_theme_options = {
   #"search_bar_position": "navbar",
   "navbar_end": ["search-field"],
   "show_toc_level": 2,
+  "secondary_sidebar_items": {
+    "tools/phase-plotter": [],
+  },
 }
 html_favicon = "_static/favicon.ico"
 html_logo = "_static/favicon.png"
@@ -103,6 +106,7 @@ html_sidebars = {
     "photos": ["sidebar-nav-bs.html"],
     "photos/**": ["sidebar-nav-bs.html"],
     "blog/**": [],
+    "tools/phase-plotter": [],
 }
 blog_baseurl = "https://kevbase.com"
 blog_title = "kevbase"
@@ -120,6 +124,9 @@ panels_add_bootstrap_css = False
 myst_admonition_enable = True
 myst_deflist_enable = True
 myst_enable_extensions = ['dollarmath']
+
+# bibtex
+bibtex_bibfiles = ['my-publications.bib']
 
 # OpenGraph config
 #ogp_site_url = "https://predictablynoisy.com"

@@ -1,0 +1,96 @@
+
+<!--[if lt IE 9]>
+	<script type="text/javascript">alert("Your browser does not support the canvas tag.");</script>
+<![endif]-->
+
+<script src="/_static/processing.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    // convenience function to get the id attribute of generated sketch html element
+    function getProcessingSketchId () { return 'phase'; }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/2.7.0/math.min.js"></script>
+
+<script type="application/javascript">
+	var update = true;
+	var saveImage = false;
+	var x_waveform = [];
+	var y_waveform = [];
+	var r_waveform = [];
+	var theta_waveform = [];
+	var updateWaveforms = false;
+</script>
+
+<script type="text/javascript">
+	function coordinateChange(){
+		var cart = document.getElementById("cartesian");
+		var polar = document.getElementById("polar");
+		if(document.getElementById('coordinateSelect').value == "Polar"){
+			cart.style.display = "none";
+			polar.style.display = "block";
+		} else {
+			cart.style.display = "block";
+			polar.style.display = "none";
+		}
+	}
+</script>
+
+
+<div id="content">
+	<div>
+	<table cellpadding="20"><tr><td>
+		Click on the plot to start an orbit at that location.
+        <br>
+        <select id="coordinateSelect" onchange="coordinateChange();">
+			<option value="Cartesian">Cartesian</option>
+			<option value="Polar">Polar</option>
+		</select>
+		<div id="cartesian">
+			<p>dx/dt = f(x,y) = <textarea id="xdot" style="width:325px">y</textarea></p>
+			<p>dy/dt = g(x,y) = <textarea id="ydot" style="width:325px">-y*(x^2+y^2-1)-x</textarea></p>
+		</div>
+		<div id="polar" style="display:none">
+			<p>dr/dt = f(r,&theta;) = <textarea id="rdot" style="width:400px">-1*(r^2*cos(theta)^2-1)*r*sin(theta)^2</textarea></p>
+			<p>d&theta;/dt = g(r,&theta;) = <textarea id="thetadot" style="width:400px">-1-1*(r^2*cos(theta)^2-1)*sin(theta)*cos(theta)</textarea></p>
+		</div>					
+		<p>x between &plusmn;<input id="xlim" size="2" type="text" value="5"/></p>
+		<p>y between &plusmn;<input id="ylim" size="2" type="text" value="5"/></p>
+		<p>max number of iterations: <input id="max_iter" , size="5&quot;," type="text" , value="2e4"/></p>
+		<p>step size: <input id="step_size" , size="5" , type="text" , value="1e-3"/></p>
+		<p>nullcline tolerance: <input id="null_tol" , size="5" , type="text" , value="1e-2"/></p>
+                        <p><label><input type="checkbox" id="drawNullclines">Draw nullclines?</label></p>
+                        <p><label><input type="checkbox" id="trajectoriesOutside" checked="true">Allow trajectories to leave the window?</label></p>
+                        <p><label><input type="checkbox" id="rainbow">Rainbow?</label></p>
+
+		<p><button id="updateButton" onclick="update=true;">Update Plot</button> <span id="errorMessage" style="color: white; font-size: 14pt"></span></p>
+		<hr size="4">
+
+		<p><button id="saveButton" onclick="saveImage=true;">View PNG</button> (It opens in a new tab, so you may need to allow popups)</p>
+			<p id="description"></p>
+		<p id="sources">Source code: <a href="/_static/phase.pde">phase</a>, <a href="/_static/waveform.pde">waveform</a>, and <a href="/_static/plotarea.pde">plotarea</a></p>
+		<p>
+		Built with <a href="http://processing.org/" title="Processing">Processing</a>
+		and <a href="http://processingjs.org/" title="Processing.js">Processing.js</a>
+		</p>
+
+	</td><td>	
+		<canvas id="phase" data-processing-sources="/_static/phase.pde" width="500" height="500">
+			<p>Your browser does not support the canvas tag.</p>
+		</canvas>
+		<noscript>
+			<p>JavaScript is required to view the contents of this page.</p>
+		</noscript>
+		<canvas id="waveforms" data-processing-sources="/_static/plotarea.pde /_static/waveform.pde" width="500" height="300">
+			<p>Your browser does not support the canvas tag.</p>
+		</canvas>
+		<noscript>
+                                <p>JavaScript is required to view the contents of this page.</p>
+                        </noscript>
+
+	</td></tr></table>
+	</div>
+
+</div>
+
+
