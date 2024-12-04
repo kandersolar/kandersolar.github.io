@@ -1,692 +1,1213 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+
+<html lang="en" data-content_root="../../" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Posts tagged python &#8212; the kevbase</title>
-    
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
   
-    
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
   
-    
-      
   
-    
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-dropdown.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.min.css" />
-    
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en">
-    
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
 
-    <!-- Google Analytics -->
-     
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=0fb7fa7b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'blog/tag/python';</script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+
 <link
   rel="alternate"
   type="application/atom+xml"
   href="../../blog/atom.xml"
   title="Posts tagged python"
 />
- 
-<style type="text/css">
-  ul.ablog-archive {
-    list-style: none;
-    overflow: auto;
-    margin-left: 0px;
-  }
-  ul.ablog-archive li {
-    float: left;
-    margin-right: 5px;
-    font-size: 80%;
-  }
-  ul.postlist a {
-    font-style: italic;
-  }
-  ul.postlist-style-disc {
-    list-style-type: disc;
-  }
-  ul.postlist-style-none {
-    list-style-type: none;
-  }
-  ul.postlist-style-circle {
-    list-style-type: circle;
-  }
-</style>
+
+
 
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
-
-  <div id="navbar-start">
-    
-    
-
-<a class="navbar-brand" href="../../index.html">
-  <img src="../../_static/favicon.png" class="logo" alt="logo">
-</a>
-
-
-    
-  </div>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
-    <div id="navbar-center" class="mr-auto">
-      
-      <div class="navbar-center-item">
-        <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../index.html">
-  About
- </a>
-</li>
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../publications.html">
-  Publications
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../blog.html">
-  Blog
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../report.html">
-  Climate Report
- </a>
-</li>
-
+  
+  <dialog id="pst-search-dialog">
     
-</ul>
-      </div>
-      
-    </div>
-
-    <div id="navbar-end">
-      
-      <div class="navbar-end-item">
-        <form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this site..." aria-label="Search this site..." autocomplete="off" >
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this site..."
+         aria-label="Search this site..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form>
-      </div>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/favicon.png" class="logo__image only-light" alt="the kevbase - Home"/>
+    <img src="../../_static/favicon.png" class="logo__image only-dark pst-js-only" alt="the kevbase - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../publications.html">
+    Publications
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../blog.html">
+    Blog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../report.html">
+    Climate Report
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tools/index.html">
+    Tools
+  </a>
+</li>
+
+  </ul>
+</nav></div>
       
     </div>
-  </div>
-</div>
-    </nav>
     
-
-    <div class="container-xl">
-      <div class="row">
-          
-            
-            <div class="col-12 col-md-1 col-xl-2 bd-sidebar no-sidebar"></div>
-            
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
           
 
-          
-          <div class="d-none d-xl-block col-xl-2 bd-toc">
-            
-          </div>
-          
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this site..."
+         aria-label="Search this site..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
 
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
           
           
-            
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../publications.html">
+    Publications
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../blog.html">
+    Blog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../report.html">
+    Climate Report
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tools/index.html">
+    Tools
+  </a>
+</li>
+
+  </ul>
+</nav></div>
           
-          <main class="col-12 col-md-11 col-xl-8 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this site..."
+         aria-label="Search this site..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
               
-              <div>
-                
-<div class="section">
-  <h1>
-     Posts tagged  python 
-  </h1>
-   
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
 
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Posts tagged python</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+
+<div class="section ablog__collection">
+  <h1>
+    
+      <span>Posts tagged
+      
+    python
+    
+  </span>
+  </h1>
+  
+  
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="../../posts/psm3-pixels-boundaries.html"
-        >PSM3 Pixel Boundaries</a
-      >
+      <a href="../../posts/psm3-pixels-boundaries.html">PSM3 Pixel Boundaries</a>
     </h2>
-
     <ul class="ablog-archive">
       <li>
-         <i class="fa fa-calendar"></i> 2022-09-04 
+        
+        
+        <i class="fa fa-calendar"></i>
+        
+        <span>2022-09-04</span>
+        
       </li>
-           
-<li id="tags">
-  <span
-    ><i class="fa-fw fa fa-tags"></i> </span
-  >
-   
-  <a href="#">python</a>   
-  <a href="photovoltaics.html">photovoltaics</a>  
+      <div class="ablog-sidebar-item ablog__postcard2">
+
+
+
+
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    
+    
+    <i class="fa-fw fa fa-tags"></i>
+    
+    
+    </span>
+  
+  
+  <a href="#">python</a>
+  
+  
+  
+  
+  
+  <a href="photovoltaics.html">photovoltaics</a>
+  
+  
+  
 </li>
- 
-    </ul>
-    <div class="ablog-post-excerpt docutils container">
-<p>The PSM3 provides data with a nominal 2 km spatial resolution, at least according to the NSRDB <a class="reference external" href="https://nsrdb.nrel.gov/data-sets/us-data">website</a>.  I am interested in what the real underlying data grid actually looks like; this notebook shows that the real grid is defined by angular extent (regular in latitude/longitude), not spatial extent.</p>
-<p>Before getting started – querying 5-minute PSM3 data is a bit slow, and likely I’ll want to re-run cells here as I tweak the notebook, so let’s cache the requests to speed things up.</p>
-<img alt="../../_images/9cdffd12c96ee8da6617542ba717dbc1f76ffe81021fb0dfe554775768fc2654.png" src="../../_images/9cdffd12c96ee8da6617542ba717dbc1f76ffe81021fb0dfe554775768fc2654.png" />
+
+
 </div>
+    </ul>
+    <p class="ablog-post-excerpt"><p>The PSM3 provides data with a nominal 2 km spatial resolution, at least according to the NSRDB <a class="reference external" href="https://nsrdb.nrel.gov/data-sets/us-data">website</a>.  I am interested in what the real underlying data grid actually looks like; this notebook shows that the real grid is defined by angular extent (regular in latitude/longitude), not spatial extent.</p>
+<p>Before getting started – querying 5-minute PSM3 data is a bit slow, and likely I’ll want to re-run cells here as I tweak the notebook, so let’s cache the requests to speed things up.</p>
+<img alt="../../_images/9cdffd12c96ee8da6617542ba717dbc1f76ffe81021fb0dfe554775768fc2654.png" src="../../_images/9cdffd12c96ee8da6617542ba717dbc1f76ffe81021fb0dfe554775768fc2654.png" /></p>
 
     <p class="ablog-post-expand"><a href="../../posts/psm3-pixels-boundaries.html"><em>Read more ...</em></a></p>
-    <hr />
+    <hr/>
   </div>
   
-
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="../../posts/opengl-compute-shaders-spa-benchmarks.html"
-        >OpenGL Compute Shaders: SPA</a
-      >
+      <a href="../../posts/opengl-compute-shaders-spa-benchmarks.html">OpenGL Compute Shaders: SPA</a>
     </h2>
-
     <ul class="ablog-archive">
       <li>
-         <i class="fa fa-calendar"></i> 2022-08-21 
+        
+        
+        <i class="fa fa-calendar"></i>
+        
+        <span>2022-08-21</span>
+        
       </li>
-           
-<li id="tags">
-  <span
-    ><i class="fa-fw fa fa-tags"></i> </span
-  >
-   
-  <a href="gpgpu.html">gpgpu</a>   
-  <a href="#">python</a>   
-  <a href="photovoltaics.html">photovoltaics</a>  
+      <div class="ablog-sidebar-item ablog__postcard2">
+
+
+
+
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    
+    
+    <i class="fa-fw fa fa-tags"></i>
+    
+    
+    </span>
+  
+  
+  <a href="gpgpu.html">gpgpu</a>
+  
+  
+  
+  
+  
+  <a href="#">python</a>
+  
+  
+  
+  
+  
+  <a href="photovoltaics.html">photovoltaics</a>
+  
+  
+  
 </li>
- 
-    </ul>
-    <div class="ablog-post-excerpt docutils container">
-<p>This notebook is the third in a series of notebooks about general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders with the goal of an accurate and fast GPU implementation of Reda &amp; Andreas’s Solar Position Algorithm.  There’s still some work to do, but what I have is already useful in many contexts and as I get close to the finish line I wanted to do some more rigorous validation in terms of accuracy and runtime speed, using pvlib’s numpy and numba implementations as the baseline.</p>
-<p>These comparisons (both error and runtime) will be specific to this particular GPU.  I will be interested to see how the results vary across devices…</p>
-<img alt="../../_images/671574af43eb95f6328f7ffd7b014c0e441165cc2151c9c4266e062a23506886.png" src="../../_images/671574af43eb95f6328f7ffd7b014c0e441165cc2151c9c4266e062a23506886.png" />
+
+
 </div>
+    </ul>
+    <p class="ablog-post-excerpt"><p>This notebook is the third in a series of notebooks about general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders with the goal of an accurate and fast GPU implementation of Reda &amp; Andreas’s Solar Position Algorithm.  There’s still some work to do, but what I have is already useful in many contexts and as I get close to the finish line I wanted to do some more rigorous validation in terms of accuracy and runtime speed, using pvlib’s numpy and numba implementations as the baseline.</p>
+<p>These comparisons (both error and runtime) will be specific to this particular GPU.  I will be interested to see how the results vary across devices…</p>
+<img alt="../../_images/671574af43eb95f6328f7ffd7b014c0e441165cc2151c9c4266e062a23506886.png" src="../../_images/671574af43eb95f6328f7ffd7b014c0e441165cc2151c9c4266e062a23506886.png" /></p>
 
     <p class="ablog-post-expand"><a href="../../posts/opengl-compute-shaders-spa-benchmarks.html"><em>Read more ...</em></a></p>
-    <hr />
+    <hr/>
   </div>
   
-
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="../../posts/opengl-compute-shaders-builtin-accuracy.html"
-        >OpenGL Compute Shaders: Accuracy of Math Functions</a
-      >
+      <a href="../../posts/opengl-compute-shaders-builtin-accuracy.html">OpenGL Compute Shaders: Accuracy of Math Functions</a>
     </h2>
-
     <ul class="ablog-archive">
       <li>
-         <i class="fa fa-calendar"></i> 2022-08-13 
+        
+        
+        <i class="fa fa-calendar"></i>
+        
+        <span>2022-08-13</span>
+        
       </li>
-           
-<li id="tags">
-  <span
-    ><i class="fa-fw fa fa-tags"></i> </span
-  >
-   
-  <a href="gpgpu.html">gpgpu</a>   
-  <a href="#">python</a>  
+      <div class="ablog-sidebar-item ablog__postcard2">
+
+
+
+
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    
+    
+    <i class="fa-fw fa fa-tags"></i>
+    
+    
+    </span>
+  
+  
+  <a href="gpgpu.html">gpgpu</a>
+  
+  
+  
+  
+  
+  <a href="#">python</a>
+  
+  
+  
 </li>
- 
-    </ul>
-    <div class="ablog-post-excerpt docutils container">
-<p>This notebook is the second in a series of notebooks about general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders.  In working towards a GPU-based implementation of the venerable Solar Position Algorithm (<a class="reference external" href="https://doi.org/10.1016/j.solener.2003.12.003">Reda &amp; Andreas 2004</a>) I found that the <code class="docutils literal notranslate"><span class="pre">asin</span></code> provided by GLSL is not as accurate as I had expected, even considering the reduced precision of 32-bit floats.  This notebook examines the (in)accuracy of this GPU’s GLSL implementations of some basic functions useful for scientific programming.</p>
-<p>I use the handy helper function from my “first steps” notebook here as well.  This encapsulates (1) the boilerplate necessary to shuttle data to and from the GPU and (2) the initialization code on the GPU side needed prior to performing the actual computation of interest.</p>
-<img alt="../../_images/8688fb675c6770dcdbfb999a5f5c7f46731df127bdbb39cd1b06238824070889.png" src="../../_images/8688fb675c6770dcdbfb999a5f5c7f46731df127bdbb39cd1b06238824070889.png" />
+
+
 </div>
+    </ul>
+    <p class="ablog-post-excerpt"><p>This notebook is the second in a series of notebooks about general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders.  In working towards a GPU-based implementation of the venerable Solar Position Algorithm (<a class="reference external" href="https://doi.org/10.1016/j.solener.2003.12.003">Reda &amp; Andreas 2004</a>) I found that the <code class="docutils literal notranslate"><span class="pre">asin</span></code> provided by GLSL is not as accurate as I had expected, even considering the reduced precision of 32-bit floats.  This notebook examines the (in)accuracy of this GPU’s GLSL implementations of some basic functions useful for scientific programming.</p>
+<p>I use the handy helper function from my “first steps” notebook here as well.  This encapsulates (1) the boilerplate necessary to shuttle data to and from the GPU and (2) the initialization code on the GPU side needed prior to performing the actual computation of interest.</p>
+<img alt="../../_images/8688fb675c6770dcdbfb999a5f5c7f46731df127bdbb39cd1b06238824070889.png" src="../../_images/8688fb675c6770dcdbfb999a5f5c7f46731df127bdbb39cd1b06238824070889.png" /></p>
 
     <p class="ablog-post-expand"><a href="../../posts/opengl-compute-shaders-builtin-accuracy.html"><em>Read more ...</em></a></p>
-    <hr />
+    <hr/>
   </div>
   
-
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="../../posts/opengl-compute-shaders-first-steps.html"
-        >OpenGL Compute Shaders: First Steps</a
-      >
+      <a href="../../posts/opengl-compute-shaders-first-steps.html">OpenGL Compute Shaders: First Steps</a>
     </h2>
-
     <ul class="ablog-archive">
       <li>
-         <i class="fa fa-calendar"></i> 2022-07-30 
+        
+        
+        <i class="fa fa-calendar"></i>
+        
+        <span>2022-07-30</span>
+        
       </li>
-           
-<li id="tags">
-  <span
-    ><i class="fa-fw fa fa-tags"></i> </span
-  >
-   
-  <a href="gpgpu.html">gpgpu</a>   
-  <a href="#">python</a>  
+      <div class="ablog-sidebar-item ablog__postcard2">
+
+
+
+
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    
+    
+    <i class="fa-fw fa fa-tags"></i>
+    
+    
+    </span>
+  
+  
+  <a href="gpgpu.html">gpgpu</a>
+  
+  
+  
+  
+  
+  <a href="#">python</a>
+  
+  
+  
 </li>
- 
-    </ul>
-    <div class="ablog-post-excerpt docutils container">
-<p>This notebook is a first exploration into general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders.  OpenGL is primarily geared towards rendering graphics and most of its functionality is organized into a sequential rendering pipeline.  However, it also includes the ability to run computations outside of the rendering pipeline using so-called “compute shaders”.  In essence, a shader is just a little program, written in a C-like language, that executes on the GPU.  I am neither qualified nor interested in explaining more than that; if you’re interested then I suggest reading one of the many OpenGL tutorials on the internet.  I warn you in advance: it is a big rabbit hole!</p>
-<p>If the goal is general-purpose GPU computing, you might wonder why I chose to use OpenGL (geared towards graphics, with GPGPU as an auxiliary function) instead of something like CUDA or OpenCL.  I have the naive impression that OpenGL is easier to set up on a new computer than the the more general alternatives are, and a long-term goal of mine is to distribute GPU-accelerated code to the masses, so ease of installation is important. Perhaps someday I’ll change my mind and switch to OpenCL, but for now I experiment with OpenGL.</p>
-<img alt="../../_images/ec182f328b9f54e0409a8dd7088007a0e39083a4e4b6c9df15ddcfac666e0943.png" src="../../_images/ec182f328b9f54e0409a8dd7088007a0e39083a4e4b6c9df15ddcfac666e0943.png" />
+
+
 </div>
+    </ul>
+    <p class="ablog-post-excerpt"><p>This notebook is a first exploration into general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders.  OpenGL is primarily geared towards rendering graphics and most of its functionality is organized into a sequential rendering pipeline.  However, it also includes the ability to run computations outside of the rendering pipeline using so-called “compute shaders”.  In essence, a shader is just a little program, written in a C-like language, that executes on the GPU.  I am neither qualified nor interested in explaining more than that; if you’re interested then I suggest reading one of the many OpenGL tutorials on the internet.  I warn you in advance: it is a big rabbit hole!</p>
+<p>If the goal is general-purpose GPU computing, you might wonder why I chose to use OpenGL (geared towards graphics, with GPGPU as an auxiliary function) instead of something like CUDA or OpenCL.  I have the naive impression that OpenGL is easier to set up on a new computer than the the more general alternatives are, and a long-term goal of mine is to distribute GPU-accelerated code to the masses, so ease of installation is important. Perhaps someday I’ll change my mind and switch to OpenCL, but for now I experiment with OpenGL.</p>
+<img alt="../../_images/ec182f328b9f54e0409a8dd7088007a0e39083a4e4b6c9df15ddcfac666e0943.png" src="../../_images/ec182f328b9f54e0409a8dd7088007a0e39083a4e4b6c9df15ddcfac666e0943.png" /></p>
 
     <p class="ablog-post-expand"><a href="../../posts/opengl-compute-shaders-first-steps.html"><em>Read more ...</em></a></p>
-    <hr />
+    <hr/>
   </div>
   
-
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="../../posts/linalg-sparse-solve.html"
-        >Speeding up pvfactors</a
-      >
+      <a href="../../posts/linalg-sparse-solve.html">Speeding up pvfactors</a>
     </h2>
-
     <ul class="ablog-archive">
       <li>
-         <i class="fa fa-calendar"></i> 2022-04-09 
+        
+        
+        <i class="fa fa-calendar"></i>
+        
+        <span>2022-04-09</span>
+        
       </li>
-           
-<li id="tags">
-  <span
-    ><i class="fa-fw fa fa-tags"></i> </span
-  >
-   
-  <a href="photovoltaics.html">photovoltaics</a>   
-  <a href="#">python</a>  
+      <div class="ablog-sidebar-item ablog__postcard2">
+
+
+
+
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    
+    
+    <i class="fa-fw fa fa-tags"></i>
+    
+    
+    </span>
+  
+  
+  <a href="photovoltaics.html">photovoltaics</a>
+  
+  
+  
+  
+  
+  <a href="#">python</a>
+  
+  
+  
 </li>
- 
-    </ul>
-    <div class="ablog-post-excerpt docutils container">
-<p>This post is an example of identifying bottlenecks in numerical python code and benchmarking possible alternatives.  Specifically, it shows some of the timings I did for the <a class="reference external" href="https://github.com/SunPower/pvfactors/pull/140">SunPower/pvfactors#140</a> pull request to the pvfactors bifacial PV simulation package.</p>
-<p>The function of interest is <code class="docutils literal notranslate"><span class="pre">pvfactors.engine.PVEngine.run_full_mode</span></code>, which (as of pvfactors version 1.5.2) doesn’t run as fast as I’d like it to run, especially for large simulations (many PV rows and many timestamps).</p>
-<img alt="../../_images/df6a5387853de6988fa551975a2edd2a6ccedc74afa7566dfc398611c4fcd1be.png" src="../../_images/df6a5387853de6988fa551975a2edd2a6ccedc74afa7566dfc398611c4fcd1be.png" />
+
+
 </div>
+    </ul>
+    <p class="ablog-post-excerpt"><p>This post is an example of identifying bottlenecks in numerical python code and benchmarking possible alternatives.  Specifically, it shows some of the timings I did for the <a class="reference external" href="https://github.com/SunPower/pvfactors/pull/140">SunPower/pvfactors#140</a> pull request to the pvfactors bifacial PV simulation package.</p>
+<p>The function of interest is <code class="docutils literal notranslate"><span class="pre">pvfactors.engine.PVEngine.run_full_mode</span></code>, which (as of pvfactors version 1.5.2) doesn’t run as fast as I’d like it to run, especially for large simulations (many PV rows and many timestamps).</p>
+<img alt="../../_images/df6a5387853de6988fa551975a2edd2a6ccedc74afa7566dfc398611c4fcd1be.png" src="../../_images/df6a5387853de6988fa551975a2edd2a6ccedc74afa7566dfc398611c4fcd1be.png" /></p>
 
     <p class="ablog-post-expand"><a href="../../posts/linalg-sparse-solve.html"><em>Read more ...</em></a></p>
-    <hr />
+    <hr/>
   </div>
   
-
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="../../posts/ground-sky-vf.html"
-        >Ground-to-sky viewfactor</a
-      >
+      <a href="../../posts/ground-sky-vf.html">Ground-to-sky viewfactor</a>
     </h2>
-
     <ul class="ablog-archive">
       <li>
-         <i class="fa fa-calendar"></i> 2021-12-29 
+        
+        
+        <i class="fa fa-calendar"></i>
+        
+        <span>2021-12-29</span>
+        
       </li>
-           
-<li id="tags">
-  <span
-    ><i class="fa-fw fa fa-tags"></i> </span
-  >
-   
-  <a href="photovoltaics.html">photovoltaics</a>   
-  <a href="#">python</a>  
+      <div class="ablog-sidebar-item ablog__postcard2">
+
+
+
+
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    
+    
+    <i class="fa-fw fa fa-tags"></i>
+    
+    
+    </span>
+  
+  
+  <a href="photovoltaics.html">photovoltaics</a>
+  
+  
+  
+  
+  
+  <a href="#">python</a>
+  
+  
+  
 </li>
- 
-    </ul>
-    <div class="ablog-post-excerpt docutils container">
-<p>This post shows two things:</p>
-<p>How to calculate, in an infinite sheds model, the view factor to the sky from a point underneath the array</p>
-<img alt="../../_images/dbd358264b913bf19442ca1c96acc7ecfbce066a9ac29a27e2542c85c2260ca4.png" src="../../_images/dbd358264b913bf19442ca1c96acc7ecfbce066a9ac29a27e2542c85c2260ca4.png" />
+
+
 </div>
+    </ul>
+    <p class="ablog-post-excerpt"><p>This post shows two things:</p>
+<p>How to calculate, in an infinite sheds model, the view factor to the sky from a point underneath the array</p>
+<img alt="../../_images/dbd358264b913bf19442ca1c96acc7ecfbce066a9ac29a27e2542c85c2260ca4.png" src="../../_images/dbd358264b913bf19442ca1c96acc7ecfbce066a9ac29a27e2542c85c2260ca4.png" /></p>
 
     <p class="ablog-post-expand"><a href="../../posts/ground-sky-vf.html"><em>Read more ...</em></a></p>
-    <hr />
+    <hr/>
   </div>
   
-
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="../../posts/led-iv-curves.html"
-        >LED I-V Curves</a
-      >
+      <a href="../../posts/led-iv-curves.html">LED I-V Curves</a>
     </h2>
-
     <ul class="ablog-archive">
       <li>
-         <i class="fa fa-calendar"></i> 2021-12-25 
+        
+        
+        <i class="fa fa-calendar"></i>
+        
+        <span>2021-12-25</span>
+        
       </li>
-           
-<li id="tags">
-  <span
-    ><i class="fa-fw fa fa-tags"></i> </span
-  >
-   
-  <a href="electrical-engineering.html">electrical-engineering</a>   
-  <a href="#">python</a>  
+      <div class="ablog-sidebar-item ablog__postcard2">
+
+
+
+
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    
+    
+    <i class="fa-fw fa fa-tags"></i>
+    
+    
+    </span>
+  
+  
+  <a href="electrical-engineering.html">electrical-engineering</a>
+  
+  
+  
+  
+  
+  <a href="#">python</a>
+  
+  
+  
 </li>
- 
+
+
+</div>
     </ul>
-    <div class="ablog-post-excerpt docutils container">
-<p>I thought it would be fun to do some quick-and-dirty measurements of the
+    <p class="ablog-post-excerpt"><p>I thought it would be fun to do some quick-and-dirty measurements of the
 I-V characteristic of some LEDs I had laying around.  I have no idea where
 they came from, but one is red and one is white.</p>
 <p>Fun fact: white LEDs, which of course would require many junctions of varying
 bandgap to produce white light directly, are often implemented by coating a
 blue LED in a phosphor that downconverts some photons into the rest of the
 visible spectrum.</p>
-<img alt="../../_images/red-led-iv.png" src="../../_images/red-led-iv.png" style="width: 6in;" />
-</div>
+<img alt="savefig/red-led-iv.png" src="savefig/red-led-iv.png" style="width: 6in;" /></p>
 
     <p class="ablog-post-expand"><a href="../../posts/led-iv-curves.html"><em>Read more ...</em></a></p>
-    <hr />
+    <hr/>
   </div>
   
-
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="../../posts/gcr-vs-theta-max.html"
-        >Single-axis tracking: GCR vs max angle</a
-      >
+      <a href="../../posts/gcr-vs-theta-max.html">Single-axis tracking: GCR vs max angle</a>
     </h2>
-
     <ul class="ablog-archive">
       <li>
-         <i class="fa fa-calendar"></i> 2021-09-30 
+        
+        
+        <i class="fa fa-calendar"></i>
+        
+        <span>2021-09-30</span>
+        
       </li>
-           
-<li id="tags">
-  <span
-    ><i class="fa-fw fa fa-tags"></i> </span
-  >
-   
-  <a href="photovoltaics.html">photovoltaics</a>   
-  <a href="#">python</a>  
+      <div class="ablog-sidebar-item ablog__postcard2">
+
+
+
+
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    
+    
+    <i class="fa-fw fa fa-tags"></i>
+    
+    
+    </span>
+  
+  
+  <a href="photovoltaics.html">photovoltaics</a>
+  
+  
+  
+  
+  
+  <a href="#">python</a>
+  
+  
+  
 </li>
- 
-    </ul>
-    <div class="ablog-post-excerpt docutils container">
-<p>Single-axis tracker rotation angles are commonly limited by the hardware’s maximum allowed rotation (45 and 60 degrees are common limits).  For arrays with backtracking activated, the time spent at max angle depends on GCR: the higher the GCR, the more the array backtracks, and the less time it spends at max angle.  So at some sufficiently large GCR the array will just touch max angle for an instant before it starts backtracking.  I don’t have a situation in mind for when this might be useful, but it seemed like a fun math problem to determine that boundary GCR.</p>
-<p>The approach here is focused on the point on the tracking curve when backtracking is about to begin, as that represents the maximum realized angle of the tracker.  We start with Equation 14 from NREL Technical Report 76626 (<a class="reference external" href="https://www.nrel.gov/docs/fy20osti/76626.pdf">PDF</a>):</p>
-<img alt="../../_images/863da4e53fdcbb7759ff8879f899f8c604f273947cf81fed8911698b5add18ba.png" src="../../_images/863da4e53fdcbb7759ff8879f899f8c604f273947cf81fed8911698b5add18ba.png" />
+
+
 </div>
+    </ul>
+    <p class="ablog-post-excerpt"><p>Single-axis tracker rotation angles are commonly limited by the hardware’s maximum allowed rotation (45 and 60 degrees are common limits).  For arrays with backtracking activated, the time spent at max angle depends on GCR: the higher the GCR, the more the array backtracks, and the less time it spends at max angle.  So at some sufficiently large GCR the array will just touch max angle for an instant before it starts backtracking.  I don’t have a situation in mind for when this might be useful, but it seemed like a fun math problem to determine that boundary GCR.</p>
+<p>The approach here is focused on the point on the tracking curve when backtracking is about to begin, as that represents the maximum realized angle of the tracker.  We start with Equation 14 from NREL Technical Report 76626 (<a class="reference external" href="https://www.nrel.gov/docs/fy20osti/76626.pdf">PDF</a>):</p>
+<img alt="../../_images/863da4e53fdcbb7759ff8879f899f8c604f273947cf81fed8911698b5add18ba.png" src="../../_images/863da4e53fdcbb7759ff8879f899f8c604f273947cf81fed8911698b5add18ba.png" /></p>
 
     <p class="ablog-post-expand"><a href="../../posts/gcr-vs-theta-max.html"><em>Read more ...</em></a></p>
-    <hr />
+    <hr/>
   </div>
   
-
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="../../posts/seasonal-tilt-optimization.html"
-        >Seasonal tilt optimization</a
-      >
+      <a href="../../posts/seasonal-tilt-optimization.html">Seasonal tilt optimization</a>
     </h2>
-
     <ul class="ablog-archive">
       <li>
-         <i class="fa fa-calendar"></i> 2021-09-27 
+        
+        
+        <i class="fa fa-calendar"></i>
+        
+        <span>2021-09-27</span>
+        
       </li>
-           
-<li id="tags">
-  <span
-    ><i class="fa-fw fa fa-tags"></i> </span
-  >
-   
-  <a href="photovoltaics.html">photovoltaics</a>   
-  <a href="#">python</a>  
+      <div class="ablog-sidebar-item ablog__postcard2">
+
+
+
+
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    
+    
+    <i class="fa-fw fa fa-tags"></i>
+    
+    
+    </span>
+  
+  
+  <a href="photovoltaics.html">photovoltaics</a>
+  
+  
+  
+  
+  
+  <a href="#">python</a>
+  
+  
+  
 </li>
- 
-    </ul>
-    <div class="ablog-post-excerpt docutils container">
-<p>Playing around with optimizing the tilt of a south-facing adjustable-tilt collector to maximize total insolation capture.</p>
-<p>Normal fixed tilt – no seasonal changes</p>
-<img alt="../../_images/916a27ea506715c73d7546c8abdb46dc73e813867be0d18b191d7c1be3aedce1.png" src="../../_images/916a27ea506715c73d7546c8abdb46dc73e813867be0d18b191d7c1be3aedce1.png" />
+
+
 </div>
+    </ul>
+    <p class="ablog-post-excerpt"><p>Playing around with optimizing the tilt of a south-facing adjustable-tilt collector to maximize total insolation capture.</p>
+<p>Normal fixed tilt – no seasonal changes</p>
+<img alt="../../_images/916a27ea506715c73d7546c8abdb46dc73e813867be0d18b191d7c1be3aedce1.png" src="../../_images/916a27ea506715c73d7546c8abdb46dc73e813867be0d18b191d7c1be3aedce1.png" /></p>
 
     <p class="ablog-post-expand"><a href="../../posts/seasonal-tilt-optimization.html"><em>Read more ...</em></a></p>
-    <hr />
+    <hr/>
   </div>
   
-
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="../../posts/daily-eia-data.html"
-        >Daily EIA Data</a
-      >
+      <a href="../../posts/daily-eia-data.html">Daily EIA Data</a>
     </h2>
-
     <ul class="ablog-archive">
       <li>
-         <i class="fa fa-calendar"></i> 2021-08-11 
+        
+        
+        <i class="fa fa-calendar"></i>
+        
+        <span>2021-08-11</span>
+        
       </li>
-           
-<li id="tags">
-  <span
-    ><i class="fa-fw fa fa-tags"></i> </span
-  >
-   
-  <a href="photovoltaics.html">photovoltaics</a>   
-  <a href="#">python</a>  
+      <div class="ablog-sidebar-item ablog__postcard2">
+
+
+
+
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    
+    
+    <i class="fa-fw fa fa-tags"></i>
+    
+    
+    </span>
+  
+  
+  <a href="photovoltaics.html">photovoltaics</a>
+  
+  
+  
+  
+  
+  <a href="#">python</a>
+  
+  
+  
 </li>
- 
-    </ul>
-    <div class="ablog-post-excerpt docutils container">
-<p>I found an EIA tool that reported the daily net generation breakdown for the lower 48.  I didn’t check if its API endpoint is documented anywhere (who needs documentation when web browsers come with built-in developer tools?) but it’s pretty straightforward and I played around with the data a bit.  Its monthly sums more or less match the generation numbers in Table 7.2b (see <a class="reference external" href="http://kevbase.com/site/report.html">this page</a>), although there are some small differences, maybe because of excluding Hawaii and Alaska?  Unfortunately it doesn’t seem to report any data prior to 2018-07-01.</p>
-<p>Grab the entire dataset:</p>
-<img alt="../../_images/41a2bb877847f58996b1eaaecdbb481c977f3b845b007f2ff60afe0afe2fd65e.png" src="../../_images/41a2bb877847f58996b1eaaecdbb481c977f3b845b007f2ff60afe0afe2fd65e.png" />
+
+
 </div>
+    </ul>
+    <p class="ablog-post-excerpt"><p>I found an EIA tool that reported the daily net generation breakdown for the lower 48.  I didn’t check if its API endpoint is documented anywhere (who needs documentation when web browsers come with built-in developer tools?) but it’s pretty straightforward and I played around with the data a bit.  Its monthly sums more or less match the generation numbers in Table 7.2b (see <a class="reference external" href="http://kevbase.com/site/report.html">this page</a>), although there are some small differences, maybe because of excluding Hawaii and Alaska?  Unfortunately it doesn’t seem to report any data prior to 2018-07-01.</p>
+<p>Grab the entire dataset:</p>
+<img alt="../../_images/41a2bb877847f58996b1eaaecdbb481c977f3b845b007f2ff60afe0afe2fd65e.png" src="../../_images/41a2bb877847f58996b1eaaecdbb481c977f3b845b007f2ff60afe0afe2fd65e.png" /></p>
 
     <p class="ablog-post-expand"><a href="../../posts/daily-eia-data.html"><em>Read more ...</em></a></p>
-    <hr />
+    <hr/>
   </div>
   
-
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="../../posts/merra2-vs-psm3.html"
-        >Comparing PSM3 and MERRA2 GHI</a
-      >
+      <a href="../../posts/merra2-vs-psm3.html">Comparing PSM3 and MERRA2 GHI</a>
     </h2>
-
     <ul class="ablog-archive">
       <li>
-         <i class="fa fa-calendar"></i> 2021-08-03 
+        
+        
+        <i class="fa fa-calendar"></i>
+        
+        <span>2021-08-03</span>
+        
       </li>
-           
-<li id="tags">
-  <span
-    ><i class="fa-fw fa fa-tags"></i> </span
-  >
-   
-  <a href="photovoltaics.html">photovoltaics</a>   
-  <a href="#">python</a>  
+      <div class="ablog-sidebar-item ablog__postcard2">
+
+
+
+
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    
+    
+    <i class="fa-fw fa fa-tags"></i>
+    
+    
+    </span>
+  
+  
+  <a href="photovoltaics.html">photovoltaics</a>
+  
+  
+  
+  
+  
+  <a href="#">python</a>
+  
+  
+  
 </li>
- 
-    </ul>
-    <div class="ablog-post-excerpt docutils container">
-<p>MERRA2 is a global weather reanalysis dataset providing, among other things, hourly GHI data. I’m not very familiar with MERRA2 and wanted to do a quick comparison with PSM3 (which I am quite familiar with) just to get a rough handle on how the two datasets compare when it comes to irradiance data.</p>
-<p>Important notes if you want to run this notebook yourself:</p>
-<img alt="../../_images/22248a8eda0d5eea89e77b4c275fe38216931dcdebac3642942f12ed9cc57f45.png" src="../../_images/22248a8eda0d5eea89e77b4c275fe38216931dcdebac3642942f12ed9cc57f45.png" />
+
+
 </div>
+    </ul>
+    <p class="ablog-post-excerpt"><p>MERRA2 is a global weather reanalysis dataset providing, among other things, hourly GHI data. I’m not very familiar with MERRA2 and wanted to do a quick comparison with PSM3 (which I am quite familiar with) just to get a rough handle on how the two datasets compare when it comes to irradiance data.</p>
+<p>Important notes if you want to run this notebook yourself:</p>
+<img alt="../../_images/22248a8eda0d5eea89e77b4c275fe38216931dcdebac3642942f12ed9cc57f45.png" src="../../_images/22248a8eda0d5eea89e77b4c275fe38216931dcdebac3642942f12ed9cc57f45.png" /></p>
 
     <p class="ablog-post-expand"><a href="../../posts/merra2-vs-psm3.html"><em>Read more ...</em></a></p>
-    <hr />
+    <hr/>
   </div>
   
-
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="../../posts/floating-point-fun.html"
-        >Floating Point Fun</a
-      >
+      <a href="../../posts/floating-point-fun.html">Floating Point Fun</a>
     </h2>
-
     <ul class="ablog-archive">
       <li>
-         <i class="fa fa-calendar"></i> 2021-03-09 
+        
+        
+        <i class="fa fa-calendar"></i>
+        
+        <span>2021-03-09</span>
+        
       </li>
-           
-<li id="tags">
-  <span
-    ><i
-      class="fa-fw fa fa-tag"
-    ></i
-    ></span
-  >
-   
-  <a href="#">python</a>  
+      <div class="ablog-sidebar-item ablog__postcard2">
+
+
+
+
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    
+    
+    <i class="fa-fw fa fa-tag"></i>
+    
+    </span>
+  
+  
+  <a href="#">python</a>
+  
+  
+  
 </li>
- 
+
+
+</div>
     </ul>
-    <div class="ablog-post-excerpt docutils container">
-<p>Computers must represent real numbers with some finite precision (ignoring
+    <p class="ablog-post-excerpt"><p>Computers must represent real numbers with some finite precision (ignoring
 symbolic algebra packages), and sometimes that precision limit ends up causing
 problems that you might not expect.  Here are a couple examples.</p>
 <p>The function <span class="math notranslate nohighlight">\(f(x) = \exp(x) - 1\)</span> is kind of fun – by subtracting
 one from the exponential, it removes the only constant term in the
 Maclaurin series of <span class="math notranslate nohighlight">\(\exp(x)\)</span>:</p>
-<img alt="../../_images/expm1_comparison.png" src="../../_images/expm1_comparison.png" style="width: 6in;" />
-</div>
+<img alt="savefig/expm1_comparison.png" src="savefig/expm1_comparison.png" style="width: 6in;" /></p>
 
     <p class="ablog-post-expand"><a href="../../posts/floating-point-fun.html"><em>Read more ...</em></a></p>
-    <hr />
+    <hr/>
   </div>
   
-
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="../../posts/summing-uniform-distributions.html"
-        >Summing Uniform Distributions</a
-      >
+      <a href="../../posts/summing-uniform-distributions.html">Summing Uniform Distributions</a>
     </h2>
-
     <ul class="ablog-archive">
       <li>
-         <i class="fa fa-calendar"></i> 2020-09-25 
+        
+        
+        <i class="fa fa-calendar"></i>
+        
+        <span>2020-09-25</span>
+        
       </li>
-           
-<li id="tags">
-  <span
-    ><i class="fa-fw fa fa-tags"></i> </span
-  >
-   
-  <a href="math.html">math</a>   
-  <a href="#">python</a>  
+      <div class="ablog-sidebar-item ablog__postcard2">
+
+
+
+
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    
+    
+    <i class="fa-fw fa fa-tags"></i>
+    
+    
+    </span>
+  
+  
+  <a href="math.html">math</a>
+  
+  
+  
+  
+  
+  <a href="#">python</a>
+  
+  
+  
 </li>
- 
-    </ul>
-    <div class="ablog-post-excerpt docutils container">
-<p>The distribution of the sum of N uniformly distributed variables came up in a recent RdTools PR.  The approach taken there was to just sample each distribution and sum the samples, but I wondered how it could be done analytically.  This notebook is inspired by <a class="reference external" href="https://math.stackexchange.com/a/2966816/197200">this StackExchange post</a> and extends the derivation from just summing two uniform distributions on <span class="math notranslate nohighlight">\([0,1]\)</span> to two distributions with arbitrary bounds.</p>
-<p>Given two independent random variables <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> with probability densities <span class="math notranslate nohighlight">\(f_a(x)\)</span> and <span class="math notranslate nohighlight">\(f_b(x)\)</span>, the probability density <span class="math notranslate nohighlight">\(f_c(x)\)</span> of their sum <span class="math notranslate nohighlight">\(A + B = C\)</span> is given by the convolution <span class="math notranslate nohighlight">\(f_a * f_b\)</span>:</p>
-<img alt="../../_images/f855b259c1c3cb5b4237806809a1db8a8f63a324d9dd537a73b2d97f9bc75a58.png" src="../../_images/f855b259c1c3cb5b4237806809a1db8a8f63a324d9dd537a73b2d97f9bc75a58.png" />
+
+
 </div>
+    </ul>
+    <p class="ablog-post-excerpt"><p>The distribution of the sum of N uniformly distributed variables came up in a recent RdTools PR.  The approach taken there was to just sample each distribution and sum the samples, but I wondered how it could be done analytically.  This notebook is inspired by <a class="reference external" href="https://math.stackexchange.com/a/2966816/197200">this StackExchange post</a> and extends the derivation from just summing two uniform distributions on <span class="math notranslate nohighlight">\([0,1]\)</span> to two distributions with arbitrary bounds.</p>
+<p>Given two independent random variables <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> with probability densities <span class="math notranslate nohighlight">\(f_a(x)\)</span> and <span class="math notranslate nohighlight">\(f_b(x)\)</span>, the probability density <span class="math notranslate nohighlight">\(f_c(x)\)</span> of their sum <span class="math notranslate nohighlight">\(A + B = C\)</span> is given by the convolution <span class="math notranslate nohighlight">\(f_a * f_b\)</span>:</p>
+<img alt="../../_images/f855b259c1c3cb5b4237806809a1db8a8f63a324d9dd537a73b2d97f9bc75a58.png" src="../../_images/f855b259c1c3cb5b4237806809a1db8a8f63a324d9dd537a73b2d97f9bc75a58.png" /></p>
 
     <p class="ablog-post-expand"><a href="../../posts/summing-uniform-distributions.html"><em>Read more ...</em></a></p>
-    <hr />
+    <hr/>
   </div>
   
-
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="../../posts/modeling-copper-loss-in-a-boost-converter.html"
-        >Modeling copper losses in a boost converter</a
-      >
+      <a href="../../posts/modeling-copper-loss-in-a-boost-converter.html">Modeling copper losses in a boost converter</a>
     </h2>
-
     <ul class="ablog-archive">
       <li>
-         <i class="fa fa-calendar"></i> 2020-06-14 
+        
+        
+        <i class="fa fa-calendar"></i>
+        
+        <span>2020-06-14</span>
+        
       </li>
-           
-<li id="tags">
-  <span
-    ><i class="fa-fw fa fa-tags"></i> </span
-  >
-   
-  <a href="electrical-engineering.html">electrical-engineering</a>   
-  <a href="erickson-maksimovic.html">erickson-maksimovic</a>   
-  <a href="#">python</a>  
+      <div class="ablog-sidebar-item ablog__postcard2">
+
+
+
+
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    
+    
+    <i class="fa-fw fa fa-tags"></i>
+    
+    
+    </span>
+  
+  
+  <a href="electrical-engineering.html">electrical-engineering</a>
+  
+  
+  
+  
+  
+  <a href="erickson-maksimovic.html">erickson-maksimovic</a>
+  
+  
+  
+  
+  
+  <a href="#">python</a>
+  
+  
+  
 </li>
- 
-    </ul>
-    <div class="ablog-post-excerpt docutils container">
-<p>This post will work through a simple power electronics problem.  An ideal boost converter uses only lossless components (L, C) and no lossy components (R).  However, real inductors will have nonzero resistance in its wiring.  This copper loss has a strong effect on the converter’s ability to boost voltage.  This follows the approach of Chapter 3 of Fundamentals of Power Electronics, 2e by Erickson and Maksimović.</p>
-<p>First let’s draw the boost converter we’ll be modeling.  Note that in this context, the precise switching circuit (PWM driver, MOSFET, etc) is irrelevant and represented by an ideal switch.</p>
-<img alt="../../_images/8885e4db5ddc7b123dd6d72128b31a1ff44c064e4c238554329d4b13552f8bb8.png" src="../../_images/8885e4db5ddc7b123dd6d72128b31a1ff44c064e4c238554329d4b13552f8bb8.png" />
+
+
 </div>
+    </ul>
+    <p class="ablog-post-excerpt"><p>This post will work through a simple power electronics problem.  An ideal boost converter uses only lossless components (L, C) and no lossy components (R).  However, real inductors will have nonzero resistance in its wiring.  This copper loss has a strong effect on the converter’s ability to boost voltage.  This follows the approach of Chapter 3 of Fundamentals of Power Electronics, 2e by Erickson and Maksimović.</p>
+<p>First let’s draw the boost converter we’ll be modeling.  Note that in this context, the precise switching circuit (PWM driver, MOSFET, etc) is irrelevant and represented by an ideal switch.</p>
+<img alt="../../_images/8885e4db5ddc7b123dd6d72128b31a1ff44c064e4c238554329d4b13552f8bb8.png" src="../../_images/8885e4db5ddc7b123dd6d72128b31a1ff44c064e4c238554329d4b13552f8bb8.png" /></p>
 
     <p class="ablog-post-expand"><a href="../../posts/modeling-copper-loss-in-a-boost-converter.html"><em>Read more ...</em></a></p>
-    <hr />
+    <hr/>
   </div>
-   
+  
+  
 </div>
 
-              </div>
+                </article>
               
               
-              <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
 </div>
+                </footer>
               
-          </main>
-          
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
-      </div>
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2015-2024, Kevin Anderson.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
+    <br/>
+  </p>
+</div>
+      
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  <footer class="footer mt-5 mt-md-0">
-  <div class="container">
-    
-    <div class="footer-item">
-      <p class="copyright">
-    &copy; Copyright 2015-2024, Kevin Anderson.<br>
-</p>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
+</p></div>
+      
     </div>
-    
-    <div class="footer-item">
-      <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
-</p>
-    </div>
-    
-  </div>
-</footer>
+  
+</div>
+
+  </footer>
   </body>
 </html>

@@ -61,6 +61,10 @@
 
 ## Talks
 
+- 2024 EU PVPMC: PV Atlas project update ([slides](https://pvpmc.sandia.gov/download/8195/))
+- 2024 EU PVPMC: pvlib-python tutorial ([slides](https://pvpmc.sandia.gov/download/8308/))
+- 2024 PVPMC: pvlib python: Updates and User Group Meetnig ([slides](https://pvpmc.sandia.gov/download/7778/))
+- 2024 PVPMC: PV Atlas: charting a course to geographic insights for PV performance modeling ([slides](https://pvpmc.sandia.gov/download/7641/))
 - 2024 SETO Peer Review: PVPMC's Blind Modeling Intercomparisons
 - 2024 SETO Webinar series: Part 3 - Modeling ([recording](https://www.youtube.com/watch?v=T4LJd894JsE), [repository](https://github.com/PV-Tutorials/2024_Modeling_Webinar))
 - 2024 SETO Webinar series: Part 2 - Analytics ([recording](https://www.youtube.com/watch?v=XKbqIlAEwOQ), [repository](https://github.com/PV-Tutorials/2024_Analytics_Webinar))
