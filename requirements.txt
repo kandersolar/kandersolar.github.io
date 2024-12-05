@@ -11,6 +11,7 @@ myst-parser==3.0.1
 docutils==0.21.2
 numpy==2.0.2
 matplotlib==3.9.3
+pickleshare==0.7.5  # silences warnings from ipython
 
 #imageio
 #xlrd
