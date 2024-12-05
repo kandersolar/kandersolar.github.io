@@ -84,7 +84,7 @@ html_theme_options = {
   "search_bar_text": "Search this site...",
   #"google_analytics_id": "UA-88310237-1",
   #"search_bar_position": "navbar",
-  "navbar_end": ["search-field"],
+  "navbar_end": [],
   "show_toc_level": 2,
   "secondary_sidebar_items": {
     "tools/phase-plotter": [],
