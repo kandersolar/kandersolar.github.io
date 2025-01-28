@@ -30,7 +30,7 @@
   <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=0fb7fa7b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -478,10 +478,10 @@
 <p>This notebook is the second in a series of notebooks about general-purpose GPU (GPGPU) computing using OpenGL’s compute shaders.  In working towards a GPU-based implementation of the venerable Solar Position Algorithm (<a class="reference external" href="https://doi.org/10.1016/j.solener.2003.12.003">Reda &amp; Andreas 2004</a>) I found that the <code class="docutils literal notranslate"><span class="pre">asin</span></code> provided by GLSL is not as accurate as I had expected, even considering the reduced precision of 32-bit floats.  This notebook examines the (in)accuracy of this GPU’s GLSL implementations of some basic functions useful for scientific programming.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">moderngl</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">moderngl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 </pre></div>
 </div>
 </div>
@@ -491,7 +491,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">context</span> <span class="o">=</span> <span class="n">moderngl</span><span class="o">.</span><span class="n">create_standalone_context</span><span class="p">(</span><span class="n">require</span><span class="o">=</span><span class="mi">430</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">groupsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">groupsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
     <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
 
     <span class="n">SHADER_SOURCE</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
@@ -544,7 +544,7 @@
 <p>So let’s calculate some differences!  Some functions have a clear domain of maximum relevance; for the others I chose a reasonable but arbitrary domain.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compare</span><span class="p">(</span><span class="n">np_func</span><span class="p">,</span> <span class="n">glsl_func</span><span class="p">,</span> <span class="n">xlo</span><span class="p">,</span> <span class="n">xhi</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compare</span><span class="p">(</span><span class="n">np_func</span><span class="p">,</span> <span class="n">glsl_func</span><span class="p">,</span> <span class="n">xlo</span><span class="p">,</span> <span class="n">xhi</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlo</span> <span class="o">+</span> <span class="mf">1e-5</span><span class="p">,</span> <span class="n">xhi</span> <span class="o">-</span> <span class="mf">1e-5</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
     <span class="n">cpu64</span> <span class="o">=</span> <span class="n">np_func</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="n">cpu32</span> <span class="o">=</span> <span class="n">np_func</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;f4&#39;</span><span class="p">))</span>
@@ -902,7 +902,7 @@ code: 460
 
   <p class="copyright">
     
-      © Copyright 2015-2024, Kevin Anderson.
+      © Copyright 2015-2025, Kevin Anderson.
       <br/>
     
   </p>

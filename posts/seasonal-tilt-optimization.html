@@ -30,7 +30,7 @@
   <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=0fb7fa7b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -476,11 +476,11 @@
 <p>Playing around with optimizing the tilt of a south-facing adjustable-tilt collector to maximize total insolation capture.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pvlib</span>
-<span class="kn">import</span> <span class="nn">scipy</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pvlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="k">for</span> <span class="n">pkg</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pvlib</span><span class="p">,</span> <span class="n">scipy</span><span class="p">,</span> <span class="n">pd</span><span class="p">,</span> <span class="n">np</span><span class="p">]:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">pkg</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">pkg</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
@@ -521,7 +521,7 @@ numpy 1.20.3
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simulate_insolation</span><span class="p">(</span><span class="n">surface_tilt</span><span class="p">,</span> <span class="n">solar_position</span><span class="p">,</span> <span class="n">weather</span><span class="p">,</span> <span class="n">dni_et</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_insolation</span><span class="p">(</span><span class="n">surface_tilt</span><span class="p">,</span> <span class="n">solar_position</span><span class="p">,</span> <span class="n">weather</span><span class="p">,</span> <span class="n">dni_et</span><span class="p">):</span>
     <span class="n">poa_components</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">irradiance</span><span class="o">.</span><span class="n">get_total_irradiance</span><span class="p">(</span>
         <span class="n">surface_tilt</span><span class="o">=</span><span class="n">surface_tilt</span><span class="p">,</span>
         <span class="n">surface_azimuth</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span>
@@ -543,7 +543,7 @@ numpy 1.20.3
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
-<span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">tilt</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">tilt</span><span class="p">):</span>
     <span class="c1"># negative so that minimizing is actually maximizing</span>
     <span class="k">return</span> <span class="o">-</span><span class="n">simulate_insolation</span><span class="p">(</span><span class="n">tilt</span><span class="p">,</span> <span class="n">solar_position</span><span class="p">,</span> <span class="n">tmy</span><span class="p">,</span> <span class="n">dni_extra</span><span class="p">)</span>
 
@@ -568,7 +568,7 @@ numpy 1.20.3
 <p>Multiple tilts, equal intervals, first interval starts Jan 1</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">optimize_partitioned</span><span class="p">(</span><span class="n">n_partitions</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">optimize_partitioned</span><span class="p">(</span><span class="n">n_partitions</span><span class="p">):</span>
     <span class="n">boundaries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8760</span><span class="p">,</span> <span class="n">n_partitions</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
     <span class="n">starts</span> <span class="o">=</span> <span class="n">boundaries</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">ends</span> <span class="o">=</span> <span class="n">boundaries</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
@@ -577,7 +577,7 @@ numpy 1.20.3
         <span class="n">solpos</span> <span class="o">=</span> <span class="n">solar_position</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span>
         <span class="n">weather</span> <span class="o">=</span> <span class="n">tmy</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span>
         <span class="n">dni_et</span> <span class="o">=</span> <span class="n">dni_extra</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span>
-        <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">tilt</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">tilt</span><span class="p">):</span>
             <span class="k">return</span> <span class="o">-</span><span class="n">simulate_insolation</span><span class="p">(</span><span class="n">tilt</span><span class="p">,</span> <span class="n">solpos</span><span class="p">,</span> <span class="n">weather</span><span class="p">,</span> <span class="n">dni_et</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bounded&#39;</span><span class="p">)</span>
         <span class="n">optimal_tilt</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span>
@@ -618,7 +618,7 @@ numpy 1.20.3
 <p>Multiple tilts, equal intervals, starting any time of year (not just Jan 1).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">optimize_partitioned_floating</span><span class="p">(</span><span class="n">n_partitions</span><span class="p">,</span> <span class="n">shift</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">optimize_partitioned_floating</span><span class="p">(</span><span class="n">n_partitions</span><span class="p">,</span> <span class="n">shift</span><span class="p">):</span>
     <span class="n">boundaries</span> <span class="o">=</span> <span class="n">shift</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8760</span><span class="p">,</span> <span class="n">n_partitions</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
     <span class="n">starts</span> <span class="o">=</span> <span class="n">boundaries</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">ends</span> <span class="o">=</span> <span class="n">boundaries</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
@@ -633,7 +633,7 @@ numpy 1.20.3
         <span class="n">solpos</span> <span class="o">=</span> <span class="n">solar_position2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span>
         <span class="n">weather</span> <span class="o">=</span> <span class="n">tmy2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span>
         <span class="n">dni_et</span> <span class="o">=</span> <span class="n">dni_extra2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span>
-        <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">tilt</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">tilt</span><span class="p">):</span>
             <span class="k">return</span> <span class="o">-</span><span class="n">simulate_insolation</span><span class="p">(</span><span class="n">tilt</span><span class="p">,</span> <span class="n">solpos</span><span class="p">,</span> <span class="n">weather</span><span class="p">,</span> <span class="n">dni_et</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bounded&#39;</span><span class="p">)</span>
         <span class="n">optimal_tilt</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">ed</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span>
@@ -772,7 +772,7 @@ numpy 1.20.3
 
   <p class="copyright">
     
-      © Copyright 2015-2024, Kevin Anderson.
+      © Copyright 2015-2025, Kevin Anderson.
       <br/>
     
   </p>

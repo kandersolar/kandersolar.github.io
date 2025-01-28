@@ -30,7 +30,7 @@
   <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=0fb7fa7b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -499,8 +499,8 @@ f_b(x) = \begin{cases}
 <p>Using these definitions, let’s visualize in the <span class="math notranslate nohighlight">\(X'-X\)</span> plane where the integrand is nonzero:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 </pre></div>
 </div>
 </div>
@@ -581,7 +581,7 @@ f_c(x) &amp;= \frac{1}{(a_2-a_1)(b_2-b_1)} \int_{x'_1}^{x'_2} \mathrm{d}x' \\
 <span class="c1"># Analytical approach</span>
 <span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">a2</span><span class="o">-</span><span class="n">a1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">b2</span><span class="o">-</span><span class="n">b1</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">f_c</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f_c</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">a1</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">&lt;</span> <span class="n">b1</span> <span class="o">+</span> <span class="n">a2</span><span class="p">:</span>
         <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span> <span class="o">=</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span>
 
@@ -700,7 +700,7 @@ f_c(x) &amp;= \frac{1}{(a_2-a_1)(b_2-b_1)} \int_{x'_1}^{x'_2} \mathrm{d}x' \\
 
   <p class="copyright">
     
-      © Copyright 2015-2024, Kevin Anderson.
+      © Copyright 2015-2025, Kevin Anderson.
       <br/>
     
   </p>

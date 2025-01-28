@@ -30,7 +30,7 @@
   <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=0fb7fa7b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -485,12 +485,12 @@
 <p>These comparisons (both error and runtime) will be specific to this particular GPU.  I will be interested to see how the results vary across devices…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">moderngl</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">pvlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">time</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">moderngl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pvlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 </pre></div>
 </div>
 </div>
@@ -500,7 +500,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">context</span> <span class="o">=</span> <span class="n">moderngl</span><span class="o">.</span><span class="n">create_standalone_context</span><span class="p">(</span><span class="n">require</span><span class="o">=</span><span class="mi">430</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">gpu_spa</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">elevation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">pressure</span><span class="o">=</span><span class="mi">101325</span><span class="p">,</span> <span class="n">delta_t</span><span class="o">=</span><span class="mi">67</span><span class="p">,</span> <span class="n">atmos_refract</span><span class="o">=</span><span class="mf">0.5667</span><span class="p">,</span> <span class="n">groupsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gpu_spa</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">elevation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">pressure</span><span class="o">=</span><span class="mi">101325</span><span class="p">,</span> <span class="n">delta_t</span><span class="o">=</span><span class="mi">67</span><span class="p">,</span> <span class="n">atmos_refract</span><span class="o">=</span><span class="mf">0.5667</span><span class="p">,</span> <span class="n">groupsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
     <span class="n">n_times</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
     <span class="n">n_vars</span> <span class="o">=</span> <span class="mi">5</span>
     <span class="n">unixtimes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">times</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
@@ -543,7 +543,7 @@
 <h2>2019 1-minute simulation<a class="headerlink" href="#minute-simulation" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">describe</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">describe</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
         <span class="s1">&#39;rmse&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">d</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">**</span><span class="mf">0.5</span><span class="p">,</span>
@@ -951,7 +951,7 @@
 <p>My first-order mental model of GPU processing is that runtime is a combination of fixed costs (shader compilation, OpenGL context overhead) that are more or less constant for any input and variable costs (memory allocation, data transfer, and of course the actual algorithm runtime) that scale with the number of timestamps being simulated.  So of course it will be interesting to compare runtimes across a range of <span class="math notranslate nohighlight">\(N\)</span>, the number of simulated timestamps.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;reloading spa&#39;</span><span class="p">)</span>
 
 <span class="n">timings</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1313,7 +1313,7 @@
 
   <p class="copyright">
     
-      © Copyright 2015-2024, Kevin Anderson.
+      © Copyright 2015-2025, Kevin Anderson.
       <br/>
     
   </p>

@@ -30,7 +30,7 @@
   <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=0fb7fa7b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -476,10 +476,10 @@
 <p>The PSM3 provides data with a nominal 2 km spatial resolution, at least according to the NSRDB <a class="reference external" href="https://nsrdb.nrel.gov/data-sets/us-data">website</a>.  I am interested in what the real underlying data grid actually looks like; this notebook shows that the real grid is defined by angular extent (regular in latitude/longitude), not spatial extent.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pvlib</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pvlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 </pre></div>
 </div>
 </div>
@@ -487,10 +487,10 @@
 <p>Before getting started – querying 5-minute PSM3 data is a bit slow, and likely I’ll want to re-run cells here as I tweak the notebook, so let’s cache the requests to speed things up.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">lru_cache</span>
 
 <span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">get_psm3</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_psm3</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">):</span>
     <span class="n">api_key</span> <span class="o">=</span> <span class="s1">&#39;redacted&#39;</span>
     <span class="n">email</span> <span class="o">=</span> <span class="s1">&#39;redacted&#39;</span>
     <span class="k">return</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">iotools</span><span class="o">.</span><span class="n">get_psm3</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">api_key</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="mi">2020</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
@@ -516,7 +516,7 @@
 <p>From previous experience I have a hunch that the grid spacing is 0.02° in both latitude and longitude.  So let’s query just inside the corners of that grid and see what happens:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_corners</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">buffer</span><span class="o">=</span><span class="mf">0.001</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_corners</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">buffer</span><span class="o">=</span><span class="mf">0.001</span><span class="p">):</span>
     <span class="n">delta</span> <span class="o">=</span> <span class="n">spacing</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">buffer</span>
     <span class="k">return</span> <span class="p">[</span>
         <span class="p">(</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">delta</span><span class="p">,</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">delta</span><span class="p">),</span>
@@ -598,7 +598,7 @@
 <p>We do!  So indeed the grid seems regular in angular coordinates, not spatial coordinates.  But if the grid is regular in angular coordinates, that means that pixels become increasingly distorted towards the poles (same height/latitude extent, thinner width/longitude extent).  How much do the pixel footprints and shapes change over the latitudes relevant in the US?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">haversine</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">haversine</span>
 
 <span class="n">lats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="c1"># pixels are small enough to approximate as rectangles:</span>
@@ -692,7 +692,7 @@
 
   <p class="copyright">
     
-      © Copyright 2015-2024, Kevin Anderson.
+      © Copyright 2015-2025, Kevin Anderson.
       <br/>
     
   </p>

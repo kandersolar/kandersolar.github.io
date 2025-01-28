@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://kevbase.com</id>
   <title>kevbase</title>
-  <updated>2024-12-05T03:45:29.269280+00:00</updated>
+  <updated>2025-01-28T19:56:25.035288+00:00</updated>
   <link href="https://kevbase.com"/>
   <link href="https://kevbase.com/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.io/" version="0.11.10">ABlog</generator>

@@ -30,7 +30,7 @@
   <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=0fb7fa7b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -477,12 +477,12 @@
 <p>Grab the entire dataset:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 
-<span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="n">st</span><span class="p">,</span> <span class="n">ed</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fetch</span><span class="p">(</span><span class="n">st</span><span class="p">,</span> <span class="n">ed</span><span class="p">):</span>
     <span class="n">url_template</span> <span class="o">=</span> <span class="s1">&#39;https://www.eia.gov/electricity/930-api/region_data_by_fuel_type/series_data?type[0]=NG&amp;respondent[0]=US48&amp;start=</span><span class="si">{st}</span><span class="s1"> 04:00:00&amp;end=</span><span class="si">{ed}</span><span class="s1"> 04:00:00&amp;frequency=daily&amp;timezone=Eastern&#39;</span>
     <span class="n">st</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">st</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%m</span><span class="si">%d</span><span class="s1">%Y&#39;</span><span class="p">)</span>
     <span class="n">ed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">ed</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%m</span><span class="si">%d</span><span class="s1">%Y&#39;</span><span class="p">)</span>
@@ -565,7 +565,7 @@ Wall time: 1.62 s
 <p>Nuclear seems to have a small periodic signal riding on top of the long-term variation.  In fact some of the others do too.  It’s not very easy to see on top of the longer-term variation, so here’s a quick normalization by 7-d average.  Also switching from daily share to daily generation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">norm_7d</span><span class="p">(</span><span class="n">signal</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">norm_7d</span><span class="p">(</span><span class="n">signal</span><span class="p">):</span>
     <span class="n">signal_7d_avg</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;7d&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
     <span class="n">signal_7d_avg_ff</span> <span class="o">=</span> <span class="n">signal_7d_avg</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ffill&#39;</span><span class="p">)</span>
     <span class="n">signal_norm</span> <span class="o">=</span> <span class="n">signal</span> <span class="o">/</span> <span class="n">signal_7d_avg_ff</span>
@@ -676,7 +676,7 @@ Wall time: 1.62 s
 
   <p class="copyright">
     
-      © Copyright 2015-2024, Kevin Anderson.
+      © Copyright 2015-2025, Kevin Anderson.
       <br/>
     
   </p>

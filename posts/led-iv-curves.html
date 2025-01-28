@@ -30,7 +30,7 @@
   <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=0fb7fa7b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -492,14 +492,14 @@ LED.</p>
 <p>Here are the results:</p>
 <section id="red-led">
 <h2>Red LED<a class="headerlink" href="#red-led" title="Link to this heading">#</a></h2>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="gp">In [2]: </span><span class="n">V</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.3094</span><span class="p">,</span> <span class="mf">1.5546</span><span class="p">,</span> <span class="mf">1.6256</span><span class="p">,</span> <span class="mf">1.639</span><span class="p">,</span> <span class="mf">1.661</span><span class="p">,</span> <span class="mf">1.676</span><span class="p">,</span> <span class="mf">1.661</span><span class="p">,</span> <span class="mf">1.68</span><span class="p">,</span> <span class="mf">1.678</span><span class="p">,</span> <span class="mf">1.69</span><span class="p">,</span> <span class="mf">1.664</span><span class="p">,</span> <span class="mf">1.692</span><span class="p">,</span> <span class="mf">1.704</span><span class="p">,</span> <span class="mf">1.688</span><span class="p">,</span> <span class="mf">1.689</span><span class="p">,</span> <span class="mf">1.709</span><span class="p">]</span>
 
 <span class="gp">In [3]: </span><span class="n">I</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0002</span><span class="p">,</span> <span class="mf">0.0006</span><span class="p">,</span> <span class="mf">0.0011</span><span class="p">,</span> <span class="mf">0.0015</span><span class="p">,</span> <span class="mf">0.002</span><span class="p">,</span> <span class="mf">0.0022</span><span class="p">,</span> <span class="mf">0.0027</span><span class="p">,</span> <span class="mf">0.0031</span><span class="p">,</span> <span class="mf">0.0036</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.0046</span><span class="p">,</span> <span class="mf">0.0055</span><span class="p">,</span> <span class="mf">0.0061</span><span class="p">,</span> <span class="mf">0.0067</span><span class="p">,</span> <span class="mf">0.0073</span><span class="p">]</span>
 
 <span class="gp">In [4]: </span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">I</span><span class="p">)</span>
-<span class="gh">Out[4]: </span><span class="go">&lt;matplotlib.collections.PathCollection at 0x7f2de1a35c70&gt;</span>
+<span class="gh">Out[4]: </span><span class="go">&lt;matplotlib.collections.PathCollection at 0x7fc1d39daaf0&gt;</span>
 
 <span class="gp">In [5]: </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Voltage [V]&#39;</span><span class="p">)</span>
 <span class="gh">Out[5]: </span><span class="go">Text(0.5, 0, &#39;Voltage [V]&#39;)</span>
@@ -518,14 +518,14 @@ LED.</p>
 </section>
 <section id="white-led">
 <h2>White LED<a class="headerlink" href="#white-led" title="Link to this heading">#</a></h2>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [9]: </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [9]: </span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="gp">In [10]: </span><span class="n">V</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.359</span><span class="p">,</span> <span class="mf">2.462</span><span class="p">,</span> <span class="mf">2.53</span><span class="p">,</span> <span class="mf">2.55</span><span class="p">,</span> <span class="mf">2.635</span><span class="p">,</span> <span class="mf">2.656</span><span class="p">,</span> <span class="mf">2.676</span><span class="p">,</span> <span class="mf">2.721</span><span class="p">,</span> <span class="mf">2.731</span><span class="p">,</span> <span class="mf">2.788</span><span class="p">,</span> <span class="mf">2.805</span><span class="p">,</span> <span class="mf">2.826</span><span class="p">,</span> <span class="mf">2.867</span><span class="p">,</span> <span class="mf">2.926</span><span class="p">,</span> <span class="mf">2.94</span><span class="p">,</span> <span class="mf">3.01</span><span class="p">]</span>
 
 <span class="gp">In [11]: </span><span class="n">I</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0002</span><span class="p">,</span> <span class="mf">0.0004</span><span class="p">,</span> <span class="mf">0.0005</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.0015</span><span class="p">,</span> <span class="mf">0.0022</span><span class="p">,</span> <span class="mf">0.0029</span><span class="p">,</span> <span class="mf">0.0036</span><span class="p">,</span> <span class="mf">0.0048</span><span class="p">,</span> <span class="mf">0.0061</span><span class="p">,</span> <span class="mf">0.0073</span><span class="p">,</span> <span class="mf">0.009</span><span class="p">,</span> <span class="mf">0.011</span><span class="p">,</span> <span class="mf">0.0141</span><span class="p">]</span>
 
 <span class="gp">In [12]: </span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">I</span><span class="p">)</span>
-<span class="gh">Out[12]: </span><span class="go">&lt;matplotlib.collections.PathCollection at 0x7f2de18d7d90&gt;</span>
+<span class="gh">Out[12]: </span><span class="go">&lt;matplotlib.collections.PathCollection at 0x7fc1d392ea60&gt;</span>
 
 <span class="gp">In [13]: </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Voltage [V]&#39;</span><span class="p">)</span>
 <span class="gh">Out[13]: </span><span class="go">Text(0.5, 0, &#39;Voltage [V]&#39;)</span>
@@ -618,7 +618,7 @@ LED.</p>
 
   <p class="copyright">
     
-      © Copyright 2015-2024, Kevin Anderson.
+      © Copyright 2015-2025, Kevin Anderson.
       <br/>
     
   </p>
