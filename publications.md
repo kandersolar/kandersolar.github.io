@@ -2,6 +2,13 @@
 
 ## Articles
 
+### 2025
+
+```{bibliography} my-publications.bib
+:style: unsrt
+:filter: year % "2025"
+```
+
 ### 2024
 
 ```{bibliography} my-publications.bib
