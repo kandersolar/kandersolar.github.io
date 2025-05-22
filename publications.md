@@ -68,6 +68,7 @@
 
 ## Talks
 
+- 2025 PVPMC: O&M KPIs: Uncertainty due to data loss and operational issues ([slides](https://pvpmc.sandia.gov/download/8852/))
 - 2024 EU PVPMC: PV Atlas project update ([slides](https://pvpmc.sandia.gov/download/8195/))
 - 2024 EU PVPMC: pvlib-python tutorial ([slides](https://pvpmc.sandia.gov/download/8308/))
 - 2024 PVPMC: pvlib python: Updates and User Group Meetnig ([slides](https://pvpmc.sandia.gov/download/7778/))
