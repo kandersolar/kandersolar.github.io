@@ -13,6 +13,8 @@ numpy==2.0.2
 matplotlib==3.9.3
 pickleshare==0.7.5  # silences warnings from ipython
 
+requests==2.32.4
+
 #imageio
 #xlrd
 #openpyxl
