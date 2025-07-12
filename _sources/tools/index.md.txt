@@ -17,6 +17,12 @@
 
 ```
 
+```{grid-item-card}  Bird report
+:img-top: ../images/inat-bird-logo.png
+:link: birds.html
+
+```
+
 ````
 
 
@@ -27,4 +33,5 @@
 self
 phase-plotter
 bifurcation
+birds
 ```

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://kevbase.com</id>
   <title>kevbase</title>
-  <updated>2025-06-18T11:54:34.770870+00:00</updated>
+  <updated>2025-07-12T13:47:53.422239+00:00</updated>
   <link href="https://kevbase.com"/>
   <link href="https://kevbase.com/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.io/" version="0.11.10">ABlog</generator>
@@ -102,7 +102,7 @@ they came from, but one is red and one is white.&lt;/p&gt;
 bandgap to produce white light directly, are often implemented by coating a
 blue LED in a phosphor that downconverts some photons into the rest of the
 visible spectrum.&lt;/p&gt;
-&lt;img alt="savefig/red-led-iv.png" src="savefig/red-led-iv.png" style="width: 6in;" /&gt;&lt;/p&gt;
+&lt;img alt="https://kevbase.com/_images/red-led-iv.png" src="https://kevbase.com/_images/red-led-iv.png" style="width: 6in;" /&gt;&lt;/p&gt;
 </content>
     <link href="https://kevbase.com/posts/led-iv-curves.html"/>
     <summary>I thought it would be fun to do some quick-and-dirty measurements of the
@@ -243,7 +243,7 @@ problems that you might not expect.  Here are a couple examples.&lt;/p&gt;
 &lt;p&gt;The function &lt;span class="math notranslate nohighlight"&gt;\(f(x) = \exp(x) - 1\)&lt;/span&gt; is kind of fun – by subtracting
 one from the exponential, it removes the only constant term in the
 Maclaurin series of &lt;span class="math notranslate nohighlight"&gt;\(\exp(x)\)&lt;/span&gt;:&lt;/p&gt;
-&lt;img alt="savefig/expm1_comparison.png" src="savefig/expm1_comparison.png" style="width: 6in;" /&gt;&lt;/p&gt;
+&lt;img alt="https://kevbase.com/_images/expm1_comparison.png" src="https://kevbase.com/_images/expm1_comparison.png" style="width: 6in;" /&gt;&lt;/p&gt;
 </content>
     <link href="https://kevbase.com/posts/floating-point-fun.html"/>
     <summary>Computers must represent real numbers with some finite precision (ignoring
